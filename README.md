@@ -6,9 +6,9 @@ X.
 
 ## Usage ##
 
-Install this file in the usual way and activate it in a buffer by calling
-`M-x writeroom-mode RET`. By default, `writeroom-mode` does the following
-things:
+Install `writeroom.el` in the usual way and activate it in a buffer by
+calling `M-x writeroom-mode RET`. By default, `writeroom-mode` does the
+following things:
 
 * activate fullscreen
 * disable transparency
