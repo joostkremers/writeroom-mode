@@ -7,7 +7,7 @@ versions.
 
 ## Usage ##
 
-Install `writeroom.el` in the usual way and activate it in a buffer by
+Install `writeroom-mode.el` in the usual way and activate it in a buffer by
 calling `M-x writeroom-mode RET`. By default, `writeroom-mode` does the
 following things:
 
