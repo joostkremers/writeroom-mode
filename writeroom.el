@@ -76,6 +76,9 @@
 ;; global effects. Just write a function for enabling and disabling the
 ;; relevant effect and add it to the list. See the doc string of this
 ;; option for some more details.
+;;
+;; The code for `writeroom-mode` is available on github:
+;; <https://github.com/joostkremers/writeroom-mode.git>
 
 ;;; Code:
 
