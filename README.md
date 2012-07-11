@@ -1,8 +1,9 @@
 # Writeroom-mode #
 
-`Writeroom-mode` is a minor mode for Emacs that implements a
+`writeroom-mode` is a minor mode for Emacs that implements a
 distraction-free writing mode similar to the famous Writeroom editor for OS
-X.
+X. `writeroom-mode` is meant for GNU Emacs 24 and won't run on older
+versions.
 
 ## Usage ##
 
