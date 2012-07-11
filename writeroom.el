@@ -166,24 +166,24 @@ This function runs the functions in WRITEROOM-GLOBAL-FUNCTIONS,
 sets the margins of the current buffer and disables the mode
 line."
   (when (= writeroom-buffers 0)
-      (mapc #'(lambda (fn)
-		(funcall fn t))
-	    writeroom-global-functions)
-      (when writeroom-disable-scroll-bar
-	(scroll-bar-mode -1))
-      (when writeroom-disable-tool-bar
-	(tool-bar-mode -1)))
+    (mapc #'(lambda (fn)
+	      (funcall fn t))
+	  writeroom-global-functions)
+    (when writeroom-disable-scroll-bar
+      (scroll-bar-mode -1))
+    (when writeroom-disable-tool-bar
+      (tool-bar-mode -1)))
   (setq writeroom-buffers (1+ writeroom-buffers))
   (let ((margin (/ (- (window-body-width) writeroom-width) 2)))
     (setq left-margin-width margin
-	  right-margin-width margin)
-    (set-window-buffer nil (current-buffer)))
+	  right-margin-width margin))
   (when writeroom-disable-fringe
     (setq left-fringe-width 0
 	  right-fringe-width 0))
   (when writeroom-disable-mode-line
     (setq writeroom-mode-line mode-line-format)
-    (setq mode-line-format nil)))
+    (setq mode-line-format nil))
+  (set-window-buffer nil (current-buffer)))
 
 (defun writeroom-disable ()
   "Reset the current buffer to its normal appearance.
@@ -192,22 +192,22 @@ undo their effects, sets the margins of the current buffer to 0
 and reenables the mode line."
   (setq writeroom-buffers (1- writeroom-buffers))
   (when (= writeroom-buffers 0)
-      (mapc #'(lambda (fn)
-		(funcall fn nil))
-	    writeroom-global-functions)
-            (when writeroom-disable-scroll-bar
-	(scroll-bar-mode 1))
-      (when writeroom-disable-tool-bar
-	(tool-bar-mode 1)))
+    (mapc #'(lambda (fn)
+	      (funcall fn nil))
+	  writeroom-global-functions)
+    (when writeroom-disable-scroll-bar
+      (scroll-bar-mode 1))
+    (when writeroom-disable-tool-bar
+      (tool-bar-mode 1)))
   (setq left-margin-width 0
 	right-margin-width 0)
-  (set-window-buffer nil (current-buffer))
   (when writeroom-disable-fringe
     (setq left-fringe-width nil
 	  right-fringe-width nil))
   (when writeroom-disable-mode-line
     (setq mode-line-format writeroom-mode-line)
-    (setq writeroom-mode-line nil)))
+    (setq writeroom-mode-line nil))
+  (set-window-buffer nil (current-buffer)))
 
 (provide 'writeroom-mode)
 
