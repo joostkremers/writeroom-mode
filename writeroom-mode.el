@@ -90,7 +90,9 @@
 (defvar writeroom-buffers 0
   "Number of buffers in which writeroom-mode is activated.")
 
-(defgroup writeroom nil "Minor mode for distraction-free writing." :group 'wp) 
+(defgroup writeroom nil "Minor mode for distraction-free writing."
+  :group 'wp
+  :prefix "writeroom-")
 
 (defcustom writeroom-width 80
   "*Width of the writeroom writing area."
