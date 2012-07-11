@@ -36,7 +36,11 @@ default 80 with the option `writeroom-width`.
 
 Note that if you normally run Emacs with scroll and/or tool bar disabled,
 you'll need to unset the options for disabling them in `writeroom-mode`,
-otherwise they'll be turned on when you disable `writeroom-mode`.
+otherwise they'll be turned on when you exit `writeroom-mode`.
+
+It is possible to activate `writeroom-mode` in more than one buffer. The
+global effects are of course activated only once and they remain active
+until `writeroom-mode` is deactivated in *all* buffers.
 
 The option `writeroom-global-functions` can be used to add additional
 global effects. Just write a function for enabling and disabling the

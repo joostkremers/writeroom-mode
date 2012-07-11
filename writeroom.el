@@ -69,13 +69,17 @@
 ;;
 ;; Note that if you normally run Emacs with scroll and/or tool bar
 ;; disabled, you'll need to unset the options for disabling them in
-;; `writeroom-mode`, otherwise they'll be turned on when you disable
+;; `writeroom-mode`, otherwise they'll be turned on when you exit
 ;; `writeroom-mode`.
 ;;
 ;; The option `writeroom-global-functions` can be used to add additional
 ;; global effects. Just write a function for enabling and disabling the
 ;; relevant effect and add it to the list. See the doc string of this
 ;; option for some more details.
+;;
+;; It is possible to activate `writeroom-mode` in more than one buffer. The
+;; global effects are of course activated only once and they remain active
+;; until `writeroom-mode` is deactivated in *all* buffers.
 ;;
 ;; The code for `writeroom-mode` is available on github:
 ;; <https://github.com/joostkremers/writeroom-mode.git>
