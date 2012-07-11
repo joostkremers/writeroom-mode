@@ -195,4 +195,4 @@ and reenables the mode line."
 
 (provide 'writeroom-mode)
 
-;;; pandoc-mode ends here
+;;; writeroom-mode ends here
