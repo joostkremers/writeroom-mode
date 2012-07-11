@@ -15,17 +15,18 @@ following things:
 * disable transparency
 * disable the tool bar
 * disable the scroll bar
+* disable the fringes
 * disable the mode line
 * add window margins to the current buffer so that the text is 80
   characters wide.
 
-The last two effects are buffer-local. The other effects are global:
+The last three effects are buffer-local. The other effects are global:
 fullscreen and transparency apply to the current frame, the tool and scroll
 bars apply to all frames. Because `writeroom-mode` is a minor mode, this
 isn't entirely on the up and up, since minor modes aren't supposed to have
 such global effects. But `writeroom-mode` is meant for distraction-free
-writing, so these effects do make sense. Besides, if you're in the mood to
-write without distractions, you're not going to switch from the buffer
+writing, so these effects do make sense. Besides, if you're in the mood for
+writing without distractions, you're not going to switch from the buffer
 holding your text anyway, are you now? ;-)
 
 All effects listed above can be switched off separately in the

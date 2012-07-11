@@ -47,17 +47,18 @@
 ;; * disable transparency
 ;; * disable the tool bar
 ;; * disable the scroll bar
+;; * disable the fringes
 ;; * disable the mode line
 ;; * add window margins to the current buffer so that the text is 80
 ;;   characters wide.
 ;;
-;; The last two effects are buffer-local. The other effects are global:
+;; The last three effects are buffer-local. The other effects are global:
 ;; fullscreen and transparency apply to the current frame, the tool and
 ;; scroll bars apply to all frames. Because `writeroom-mode` is a minor
 ;; mode, this isn't entirely on the up and up, since minor modes aren't
 ;; supposed to have such global effects. But `writeroom-mode` is meant for
 ;; distraction-free writing, so these effects do make sense. Besides, if
-;; you're in the mood to write without distractions, you're not going to
+;; you're in the mood for writing without distractions, you're not going to
 ;; switch from the buffer holding your text anyway, are you now? ;-)
 ;;
 ;; All effects listed above can be switched off separately in the
@@ -65,7 +66,7 @@
 ;; switched off by removing the relevant functions from
 ;; `writeroom-global-functions`, the other effects have a corresponding
 ;; toggle. The text width in a writeroom buffer can be changed from the
-;; default 80 with the option `writeroom-width`.
+;; default of 80 with the option `writeroom-width`.
 ;;
 ;; Note that if you normally run Emacs with scroll and/or tool bar
 ;; disabled, you'll need to unset the options for disabling them in
@@ -115,6 +116,11 @@ Used to restore the mode line after disabling writeroom-mode.")
   "*Whether to disable the scroll bar when writeroom is activated."
   :group 'writeroom
   :type 'boolean)
+
+(defcustom writeroom-disable-fringe t
+  "*Whether to disable the left and right fringes when writeroom is activated."
+  :group 'writeroom
+  :type 'boolean)  
 
 (defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency)
   "*List of functions with global effects for writeroom-mode.
@@ -172,6 +178,9 @@ line."
     (setq left-margin-width margin
 	  right-margin-width margin)
     (set-window-buffer nil (current-buffer)))
+  (when writeroom-disable-fringe
+    (setq left-fringe-width 0
+	  right-fringe-width 0))
   (when writeroom-disable-mode-line
     (setq writeroom-mode-line mode-line-format)
     (setq mode-line-format nil)))
@@ -193,6 +202,9 @@ and reenables the mode line."
   (setq left-margin-width 0
 	right-margin-width 0)
   (set-window-buffer nil (current-buffer))
+  (when writeroom-disable-fringe
+    (setq left-fringe-width nil
+	  right-fringe-width nil))
   (when writeroom-disable-mode-line
     (setq mode-line-format writeroom-mode-line)
     (setq writeroom-mode-line nil)))
