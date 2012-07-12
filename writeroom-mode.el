@@ -122,44 +122,44 @@ save it when activating the effect."
   :type '(repeat function))
 
 (let (fullscreen)
-  (defun writeroom-fullscreen (arg)
-    "Turn fullscreen on/off."
-    (if arg
-	(progn
-	  (setq fullscreen (frame-parameter nil 'fullscreen))
-	  (set-frame-parameter nil 'fullscreen 'fullboth))
-      (set-frame-parameter nil 'fullscreen fullscreen)
-      (setq fullscreen nil))))
+  (defalias 'writeroom-fullscreen (lambda (arg)
+				    "Turn fullscreen on/off."
+				    (if arg
+					(progn
+					  (setq fullscreen (frame-parameter nil 'fullscreen))
+					  (set-frame-parameter nil 'fullscreen 'fullboth))
+				      (set-frame-parameter nil 'fullscreen fullscreen)
+				      (setq fullscreen nil)))))
 
 (let (transparency)
-  (defun writeroom-transparency (arg)
-    "Turn transparency on/off."
-    (if arg
-	(progn
-	  (setq transparency (frame-parameter nil 'alpha))
-	  (set-frame-parameter nil 'alpha '(100 100)))
-      (set-frame-parameter nil 'alpha transparency)
-      (setq transparency nil))))
+  (defalias 'writeroom-transparency (lambda (arg)
+				      "Turn transparency on/off."
+				      (if arg
+					  (progn
+					    (setq transparency (frame-parameter nil 'alpha))
+					    (set-frame-parameter nil 'alpha '(100 100)))
+					(set-frame-parameter nil 'alpha transparency)
+					(setq transparency nil)))))
 
 (let (tool-bar)
-  (defun writeroom-tool-bar (arg)
-    "Turn the tool-bar on/off."
-    (if arg
-	(progn
-	  (setq tool-bar (frame-parameter nil 'tool-bar-lines))
-	  (set-frame-parameter nil 'tool-bar-lines 0))
-      (set-frame-parameter nil 'tool-bar-lines tool-bar)
-      (setq tool-bar nil))))
+  (defalias 'writeroom-tool-bar (lambda (arg)
+				  "Turn the tool-bar on/off."
+				  (if arg
+				      (progn
+					(setq tool-bar (frame-parameter nil 'tool-bar-lines))
+					(set-frame-parameter nil 'tool-bar-lines 0))
+				    (set-frame-parameter nil 'tool-bar-lines tool-bar)
+				    (setq tool-bar nil)))))
 
 (let (scroll-bar)
-  (defun writeroom-scroll-bar (arg)
-    "Turn the scroll-bar on/off."
-    (if arg
-	(progn
-	  (setq scroll-bar (frame-parameter nil 'scroll-bar-width))
-	  (set-frame-parameter nil 'scroll-bar-width 0))
-      (set-frame-parameter nil 'scroll-bar-width scroll-bar)
-      (setq scroll-bar nil))))
+  (defalias 'writeroom-scroll-bar (lambda (arg)
+				    "Turn the scroll-bar on/off."
+				    (if arg
+					(progn
+					  (setq scroll-bar (frame-parameter nil 'scroll-bar-width))
+					  (set-frame-parameter nil 'scroll-bar-width 0))
+				      (set-frame-parameter nil 'scroll-bar-width scroll-bar)
+				      (setq scroll-bar nil)))))
 
 ;;;###autoload
 (define-minor-mode writeroom-mode
