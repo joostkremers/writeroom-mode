@@ -20,25 +20,20 @@ following things:
 * add window margins to the current buffer so that the text is 80
   characters wide.
 
-The last three effects are buffer-local. The other effects are global:
-fullscreen and transparency apply to the current frame, the tool and scroll
-bars apply to all frames. Because `writeroom-mode` is a minor mode, this
-isn't entirely on the up and up, since minor modes aren't supposed to have
-such global effects. But `writeroom-mode` is meant for distraction-free
-writing, so these effects do make sense. Besides, if you're in the mood for
-writing without distractions, you're not going to switch from the buffer
-holding your text anyway, are you now? ;-)
+The last three effects are buffer-local. The other effects apply to the
+current frame. Because `writeroom-mode` is a minor mode, this isn't
+entirely on the up and up, since minor modes aren't supposed to have such
+global effects. But `writeroom-mode` is meant for distraction-free writing,
+so these effects do make sense. Besides, if you're in the mood for writing
+without distractions, you're not going to switch from the buffer holding
+your text anyway, are you now? ;-)
 
 All effects listed above can be switched off separately in the
-customization group `writeroom`. Fullscreen and transparency can be
-switched off by removing the relevant functions from
+customization group `writeroom`. Fullscreen, transparency, scroll-bar and
+tool-bar can be switched off by removing the relevant functions from
 `writeroom-global-functions`, the other effects have a corresponding
 toggle. The text width in a writeroom buffer can be changed from the
-default 80 with the option `writeroom-width`.
-
-Note that if you normally run Emacs with scroll and/or tool bar disabled,
-you'll need to unset the options for disabling them in `writeroom-mode`,
-otherwise they'll be turned on when you exit `writeroom-mode`.
+default of 80 with the option `writeroom-width`.
 
 It is possible to activate `writeroom-mode` in more than one buffer. The
 global effects are of course activated only once and they remain active

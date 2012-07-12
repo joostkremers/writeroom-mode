@@ -52,26 +52,20 @@
 ;; * add window margins to the current buffer so that the text is 80
 ;;   characters wide.
 ;;
-;; The last three effects are buffer-local. The other effects are global:
-;; fullscreen and transparency apply to the current frame, the tool and
-;; scroll bars apply to all frames. Because `writeroom-mode` is a minor
-;; mode, this isn't entirely on the up and up, since minor modes aren't
-;; supposed to have such global effects. But `writeroom-mode` is meant for
-;; distraction-free writing, so these effects do make sense. Besides, if
-;; you're in the mood for writing without distractions, you're not going to
-;; switch from the buffer holding your text anyway, are you now? ;-)
+;; The last three effects are buffer-local. The other effects apply to the
+;; current frame. Because `writeroom-mode` is a minor mode, this isn't
+;; entirely on the up and up, since minor modes aren't supposed to have
+;; such global effects. But `writeroom-mode` is meant for distraction-free
+;; writing, so these effects do make sense. Besides, if you're in the mood
+;; for writing without distractions, you're not going to switch from the
+;; buffer holding your text anyway, are you now? ;-)
 ;;
 ;; All effects listed above can be switched off separately in the
-;; customization group `writeroom`. Fullscreen and transparency can be
-;; switched off by removing the relevant functions from
+;; customization group `writeroom`. Fullscreen, transparency, scroll-bar
+;; and tool-bar can be switched off by removing the relevant functions from
 ;; `writeroom-global-functions`, the other effects have a corresponding
 ;; toggle. The text width in a writeroom buffer can be changed from the
 ;; default of 80 with the option `writeroom-width`.
-;;
-;; Note that if you normally run Emacs with scroll and/or tool bar
-;; disabled, you'll need to unset the options for disabling them in
-;; `writeroom-mode`, otherwise they'll be turned on when you exit
-;; `writeroom-mode`.
 ;;
 ;; The option `writeroom-global-functions` can be used to add additional
 ;; global effects. Just write a function for enabling and disabling the
@@ -109,22 +103,12 @@
 Used to restore the mode line after disabling writeroom-mode.")
 (make-variable-buffer-local 'writeroom-mode-line)
 
-(defcustom writeroom-disable-tool-bar t
-  "*Whether to disable the tool bar when writeroom is activated."
-  :group 'writeroom
-  :type 'boolean)
-
-(defcustom writeroom-disable-scroll-bar t
-  "*Whether to disable the scroll bar when writeroom is activated."
-  :group 'writeroom
-  :type 'boolean)
-
 (defcustom writeroom-disable-fringe t
   "*Whether to disable the left and right fringes when writeroom is activated."
   :group 'writeroom
   :type 'boolean)  
 
-(defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency)
+(defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-tool-bar)
   "*List of functions with global effects for writeroom-mode.
 These functions are called when writeroom is activated to enable
 the effects and again when it is deactivated to disable them.
@@ -157,6 +141,26 @@ save it when activating the effect."
       (set-frame-parameter nil 'alpha transparency)
       (setq transparency nil))))
 
+(let (tool-bar)
+  (defun writeroom-tool-bar (arg)
+    "Turn the tool-bar on/off."
+    (if arg
+	(progn
+	  (setq tool-bar (frame-parameter nil 'tool-bar-lines))
+	  (set-frame-parameter nil 'tool-bar-lines 0))
+      (set-frame-parameter nil 'tool-bar-lines tool-bar)
+      (setq tool-bar nil))))
+
+(let (scroll-bar)
+  (defun writeroom-scroll-bar (arg)
+    "Turn the scroll-bar on/off."
+    (if arg
+	(progn
+	  (setq scroll-bar (frame-parameter nil 'scroll-bar-width))
+	  (set-frame-parameter nil 'scroll-bar-width 0))
+      (set-frame-parameter nil 'scroll-bar-width scroll-bar)
+      (setq scroll-bar nil))))
+
 ;;;###autoload
 (define-minor-mode writeroom-mode
   "Minor mode for distraction-free writing."
@@ -173,11 +177,7 @@ line and the fringes."
   (when (= writeroom-buffers 0)
     (mapc #'(lambda (fn)
 	      (funcall fn t))
-	  writeroom-global-functions)
-    (when writeroom-disable-scroll-bar
-      (scroll-bar-mode -1))
-    (when writeroom-disable-tool-bar
-      (tool-bar-mode -1)))
+	  writeroom-global-functions))
   (setq writeroom-buffers (1+ writeroom-buffers))
   (let ((margin (/ (- (window-body-width) writeroom-width) 2)))
     (setq left-margin-width margin
@@ -199,11 +199,7 @@ and reenables the mode line and the fringes."
   (when (= writeroom-buffers 0)
     (mapc #'(lambda (fn)
 	      (funcall fn nil))
-	  writeroom-global-functions)
-    (when writeroom-disable-scroll-bar
-      (scroll-bar-mode 1))
-    (when writeroom-disable-tool-bar
-      (tool-bar-mode 1)))
+	  writeroom-global-functions))
   (setq left-margin-width 0
 	right-margin-width 0)
   (when writeroom-disable-fringe
