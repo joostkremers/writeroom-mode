@@ -166,7 +166,7 @@ effect and return Emacs to its original configuration."
   "Set up writeroom-mode for the current buffer.
 This function runs the functions in WRITEROOM-GLOBAL-FUNCTIONS,
 sets the margins of the current buffer and disables the mode
-line."
+line and the fringes."
   (when (= writeroom-buffers 0)
     (mapc #'(lambda (fn)
 	      (funcall fn t))
@@ -191,7 +191,7 @@ line."
   "Reset the current buffer to its normal appearance.
 This function runs the functions in WRITEROOM-GLOBAL-FUNCTIONS to
 undo their effects, sets the margins of the current buffer to 0
-and reenables the mode line."
+and reenables the mode line and the fringes."
   (setq writeroom-buffers (1- writeroom-buffers))
   (when (= writeroom-buffers 0)
     (mapc #'(lambda (fn)
