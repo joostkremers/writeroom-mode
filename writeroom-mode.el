@@ -126,33 +126,36 @@ Used to restore the mode line after disabling writeroom-mode.")
 
 (defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency)
   "*List of functions with global effects for writeroom-mode.
-Each function must take one argument, which is either T or NIL.
-When writeroom-mode is switched on, these functions are called
-with T as argument to enable their effects. When writeroom-mode is
-disabled, they are called with NIL as argument to disable the
-effect and return Emacs to its original configuration."
+These functions are called when writeroom is activated to enable
+the effects and again when it is deactivated to disable them.
+
+If you want to add your own function to this list, make sure that
+it accepts one argument, which must be T to activate the effect
+and NIL to deactivate it again. When the effect is deactivated,
+the original configuration should be restored, so make sure to
+save it when activating the effect."
   :group 'writeroom
   :type '(repeat function))
 
-(let (writeroom-fullscreen-restore)
+(let (fullscreen)
   (defun writeroom-fullscreen (arg)
     "Turn fullscreen on/off."
     (if arg
 	(progn
-	  (setq writeroom-fullscreen-restore (frame-parameter nil 'fullscreen))
+	  (setq fullscreen (frame-parameter nil 'fullscreen))
 	  (set-frame-parameter nil 'fullscreen 'fullboth))
-      (set-frame-parameter nil 'fullscreen writeroom-fullscreen-restore)
-      (setq writeroom-fullscreen-restore nil))))
+      (set-frame-parameter nil 'fullscreen fullscreen)
+      (setq fullscreen nil))))
 
-(let (writeroom-transparency-restore)
+(let (transparency)
   (defun writeroom-transparency (arg)
     "Turn transparency on/off."
     (if arg
 	(progn
-	  (setq writeroom-transparency-restore (frame-parameter nil 'alpha))
+	  (setq transparency (frame-parameter nil 'alpha))
 	  (set-frame-parameter nil 'alpha '(100 100)))
-      (set-frame-parameter nil 'alpha writeroom-transparency-restore)
-      (setq writeroom-transparency-restore nil))))
+      (set-frame-parameter nil 'alpha transparency)
+      (setq transparency nil))))
 
 ;;;###autoload
 (define-minor-mode writeroom-mode
