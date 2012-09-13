@@ -16,7 +16,7 @@ Install `writeroom-mode.el` in the usual way and activate it in a buffer by call
 
 The last three effects are buffer-local. The other effects apply to the current frame. Because `writeroom-mode` is a minor mode, this isn't entirely on the up and up, since minor modes aren't supposed to have such global effects. But `writeroom-mode` is meant for distraction-free writing, so these effects do make sense. Besides, if you're in the mood for writing without distractions, you're not going to switch from the buffer holding your text anyway, are you now? ;-)
 
-All effects listed above can be switched off separately in the customization group `writeroom`. Fullscreen, transparency, scroll-bar and tool-bar can be switched off by removing the relevant functions from `writeroom-global-functions`, the other effects have a corresponding toggle. The text width in a writeroom buffer can be changed from the default of 80 with the option `writeroom-width`.
+All effects listed above can be switched off separately in the customization group `writeroom`. Fullscreen, transparency, scroll-bar and tool-bar can be switched off by removing the relevant functions from `writeroom-global-functions`, the other effects have a corresponding toggle. The width of the text area is controlled by the option `writeroom-width`. It can be an absolute value, in which case it indicates the number of columns, or it can be a relative value. In that case, it should be a number between 0 and 1.
 
 It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers.
 

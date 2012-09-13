@@ -64,8 +64,10 @@
 ;; customization group `writeroom`. Fullscreen, transparency, scroll-bar
 ;; and tool-bar can be switched off by removing the relevant functions from
 ;; `writeroom-global-functions`, the other effects have a corresponding
-;; toggle. The text width in a writeroom buffer can be changed from the
-;; default of 80 with the option `writeroom-width`.
+;; toggle. The width of the text area is controlled by the option
+;; `writeroom-width`. It can be an absolute value, in which case it
+;; indicates the number of columns, or it can be a relative value. In that
+;; case, it should be a number between 0 and 1.
 ;;
 ;; The option `writeroom-global-functions` can be used to add additional
 ;; global effects. Just write a function for enabling and disabling the
@@ -75,6 +77,18 @@
 ;; It is possible to activate `writeroom-mode` in more than one buffer. The
 ;; global effects are of course activated only once and they remain active
 ;; until `writeroom-mode` is deactivated in *all* buffers.
+;;
+;; # Fullscreen limitations #
+;;
+;; Fullscreen as implemented here only works on Linux. It can be made to
+;; work on OS X as well, if you compile Emacs with the patches from
+;; <ftp://ftp.math.s.chiba-u.ac.jp/emacs/>. Alternatively, OS X has its own
+;; way of making windows fullscreen: <http://support.apple.com/kb/PH4530>.
+;;
+;; More tips on getting a fullscreen Emacs can be found here:
+;; <http://emacswiki.org/emacs/FullScreen>
+;;
+;; # Code #
 ;;
 ;; The code for `writeroom-mode` is available on github:
 ;; <https://github.com/joostkremers/writeroom-mode.git>
@@ -91,7 +105,8 @@
 (defcustom writeroom-width 80
   "*Width of the writeroom writing area."
   :group 'writeroom
-  :type '(integer :label "Width:"))
+  :type '(choice (integer :label "Absolute width:")
+                 (float :label "Relative width:" :value 0.5)))
 
 (defcustom writeroom-disable-mode-line t
   "*Whether to disable the mode line in writeroom buffers."
@@ -179,7 +194,11 @@ line and the fringes."
 	      (funcall fn t))
 	  writeroom-global-functions))
   (setq writeroom-buffers (1+ writeroom-buffers))
-  (let ((margin (/ (- (window-body-width) writeroom-width) 2)))
+  (let ((margin (cond
+                 ((integerp writeroom-width)
+                  (/ (- (window-body-width) writeroom-width) 2))
+                 ((floatp writeroom-width)
+                  (/ (- (window-body-width) (truncate (* (window-body-width) writeroom-width))) 2)))))
     (setq left-margin-width margin
 	  right-margin-width margin))
   (when writeroom-disable-fringe
