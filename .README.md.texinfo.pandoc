@@ -1,0 +1,8 @@
+# pandoc-mode settings file for README.md #
+# saved on 2012.10.04 14:47 #
+
+standalone::t
+read::markdown
+write::texinfo
+output::writeroom-mode.texi
+include-before-body::~/src/writeroom-mode/texi-before-body
