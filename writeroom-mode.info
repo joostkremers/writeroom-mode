@@ -1,5 +1,5 @@
 This is writeroom-mode.info, produced by makeinfo version 4.13 from
-writeroom-mode.texi.
+./writeroom-mode.texi.
 
 INFO-DIR-SECTION Emacs START-INFO-DIR-ENTRY * Writeroom mode:
 (writeroom-mode).        Distraction-free writing.  END-INFO-DIR-ENTRY
@@ -99,10 +99,10 @@ More tips on getting a fullscreen Emacs can be found here:
 
 
 Tag Table:
-Node: Top224
-Node: Writeroom-mode338
-Node: Usage711
-Node: Fullscreen limitations2683
+Node: Top226
+Node: Writeroom-mode340
+Node: Usage713
+Node: Fullscreen limitations2685
 
 End Tag Table
 
