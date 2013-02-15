@@ -88,10 +88,11 @@ File: writeroom-mode.info,  Node: Fullscreen limitations,  Prev: Usage,  Up: Wri
 ==========================
 
 Fullscreen as implemented here only works on Linux. It can be made to
-work on OS X as well, if you compile Emacs with the patches from
-`ftp://ftp.math.s.chiba-u.ac.jp/emacs/'. Alternatively, OS X has its
-own way of making windows fullscreen:
-`http://support.apple.com/kb/PH4530'.
+work on OS X as well, if you install Yamamoto Mitsuharu's Emacs-Mac
+port. The easiest way of doing so is by using the repo at
+`https://github.com/railwaycat/emacs-mac-port' and one of the methods
+described there. Alternatively, OS X has its own way of making windows
+fullscreen: `http://support.apple.com/kb/PH4530'.
 
 More tips on getting a fullscreen Emacs can be found here:
 `http://emacswiki.org/emacs/FullScreen'
@@ -101,8 +102,11 @@ More tips on getting a fullscreen Emacs can be found here:
 Tag Table:
 Node: Top226
 Node: Writeroom-mode340
+Ref: #writeroom-mode449
 Node: Usage713
+Ref: #usage829
 Node: Fullscreen limitations2685
+Ref: #fullscreen-limitations2835
 
 End Tag Table
 

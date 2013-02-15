@@ -24,7 +24,6 @@ The option `writeroom-global-functions` can be used to add additional global eff
 
 ## Fullscreen limitations ##
 
-Fullscreen as implemented here only works on Linux. It can be made to work on OS X as well, if you compile Emacs with the patches from <ftp://ftp.math.s.chiba-u.ac.jp/emacs/>. Alternatively, OS X has its own way of making windows fullscreen: <http://support.apple.com/kb/PH4530>.
+Fullscreen as implemented here only works on Linux. It can be made to work on OS X as well, if you install Yamamoto Mitsuharu's Emacs-Mac port. The easiest way of doing so is by using the repo at <https://github.com/railwaycat/emacs-mac-port> and one of the methods described there. Alternatively, OS X has its own way of making windows fullscreen: <http://support.apple.com/kb/PH4530>.
 
 More tips on getting a fullscreen Emacs can be found here: <http://emacswiki.org/emacs/FullScreen>
-
