@@ -1,5 +1,4 @@
-;;; -*- lexical-binding: t -*-
-;;; writeroom-mode.el --- Minor mode for distraction-free writing
+;;; writeroom-mode.el --- Minor mode for distraction-free writing  -*- lexical-binding: t -*-
 
 ;; Copyright (c) 2012 Joost Kremers
 
