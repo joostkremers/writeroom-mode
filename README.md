@@ -18,6 +18,8 @@ The last three effects are buffer-local. The other effects apply to the current 
 
 All effects listed above can be switched off separately in the customization group `writeroom`. Fullscreen, transparency, scroll-bar and tool-bar can be switched off by removing the relevant functions from `writeroom-global-functions`, the other effects have a corresponding toggle. The width of the text area is controlled by the option `writeroom-width`. It can be an absolute value, in which case it indicates the number of columns, or it can be a relative value. In that case, it should be a number between 0 and 1.
 
+Note that the width of the text area is based on the width of the window at the moment `writeroom-mode` is activated. If the window is resized, the text area width won't be adjusted. If that happens, restore the window width or deactivate and then reactivate `writeroom-mode`.
+
 It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers.
 
 The option `writeroom-global-functions` can be used to add additional global effects. Just write a function for enabling and disabling the relevant effect and add it to the list. See the doc string of this option for some more details.

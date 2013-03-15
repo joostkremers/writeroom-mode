@@ -72,6 +72,12 @@ option `writeroom-width'. It can be an absolute value, in which case it
 indicates the number of columns, or it can be a relative value. In that
 case, it should be a number between 0 and 1.
 
+Note that the width of the text area is based on the width of the
+window at the moment `writeroom-mode' is activated. If the window is
+resized, the text area width won't be adjusted. If that happens,
+restore the window width or deactivate and then reactivate
+`writeroom-mode'.
+
 It is possible to activate `writeroom-mode' in more than one buffer.
 The global effects are of course activated only once and they remain
 active until `writeroom-mode' is deactivated in _all_ buffers.
@@ -87,15 +93,9 @@ File: writeroom-mode.info,  Node: Fullscreen limitations,  Prev: Usage,  Up: Wri
 1.2 Fullscreen limitations
 ==========================
 
-Fullscreen as implemented here only works on Linux. It can be made to
-work on OS X as well, if you install Yamamoto Mitsuharu's Emacs-Mac
-port. The easiest way of doing so is by using the repo at
-`https://github.com/railwaycat/emacs-mac-port' and one of the methods
-described there. Alternatively, OS X has its own way of making windows
-fullscreen: `http://support.apple.com/kb/PH4530'.
-
-More tips on getting a fullscreen Emacs can be found here:
-`http://emacswiki.org/emacs/FullScreen'
+Fullscreen as implemented here only works on Linux and, as of Emacs
+24.3, on OS X. For tips on getting a fullscreen Emacs on Windows or
+older Emacsen, see: `http://emacswiki.org/emacs/FullScreen'
 
 
 
@@ -105,8 +105,8 @@ Node: Writeroom-mode340
 Ref: #writeroom-mode449
 Node: Usage713
 Ref: #usage829
-Node: Fullscreen limitations2685
-Ref: #fullscreen-limitations2835
+Node: Fullscreen limitations2963
+Ref: #fullscreen-limitations3113
 
 End Tag Table
 
