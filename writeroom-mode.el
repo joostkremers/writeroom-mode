@@ -42,8 +42,17 @@
 ;; 
 ;;; Code:
 
+;; bookkeeping
 (defvar writeroom-buffers 0
   "Number of buffers in which writeroom-mode is activated.")
+(defvar writeroom-fullscreen nil
+  "Record fullscreen status before enabling `writeroom-mode'.")
+(defvar writeroom-transparency nil
+  "Record transparency statut before enabling `writeroom-mode'.")
+(defvar writeroom-tool-bar nil
+  "Record tool bar status before enabling `writeroom-mode'.")
+(defvar writeroom-scroll-bar nil
+  "Record scrollbar status before enabling `writeroom-mode'.")
 
 (defgroup writeroom nil "Minor mode for distraction-free writing."
   :group 'wp
@@ -83,45 +92,41 @@ save it when activating the effect."
   :group 'writeroom
   :type '(repeat function))
 
-(let (fullscreen)
-  (defalias 'writeroom-fullscreen (lambda (arg)
-				    "Turn fullscreen on/off."
-				    (if arg
-					(progn
-					  (setq fullscreen (frame-parameter nil 'fullscreen))
-					  (set-frame-parameter nil 'fullscreen 'fullboth))
-				      (set-frame-parameter nil 'fullscreen fullscreen)
-				      (setq fullscreen nil)))))
+(defun writeroom-fullscreen (arg)
+  "Turn fullscreen on/off."
+  (if arg
+      (progn
+        (setq writeroom-fullscreen (frame-parameter nil 'fullscreen))
+        (set-frame-parameter nil 'fullscreen 'fullboth))
+    (set-frame-parameter nil 'fullscreen writeroom-fullscreen)
+    (setq writeroom-fullscreen nil)))
 
-(let (transparency)
-  (defalias 'writeroom-transparency (lambda (arg)
-				      "Turn transparency on/off."
-				      (if arg
-					  (progn
-					    (setq transparency (frame-parameter nil 'alpha))
-					    (set-frame-parameter nil 'alpha '(100 100)))
-					(set-frame-parameter nil 'alpha transparency)
-					(setq transparency nil)))))
+(defun writeroom-transparency (arg)
+  "Turn transparency on/off."
+  (if arg
+      (progn
+        (setq writeroom-transparency (frame-parameter nil 'alpha))
+        (set-frame-parameter nil 'alpha '(100 100)))
+    (set-frame-parameter nil 'alpha writeroom-transparency)
+    (setq writeroom-transparency nil)))
 
-(let (tool-bar)
-  (defalias 'writeroom-tool-bar (lambda (arg)
-				  "Turn the tool-bar on/off."
-				  (if arg
-				      (progn
-					(setq tool-bar (frame-parameter nil 'tool-bar-lines))
-					(set-frame-parameter nil 'tool-bar-lines 0))
-				    (set-frame-parameter nil 'tool-bar-lines tool-bar)
-				    (setq tool-bar nil)))))
+(defun writeroom-tool-bar (arg)
+  "Turn the tool-bar on/off."
+  (if arg
+      (progn
+        (setq writeroom-tool-bar (frame-parameter nil 'tool-bar-lines))
+        (set-frame-parameter nil 'tool-bar-lines 0))
+    (set-frame-parameter nil 'tool-bar-lines writeroom-tool-bar)
+    (setq writeroom-tool-bar nil)))
 
-(let (scroll-bar)
-  (defalias 'writeroom-scroll-bar (lambda (arg)
-				    "Turn the scroll-bar on/off."
-				    (if arg
-					(progn
-					  (setq scroll-bar (frame-parameter nil 'scroll-bar-width))
-					  (set-frame-parameter nil 'scroll-bar-width 0))
-				      (set-frame-parameter nil 'scroll-bar-width scroll-bar)
-				      (setq scroll-bar nil)))))
+(defun writeroom-scroll-bar (arg)
+  "Turn the scroll-bar on/off."
+  (if arg
+      (progn
+        (setq writeroom-scroll-bar (frame-parameter nil 'scroll-bar-width))
+        (set-frame-parameter nil 'scroll-bar-width 0))
+    (set-frame-parameter nil 'scroll-bar-width writeroom-scroll-bar)
+    (setq writeroom-scroll-bar nil)))
 
 ;;;###autoload
 (define-minor-mode writeroom-mode
