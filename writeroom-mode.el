@@ -59,13 +59,13 @@
   :prefix "writeroom-")
 
 (defcustom writeroom-width 80
-  "*Width of the writeroom writing area."
+  "Width of the writeroom writing area."
   :group 'writeroom
   :type '(choice (integer :label "Absolute width:")
                  (float :label "Relative width:" :value 0.5)))
 
 (defcustom writeroom-disable-mode-line t
-  "*Whether to disable the mode line in writeroom buffers."
+  "Whether to disable the mode line in writeroom buffers."
   :group 'writeroom
   :type 'boolean)
 
@@ -75,14 +75,15 @@ Used to restore the mode line after disabling writeroom-mode.")
 (make-variable-buffer-local 'writeroom-mode-line)
 
 (defcustom writeroom-disable-fringe t
-  "*Whether to disable the left and right fringes when writeroom is activated."
+  "Whether to disable the left and right fringes when writeroom is activated."
   :group 'writeroom
   :type 'boolean)  
 
 (defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-tool-bar)
-  "*List of functions with global effects for writeroom-mode.
-These functions are called when writeroom is activated to enable
-the effects and again when it is deactivated to disable them.
+  "List of functions with global effects for `writeroom-mode'.
+These functions are called when `writeroom-mode' is activated in
+the first buffer to enable the effects and again when it is
+deactivated in the last buffer to disable them.
 
 If you want to add your own function to this list, make sure that
 it accepts one argument, which must be T to activate the effect
@@ -138,9 +139,10 @@ save it when activating the effect."
 
 (defun writeroom-enable ()
   "Set up writeroom-mode for the current buffer.
-This function runs the functions in WRITEROOM-GLOBAL-FUNCTIONS,
-sets the margins of the current buffer and disables the mode
-line and the fringes."
+This function runs the functions in `writeroom-global-functions'
+if the current buffer is the first buffer in which
+`writeroom-mode' is active. It also sets the margins of the
+current buffer and disables the mode line and the fringes."
   (when (= writeroom-buffers 0)
     (mapc #'(lambda (fn)
 	      (funcall fn t))
@@ -163,9 +165,10 @@ line and the fringes."
 
 (defun writeroom-disable ()
   "Reset the current buffer to its normal appearance.
-This function runs the functions in WRITEROOM-GLOBAL-FUNCTIONS to
-undo their effects, sets the margins of the current buffer to 0
-and reenables the mode line and the fringes."
+This function runs the functions in `writeroom-global-functions' to
+undo their effects if `writeroom-mode' is deactivated in the last
+buffer in which it was active. It also sets the margins of the current
+buffer to 0 and reenables the mode line and the fringes."
   (setq writeroom-buffers (1- writeroom-buffers))
   (when (= writeroom-buffers 0)
     (mapc #'(lambda (fn)
