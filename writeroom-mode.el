@@ -49,6 +49,8 @@
   "Record fullscreen status before enabling `writeroom-mode'.")
 (defvar writeroom-transparency nil
   "Record transparency statut before enabling `writeroom-mode'.")
+(defvar writeroom-menu-bar nil
+  "Record menu bar status before enabling `writeroom-mode'.")
 (defvar writeroom-tool-bar nil
   "Record tool bar status before enabling `writeroom-mode'.")
 (defvar writeroom-scroll-bar nil
@@ -79,7 +81,7 @@ Used to restore the mode line after disabling writeroom-mode.")
   :group 'writeroom
   :type 'boolean)  
 
-(defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-tool-bar)
+(defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-menu-bar writeroom-tool-bar)
   "List of functions with global effects for `writeroom-mode'.
 These functions are called when `writeroom-mode' is activated in
 the first buffer to enable the effects and again when it is
@@ -111,8 +113,17 @@ save it when activating the effect."
     (set-frame-parameter nil 'alpha writeroom-transparency)
     (setq writeroom-transparency nil)))
 
+(defun writeroom-menu-bar (arg)
+  "Turn the menu bar on/off."
+  (if arg
+      (progn
+        (setq writeroom-menu-bar (frame-parameter nil 'menu-bar-lines))
+        (set-frame-parameter nil 'menu-bar-lines 0))
+    (set-frame-parameter nil 'menu-bar-lines writeroom-menu-bar)
+    (setq writeroom-menu-bar nil)))
+
 (defun writeroom-tool-bar (arg)
-  "Turn the tool-bar on/off."
+  "Turn the tool bar on/off."
   (if arg
       (progn
         (setq writeroom-tool-bar (frame-parameter nil 'tool-bar-lines))
@@ -121,7 +132,7 @@ save it when activating the effect."
     (setq writeroom-tool-bar nil)))
 
 (defun writeroom-scroll-bar (arg)
-  "Turn the scroll-bar on/off."
+  "Turn the scroll bar on/off."
   (if arg
       (progn
         (setq writeroom-scroll-bar (frame-parameter nil 'scroll-bar-width))
