@@ -21,3 +21,4 @@ The width of the text area is controlled by the option `writeroom-width`. It can
 
 It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers.
 
+The default function to activate `writeroom-mode` is of course `writeroom-mode`. There is an alternative function, however: `writeroom-toggle`. This function also activates `writeroom-mode` in the current buffer, but when called in a buffer in which `writeroom-mode` is active, it disables `writeroom-mode` in *all* buffers in which it is active and also resets the global effects.

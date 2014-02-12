@@ -156,11 +156,12 @@ buffer."
     (writeroom-disable)))
 
 ;;;###autoload
-(defun writeroom-toggle-globally ()
+(defun writeroom-toggle ()
   "Activate or deactivate writeroom-mode.
 This command is identical to `writeroom-mode' when activating it,
-but behaves differently when deactivating. It deactivates
-writeroom-mode in all buffers in which it is active."
+but behaves differently when deactivating: instead of
+deactivating `writeroom-mode' in the current buffer, it
+deactivates it in all buffers in which it is active."
   (interactive)
   (if (memq (current-buffer) writeroom-buffers)
       (mapc #'(lambda (b)
