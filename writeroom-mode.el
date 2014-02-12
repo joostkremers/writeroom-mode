@@ -140,6 +140,20 @@ save it when activating the effect."
     (set-frame-parameter nil 'scroll-bar-width writeroom-scroll-bar)
     (setq writeroom-scroll-bar nil)))
 
+(defun writeroom-kill-buffer-function ()
+  "Function to run when killing a buffer.
+This function checks if `writeroom-mode' is enabled in the buffer
+to be killed and adjusts `writeroom-buffers' and the global
+effects accordingly."
+  (when writeroom-mode
+    (setq writeroom-buffers (1- writeroom-buffers))
+    (when (= writeroom-buffers 0)
+      (mapc #'(lambda (fn)
+                (funcall fn nil))
+            writeroom-global-functions))))
+
+(add-hook 'kill-buffer-hook #'writeroom-kill-buffer-function)
+
 ;;;###autoload
 (define-minor-mode writeroom-mode
   "Minor mode for distraction-free writing."
