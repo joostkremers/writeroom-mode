@@ -43,8 +43,8 @@
 ;;; Code:
 
 ;; bookkeeping
-(defvar writeroom-buffers 0
-  "Number of buffers in which writeroom-mode is activated.")
+(defvar writeroom-buffers nil
+  "List of buffers in which writeroom-mode is activated.")
 (defvar writeroom-fullscreen nil
   "Record fullscreen status before enabling `writeroom-mode'.")
 (defvar writeroom-transparency nil
@@ -147,18 +147,6 @@ buffer."
     (set-frame-parameter nil 'scroll-bar-width writeroom-scroll-bar)
     (setq writeroom-scroll-bar nil)))
 
-(defun writeroom-kill-buffer-function ()
-  "Function to run when killing a buffer.
-This function checks if `writeroom-mode' is enabled in the buffer
-to be killed and adjusts `writeroom-buffers' and the global
-effects accordingly."
-  (when writeroom-mode
-    (setq writeroom-buffers (1- writeroom-buffers))
-    (when (= writeroom-buffers 0)
-      (writeroom-activate-global-effects nil))))
-
-(add-hook 'kill-buffer-hook #'writeroom-kill-buffer-function)
-
 ;;;###autoload
 (define-minor-mode writeroom-mode
   "Minor mode for distraction-free writing."
@@ -166,6 +154,32 @@ effects accordingly."
   (if writeroom-mode
       (writeroom-enable)
     (writeroom-disable)))
+
+;;;###autoload
+(defun writeroom-toggle-globally ()
+  "Activate or deactivate writeroom-mode.
+This command is identical to `writeroom-mode' when activating it,
+but behaves differently when deactivating. It deactivates
+writeroom-mode in all buffers in which it is active."
+  (interactive)
+  (if (memq (current-buffer) writeroom-buffers)
+      (mapc #'(lambda (b)
+              (with-current-buffer b
+                (writeroom-disable)))
+          writeroom-buffers)
+    (writeroom-enable)))
+
+(defun writeroom-kill-buffer-function ()
+  "Function to run when killing a buffer.
+This function checks if `writeroom-mode' is enabled in the buffer
+to be killed and adjusts `writeroom-buffers' and the global
+effects accordingly."
+  (when writeroom-mode
+    (setq writeroom-buffers (delq (current-buffer) writeroom-buffers))
+    (when (not writeroom-buffers)
+      (writeroom-activate-global-effects nil))))
+
+(add-hook 'kill-buffer-hook #'writeroom-kill-buffer-function)
 
 (defun writeroom-activate-global-effects (arg)
   "Activate or deactivate global effects.
@@ -181,9 +195,9 @@ This function runs the functions in `writeroom-global-functions'
 if the current buffer is the first buffer in which
 `writeroom-mode' is active. It also sets the margins of the
 current buffer and disables the mode line and the fringes."
-  (when (= writeroom-buffers 0)
+  (when (not writeroom-buffers)
     (writeroom-activate-global-effects t))
-  (setq writeroom-buffers (1+ writeroom-buffers))
+  (add-to-list 'writeroom-buffers (current-buffer))
   (let ((margin (cond
                  ((integerp writeroom-width)
                   (/ (- (window-body-width) writeroom-width) 2))
@@ -205,8 +219,8 @@ This function runs the functions in `writeroom-global-functions' to
 undo their effects if `writeroom-mode' is deactivated in the last
 buffer in which it was active. It also sets the margins of the current
 buffer to 0 and reenables the mode line and the fringes."
-  (setq writeroom-buffers (1- writeroom-buffers))
-  (when (= writeroom-buffers 0)
+  (setq writeroom-buffers (delq (current-buffer) writeroom-buffers))
+  (when (not writeroom-buffers)
     (writeroom-activate-global-effects nil))
   (setq left-margin-width 0
 	right-margin-width 0)
