@@ -155,9 +155,7 @@ effects accordingly."
   (when writeroom-mode
     (setq writeroom-buffers (1- writeroom-buffers))
     (when (= writeroom-buffers 0)
-      (mapc #'(lambda (fn)
-                (funcall fn nil))
-            writeroom-global-functions))))
+      (writeroom-activate-global-effects nil))))
 
 (add-hook 'kill-buffer-hook #'writeroom-kill-buffer-function)
 
@@ -169,6 +167,14 @@ effects accordingly."
       (writeroom-enable)
     (writeroom-disable)))
 
+(defun writeroom-activate-global-effects (arg)
+  "Activate or deactivate global effects.
+The effects are activated if ARG is non-nil, and deactivated
+otherwise."
+  (mapc #'(lambda (fn)
+            (funcall fn arg))
+        writeroom-global-functions))
+
 (defun writeroom-enable ()
   "Set up writeroom-mode for the current buffer.
 This function runs the functions in `writeroom-global-functions'
@@ -176,9 +182,7 @@ if the current buffer is the first buffer in which
 `writeroom-mode' is active. It also sets the margins of the
 current buffer and disables the mode line and the fringes."
   (when (= writeroom-buffers 0)
-    (mapc #'(lambda (fn)
-	      (funcall fn t))
-	  writeroom-global-functions))
+    (writeroom-activate-global-effects t))
   (setq writeroom-buffers (1+ writeroom-buffers))
   (let ((margin (cond
                  ((integerp writeroom-width)
@@ -203,9 +207,7 @@ buffer in which it was active. It also sets the margins of the current
 buffer to 0 and reenables the mode line and the fringes."
   (setq writeroom-buffers (1- writeroom-buffers))
   (when (= writeroom-buffers 0)
-    (mapc #'(lambda (fn)
-	      (funcall fn nil))
-	  writeroom-global-functions))
+    (writeroom-activate-global-effects nil))
   (setq left-margin-width 0
 	right-margin-width 0)
   (when writeroom-disable-fringe
