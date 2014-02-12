@@ -91,18 +91,16 @@ maximized but window decorations are still available."
                  (const :tag "Maximized" maximized)))
 
 (defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-menu-bar writeroom-tool-bar)
-  "List of functions with global effects for `writeroom-mode'.
-These functions are called when `writeroom-mode' is activated in
-the first buffer to enable the effects and again when it is
-deactivated in the last buffer to disable them.
-
-If you want to add your own function to this list, make sure that
-it accepts one argument, which must be T to activate the effect
-and NIL to deactivate it again. When the effect is deactivated,
-the original configuration should be restored, so make sure to
-save it when activating the effect."
+  "List of global effects for `writeroom-mode'.
+These effects are enabled when `writeroom-mode' is activated in
+the first buffer and disabled when it is deactivated in the last
+buffer."
   :group 'writeroom
-  :type '(repeat function))
+  :type '(set (const :tag "Fullscreen" writeroom-fullscreen)
+              (const :tag "Disable transparency" writeroom-transparency)
+              (const :tag "Disable scroll bar" writeroom-scroll-bar)
+              (const :tag "Disable menu bar" writeroom-menu-bar)
+              (const :tag "Disable tool bar" writeroom-tool-bar)))
 
 (defun writeroom-fullscreen (arg)
   "Turn fullscreen on/off."
