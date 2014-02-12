@@ -81,6 +81,15 @@ Used to restore the mode line after disabling writeroom-mode.")
   :group 'writeroom
   :type 'boolean)  
 
+(defcustom writeroom-fullscreen-effect 'fullboth
+  "Effect applied when enabling fullscreen.
+The value can be `fullboth', in which case fullscreen is
+activated, or `maximized', in which case the relevant frame is
+maximized but window decorations are still available."
+  :group 'writeroom
+  :type '(choice (const :tag "Fullscreen" fullboth)
+                 (const :tag "Maximized" maximized)))
+
 (defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-menu-bar writeroom-tool-bar)
   "List of functions with global effects for `writeroom-mode'.
 These functions are called when `writeroom-mode' is activated in
@@ -100,7 +109,7 @@ save it when activating the effect."
   (if arg
       (progn
         (setq writeroom-fullscreen (frame-parameter nil 'fullscreen))
-        (set-frame-parameter nil 'fullscreen 'fullboth))
+        (set-frame-parameter nil 'fullscreen writeroom-fullscreen-effect))
     (set-frame-parameter nil 'fullscreen writeroom-fullscreen)
     (setq writeroom-fullscreen nil)))
 
