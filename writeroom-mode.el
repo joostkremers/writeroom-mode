@@ -166,9 +166,9 @@ deactivates it in all buffers in which it is active."
   (if (memq (current-buffer) writeroom-buffers)
       (mapc #'(lambda (b)
               (with-current-buffer b
-                (writeroom-disable)))
+                (writeroom-mode -1)))
           writeroom-buffers)
-    (writeroom-enable)))
+    (writeroom-mode 1)))
 
 (defun writeroom-kill-buffer-function ()
   "Function to run when killing a buffer.
