@@ -190,6 +190,27 @@ otherwise."
             (funcall fn arg))
         writeroom-global-functions))
 
+(defun writeroom-window-width ()
+  "Return the width of the current window."
+  (let ((margins (window-margins))
+        (textarea (window-body-width)))
+    (+ textarea
+       (or (car margins) 0)
+       (or (cdr margins) 0))))
+
+(defun writeroom-set-margins (&optional width)
+  "Set/unset window margins for the current window.
+If WIDTH is nil, the margins are set according to
+`writeroom-width', otherwise the margins are set to WIDTH."
+  (let* ((current-width (writeroom-window-width))
+         (margin (cond
+                 ((integerp width) width)
+                 ((integerp writeroom-width)
+                  (/ (- current-width writeroom-width) 2))
+                 ((floatp writeroom-width)
+                  (/ (- current-width (truncate (* current-width writeroom-width))) 2)))))
+    (set-window-margins (selected-window) margin margin)))
+
 (defun writeroom-enable ()
   "Set up writeroom-mode for the current buffer.
 This function runs the functions in `writeroom-global-functions'
@@ -199,13 +220,8 @@ current buffer and disables the mode line and the fringes."
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects t))
   (add-to-list 'writeroom-buffers (current-buffer))
-  (let ((margin (cond
-                 ((integerp writeroom-width)
-                  (/ (- (window-body-width) writeroom-width) 2))
-                 ((floatp writeroom-width)
-                  (/ (- (window-body-width) (truncate (* (window-body-width) writeroom-width))) 2)))))
-    (setq left-margin-width margin
-	  right-margin-width margin))
+  (writeroom-set-margins)
+  (add-hook 'window-configuration-change-hook 'writeroom-set-margins nil t)
   (when writeroom-disable-fringe
     (setq left-fringe-width 0
 	  right-fringe-width 0))
@@ -223,8 +239,8 @@ buffer to 0 and reenables the mode line and the fringes."
   (setq writeroom-buffers (delq (current-buffer) writeroom-buffers))
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects nil))
-  (setq left-margin-width 0
-	right-margin-width 0)
+  (writeroom-set-margins 0)
+  (remove-hook 'window-configuration-change-hook 'writeroom-set-margins t)
   (when writeroom-disable-fringe
     (setq left-fringe-width nil
 	  right-fringe-width nil))
