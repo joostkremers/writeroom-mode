@@ -5,7 +5,7 @@
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
-;; Version: 2.0.0
+;; Version: 2.0
 ;; Keywords: text
 
 ;; Redistribution and use in source and binary forms, with or without
@@ -90,7 +90,7 @@ maximized but window decorations are still available."
   :type '(choice (const :tag "Fullscreen" fullboth)
                  (const :tag "Maximized" maximized)))
 
-(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "2.0.0")
+(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "2.0")
 
 (defcustom writeroom-global-effects '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-menu-bar writeroom-tool-bar)
   "List of global effects for `writeroom-mode'.
