@@ -244,10 +244,10 @@ If ARG is nil, the fringes are disabled. Any other value enables
 
 (defun writeroom-enable ()
   "Set up writeroom-mode for the current buffer.
-This function runs the functions in `writeroom-global-functions'
-if the current buffer is the first buffer in which
-`writeroom-mode' is active. It also sets the margins and disables
-the mode line and the fringes."
+This function sets the margins and disables the mode line and the
+fringes. It also runs the functions in
+`writeroom-global-functions' if the current buffer is the first
+buffer in which `writeroom-mode' is activated."
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects t))
   (add-to-list 'writeroom-buffers (current-buffer))
@@ -263,10 +263,11 @@ the mode line and the fringes."
 
 (defun writeroom-disable ()
   "Reset the current buffer to its normal appearance.
-This function runs the functions in `writeroom-global-functions'
-to undo their effects if `writeroom-mode' is deactivated in the
-last buffer in which it was active. It also sets the margins to 0
-and reenables the mode line and the fringes."
+This function sets the margins to 0 and reenables the mode line
+and the fringes. It also runs the functions in
+`writeroom-global-functions' to undo their effects if
+`writeroom-mode' is deactivated in the last buffer in which it
+was active."
   (setq writeroom-buffers (delq (current-buffer) writeroom-buffers))
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects nil))
