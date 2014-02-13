@@ -25,7 +25,7 @@ The last three effects are buffer-local. The other effects apply to the current 
 
 All `writeroom-mode` effects can be switched off separately in the customisation group `writeroom`. The option `writeroom-global-effects` lists the global effects (fullscreen, transparency, scroll bar, menu bar and tool bar), which can be switched off individually. The fringes and the mode line each have a toggle option.
 
-Normally, the option fullscreen disables the window decorations and make the Emacs frame occupy the entire screen, covering the window manager's panel or task bar. If you prefer to "just" maximise the frame (i.e., keep the window decorations and do not cover the window manager's panel), you can set the option `writeroom-fullscreen-effect` to `maximized`.
+Normally, the option 'fullscreen' disables the window decorations and makes the Emacs frame occupy the entire screen, covering the window manager's panel or task bar. If you prefer to "just" maximise the frame (i.e., keep the window decorations and do not cover the window manager's panel), you can set the option `writeroom-fullscreen-effect` to `maximized` instead of `fullboth` (the default).
 
 Lastly, the width of the text area is controlled by the option `writeroom-width`. It can be an absolute value, in which case it indicates the number of columns, or it can be a percentage of the window's width. In that case, it should be a number between 0 and 1.
 
@@ -33,7 +33,7 @@ Lastly, the width of the text area is controlled by the option `writeroom-width`
 
 It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers. Alternatively, if you use `writeroom-mode` in multiple buffers with particular major modes (e.g., `text-mode`, `markdown-mode`), you can use the global minor mode `global-writeroom-mode`. This function enables the global effects and activates the buffer-local effects in all (current and future) buffers that have a major mode listed in the user option `writeroom-major-modes` (by default only `text-mode`).
 
-When `global-writeroom-mode` is active, the function `writeroom-mode` can still be called to enable or disable `writeroom-mode` in individual buffers. Calling `global-writeroom-mode` again disables `writeroom-mode` in all buffers in which it is active, also those in which it was activated manually.
+When `global-writeroom-mode` is active, the function `writeroom-mode` can still be called to enable or disable `writeroom-mode` in individual buffers (regardless of their major mode, of course). Calling `global-writeroom-mode` again disables `writeroom-mode` in all buffers in which it is active, also those in which it was activated manually.
 
 ## Adding global effects ##
 

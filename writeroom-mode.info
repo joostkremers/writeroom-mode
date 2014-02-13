@@ -90,12 +90,12 @@ lists the global effects (fullscreen, transparency, scroll bar, menu
 bar and tool bar), which can be switched off individually. The fringes
 and the mode line each have a toggle option.
 
-Normally, the option fullscreen disables the window decorations and
-make the Emacs frame occupy the entire screen, covering the window
+Normally, the option 'fullscreen' disables the window decorations and
+makes the Emacs frame occupy the entire screen, covering the window
 manager's panel or task bar. If you prefer to "just" maximise the frame
 (i.e., keep the window decorations and do not cover the window
 manager's panel), you can set the option `writeroom-fullscreen-effect'
-to `maximized'.
+to `maximized' instead of `fullboth' (the default).
 
 Lastly, the width of the text area is controlled by the option
 `writeroom-width'. It can be an absolute value, in which case it
@@ -120,9 +120,9 @@ user option `writeroom-major-modes' (by default only `text-mode').
 
 When `global-writeroom-mode' is active, the function `writeroom-mode'
 can still be called to enable or disable `writeroom-mode' in individual
-buffers. Calling `global-writeroom-mode' again disables
-`writeroom-mode' in all buffers in which it is active, also those in
-which it was activated manually.
+buffers (regardless of their major mode, of course). Calling
+`global-writeroom-mode' again disables `writeroom-mode' in all buffers
+in which it is active, also those in which it was activated manually.
 
 
 File: writeroom-mode.info,  Node: Adding global effects,  Next: New in version 2,  Prev: Multiple writeroom-mode buffers,  Up: Writeroom-mode
@@ -162,12 +162,12 @@ Node: Usage1197
 Ref: #usage1325
 Node: Customisation2070
 Ref: #customisation2233
-Node: Multiple writeroom-mode buffers3179
-Ref: #multiple-writeroom-mode-buffers3394
-Node: Adding global effects4305
-Ref: #adding-global-effects4503
-Node: New in version 24954
-Ref: #new-in-version-25102
+Node: Multiple writeroom-mode buffers3218
+Ref: #multiple-writeroom-mode-buffers3433
+Node: Adding global effects4388
+Ref: #adding-global-effects4586
+Node: New in version 25037
+Ref: #new-in-version-25185
 
 End Tag Table
 
