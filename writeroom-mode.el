@@ -194,50 +194,53 @@ otherwise."
             (funcall fn arg))
         writeroom-global-functions))
 
-(defun writeroom-window-width ()
-  "Return the width of the current window."
-  (let ((margins (window-margins))
-        (textarea (window-body-width)))
+(defun writeroom-adjust-window (&optional arg window)
+  "Adjust WINDOW's margin and fringes.
+If ARG is omitted or nil, the margins are set according to
+`writeroom-width' and the fringes are disabled. If ARG is any
+other value, the margins are set to 0 and the fringes are
+enabled. WINDOW defaults to the selected window."
+  ;; Note: this function is used in the buffer-local value of
+  ;; window-configuration-change-hook, but only in buffers where
+  ;; writeroom-mode is active, so we don't need to do any checking.
+  (or window
+      (setq window (selected-window)))
+  (if arg
+      (progn
+        (writeroom-set-margins window 0)
+        (writeroom-set-fringes window t))
+    (writeroom-set-margins window nil)
+    (writeroom-set-fringes window nil)))
+
+(defun writeroom-window-width (window)
+  "Return the width of WINDOW."
+  (let ((margins (window-margins window))
+        (textarea (window-body-width window)))
     (+ textarea
        (or (car margins) 0)
        (or (cdr margins) 0))))
 
-(defun writeroom-adjust-window (&optional arg)
-  "Adjust the active window's margin and fringes.
-If ARG is omitted or nil, the margins are set according to
-`writeroom-width' and the fringes are disabled. If ARG is any
-other value, the margins are set to 0 and the fringes enabled."
-  ;; Note: this function is used in the buffer-local value of
-  ;; window-configuration-change-hook, but only in buffers where
-  ;; writeroom-mode is active, so we don't need to do any checking.
-  (if arg
-      (progn
-        (writeroom-set-margins 0)
-        (writeroom-set-fringes t))
-    (writeroom-set-margins)
-    (writeroom-set-fringes nil)))
-
-(defun writeroom-set-margins (&optional width)
+(defun writeroom-set-margins (window width)
   "Set/unset window margins for the current window.
 If WIDTH is nil, the margins are set according to
 `writeroom-width', otherwise the margins are set to WIDTH."
-  (let* ((current-width (writeroom-window-width))
+  (let* ((current-width (writeroom-window-width window))
          (margin (cond
                  ((integerp width) width)
                  ((integerp writeroom-width)
                   (/ (- current-width writeroom-width) 2))
                  ((floatp writeroom-width)
                   (/ (- current-width (truncate (* current-width writeroom-width))) 2)))))
-    (set-window-margins (selected-window) margin margin)))
+    (set-window-margins window margin margin)))
 
-(defun writeroom-set-fringes (arg)
+(defun writeroom-set-fringes (window arg)
   "Enable or disable the current window's fringes.
 If ARG is nil, the fringes are disabled. Any other value enables
   them."
   (when writeroom-disable-fringe
     (if arg
-        (set-window-fringes (selected-window) nil nil)
-      (set-window-fringes (selected-window) 0 0))))
+        (set-window-fringes window nil nil)
+      (set-window-fringes window 0 0))))
 
 (defun writeroom-enable ()
   "Set up writeroom-mode for the current buffer.
@@ -252,10 +255,11 @@ the mode line and the fringes."
   (when writeroom-disable-mode-line
     (setq writeroom-mode-line mode-line-format)
     (setq mode-line-format nil))
-    ;; if the current buffer is displayed in some window, the window's
+  ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
-  (when (get-buffer-window)
-    (writeroom-adjust-window)))
+  (mapc #'(lambda (w)
+            (writeroom-adjust-window nil w))
+        (get-buffer-window-list (current-buffer) nil)))
 
 (defun writeroom-disable ()
   "Reset the current buffer to its normal appearance.
@@ -270,10 +274,11 @@ and reenables the mode line and the fringes."
   (when writeroom-disable-mode-line
     (setq mode-line-format writeroom-mode-line)
     (setq writeroom-mode-line nil))
-  ;; if the current buffer is displayed in some window, the window's
+  ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
-  (when (get-buffer-window)
-    (writeroom-adjust-window -1)))
+  (mapc #'(lambda (w)
+            (writeroom-adjust-window t w))
+        (get-buffer-window-list (current-buffer) nil)))
 
 (provide 'writeroom-mode)
 
