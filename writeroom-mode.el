@@ -213,7 +213,9 @@ enabled. WINDOW defaults to the selected window."
     (writeroom-set-fringes window nil)))
 
 (defun writeroom-window-width (window)
-  "Return the width of WINDOW."
+  "Return the full width of WINDOW.
+The full width is the width of the text area plus the width of
+the margins."
   (let ((margins (window-margins window))
         (textarea (window-body-width window)))
     (+ textarea
@@ -221,7 +223,7 @@ enabled. WINDOW defaults to the selected window."
        (or (cdr margins) 0))))
 
 (defun writeroom-set-margins (window width)
-  "Set/unset window margins for the current window.
+  "Set/unset window margins for WINDOW.
 If WIDTH is nil, the margins are set according to
 `writeroom-width', otherwise the margins are set to WIDTH."
   (let* ((current-width (writeroom-window-width window))
@@ -234,9 +236,9 @@ If WIDTH is nil, the margins are set according to
     (set-window-margins window margin margin)))
 
 (defun writeroom-set-fringes (window arg)
-  "Enable or disable the current window's fringes.
+  "Enable or disable WINDOW's fringes.
 If ARG is nil, the fringes are disabled. Any other value enables
-  them."
+them."
   (when writeroom-disable-fringe
     (if arg
         (set-window-fringes window nil nil)
