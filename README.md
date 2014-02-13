@@ -37,7 +37,7 @@ When `global-writeroom-mode` is active, the function `writeroom-mode` can still 
 
 ## Adding global effects ##
 
-It is possible to define your own global effects and have them activated automatically when `writeroom-mode` is activated, e.g., certain font or colour effects. To do this, write a function that takes one argument and that activates the effect when this argument is `t` and deactivates it when it is `nil`. Then add this function to the user option `writeroom-global-effects` by checking the box "Custom effects" and adding the function to the list.
+It is possible to define your own global effects and have them activated automatically when `writeroom-mode` is activated. For example, you may want to add your own font or colour effects, or replace the default fullscreen function with one that works in an older Emacs version. To do this, write a function that takes one argument and that activates the effect when this argument is `t` and deactivates it when it is `nil`. Then add this function to the user option `writeroom-global-effects` by checking the box "Custom effects" and adding the function to the list.
 
 ## New in version 2 ##
 
