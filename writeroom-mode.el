@@ -102,6 +102,13 @@ buffer."
               (const :tag "Disable menu bar" writeroom-menu-bar)
               (const :tag "Disable tool bar" writeroom-tool-bar)))
 
+(defcustom writeroom-major-modes '(text-mode)
+  "List of major modes in which writeroom-mode is activated.
+This option is only relevant when activating `writeroom-mode'
+with `global-writeroom-mode'."
+  :group 'writeroom
+  :type '(repeat (symbol :tag "Major mode")))
+
 (defun writeroom-fullscreen (arg)
   "Turn fullscreen on/off."
   (if arg
@@ -147,6 +154,13 @@ buffer."
     (set-frame-parameter nil 'scroll-bar-width writeroom-scroll-bar)
     (setq writeroom-scroll-bar nil)))
 
+(defun turn-on-writeroom-mode ()
+  "Turn on `writeroom-mode'.
+This function activates `writeroom-mode' in a buffer if that
+buffer's major mode is a member of `writeroom-major-modes'."
+  (if (memq major-mode writeroom-major-modes)
+      (writeroom-mode 1)))
+
 ;;;###autoload
 (define-minor-mode writeroom-mode
   "Minor mode for distraction-free writing."
@@ -156,19 +170,9 @@ buffer."
     (writeroom-disable)))
 
 ;;;###autoload
-(defun writeroom-toggle ()
-  "Activate or deactivate writeroom-mode.
-This command is identical to `writeroom-mode' when activating it,
-but behaves differently when deactivating: instead of
-deactivating `writeroom-mode' in the current buffer, it
-deactivates it in all buffers in which it is active."
-  (interactive)
-  (if (memq (current-buffer) writeroom-buffers)
-      (mapc #'(lambda (b)
-              (with-current-buffer b
-                (writeroom-mode -1)))
-          writeroom-buffers)
-    (writeroom-mode 1)))
+(define-globalized-minor-mode global-writeroom-mode writeroom-mode turn-on-writeroom-mode
+  :require 'writeroom-mode
+  :group 'writeroom)
 
 (defun writeroom-kill-buffer-function ()
   "Function to run when killing a buffer.
@@ -198,6 +202,21 @@ otherwise."
        (or (car margins) 0)
        (or (cdr margins) 0))))
 
+(defun writeroom-adjust-window (&optional arg)
+  "Adjust the active window's margin and fringes.
+If ARG is omitted or nil, the margins are set according to
+`writeroom-width' and the fringes are disabled. If ARG is any
+other value, the margins are set to 0 and the fringes enabled."
+  ;; Note: this function is used in the buffer-local value of
+  ;; window-configuration-change-hook, but only in buffers where
+  ;; writeroom-mode is active, so we don't need to do any checking.
+  (if arg
+      (progn
+        (writeroom-set-margins 0)
+        (writeroom-set-fringes t))
+    (writeroom-set-margins)
+    (writeroom-set-fringes nil)))
+
 (defun writeroom-set-margins (&optional width)
   "Set/unset window margins for the current window.
 If WIDTH is nil, the margins are set according to
@@ -211,43 +230,50 @@ If WIDTH is nil, the margins are set according to
                   (/ (- current-width (truncate (* current-width writeroom-width))) 2)))))
     (set-window-margins (selected-window) margin margin)))
 
+(defun writeroom-set-fringes (arg)
+  "Enable or disable the current window's fringes.
+If ARG is nil, the fringes are disabled. Any other value enables
+  them."
+  (when writeroom-disable-fringe
+    (if arg
+        (set-window-fringes (selected-window) nil nil)
+      (set-window-fringes (selected-window) 0 0))))
+
 (defun writeroom-enable ()
   "Set up writeroom-mode for the current buffer.
 This function runs the functions in `writeroom-global-functions'
 if the current buffer is the first buffer in which
-`writeroom-mode' is active. It also sets the margins of the
-current buffer and disables the mode line and the fringes."
+`writeroom-mode' is active. It also sets the margins and disables
+the mode line and the fringes."
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects t))
   (add-to-list 'writeroom-buffers (current-buffer))
-  (writeroom-set-margins)
-  (add-hook 'window-configuration-change-hook 'writeroom-set-margins nil t)
-  (when writeroom-disable-fringe
-    (setq left-fringe-width 0
-	  right-fringe-width 0))
+  (add-hook 'window-configuration-change-hook 'writeroom-adjust-window nil t)
   (when writeroom-disable-mode-line
     (setq writeroom-mode-line mode-line-format)
     (setq mode-line-format nil))
-  (set-window-buffer nil (current-buffer)))
+    ;; if the current buffer is displayed in some window, the window's
+  ;; margins and fringes must be adjusted.
+  (when (get-buffer-window)
+    (writeroom-adjust-window)))
 
 (defun writeroom-disable ()
   "Reset the current buffer to its normal appearance.
-This function runs the functions in `writeroom-global-functions' to
-undo their effects if `writeroom-mode' is deactivated in the last
-buffer in which it was active. It also sets the margins of the current
-buffer to 0 and reenables the mode line and the fringes."
+This function runs the functions in `writeroom-global-functions'
+to undo their effects if `writeroom-mode' is deactivated in the
+last buffer in which it was active. It also sets the margins to 0
+and reenables the mode line and the fringes."
   (setq writeroom-buffers (delq (current-buffer) writeroom-buffers))
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects nil))
-  (writeroom-set-margins 0)
-  (remove-hook 'window-configuration-change-hook 'writeroom-set-margins t)
-  (when writeroom-disable-fringe
-    (setq left-fringe-width nil
-	  right-fringe-width nil))
+  (remove-hook 'window-configuration-change-hook 'writeroom-adjust-window t)
   (when writeroom-disable-mode-line
     (setq mode-line-format writeroom-mode-line)
     (setq writeroom-mode-line nil))
-  (set-window-buffer nil (current-buffer)))
+  ;; if the current buffer is displayed in some window, the window's
+  ;; margins and fringes must be adjusted.
+  (when (get-buffer-window)
+    (writeroom-adjust-window -1)))
 
 (provide 'writeroom-mode)
 
