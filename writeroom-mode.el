@@ -5,7 +5,7 @@
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
-;; Version: 1.0.0
+;; Version: 2.0.0
 ;; Keywords: text
 
 ;; Redistribution and use in source and binary forms, with or without
@@ -90,7 +90,9 @@ maximized but window decorations are still available."
   :type '(choice (const :tag "Fullscreen" fullboth)
                  (const :tag "Maximized" maximized)))
 
-(defcustom writeroom-global-functions '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-menu-bar writeroom-tool-bar)
+(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "2.0.0")
+
+(defcustom writeroom-global-effects '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-menu-bar writeroom-tool-bar)
   "List of global effects for `writeroom-mode'.
 These effects are enabled when `writeroom-mode' is activated in
 the first buffer and disabled when it is deactivated in the last
@@ -192,7 +194,7 @@ The effects are activated if ARG is non-nil, and deactivated
 otherwise."
   (mapc #'(lambda (fn)
             (funcall fn arg))
-        writeroom-global-functions))
+        writeroom-global-effects))
 
 (defun writeroom-adjust-window (&optional arg window)
   "Adjust WINDOW's margin and fringes.
@@ -202,7 +204,8 @@ other value, the margins are set to 0 and the fringes are
 enabled. WINDOW defaults to the selected window."
   ;; Note: this function is used in the buffer-local value of
   ;; window-configuration-change-hook, but only in buffers where
-  ;; writeroom-mode is active, so we don't need to do any checking.
+  ;; writeroom-mode is active, so we don't need to check if writeroom-mode
+  ;; is really active.
   (or window
       (setq window (selected-window)))
   (if arg
@@ -248,7 +251,7 @@ them."
   "Set up writeroom-mode for the current buffer.
 This function sets the margins and disables the mode line and the
 fringes. It also runs the functions in
-`writeroom-global-functions' if the current buffer is the first
+`writeroom-global-effects' if the current buffer is the first
 buffer in which `writeroom-mode' is activated."
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects t))
@@ -267,7 +270,7 @@ buffer in which `writeroom-mode' is activated."
   "Reset the current buffer to its normal appearance.
 This function sets the margins to 0 and reenables the mode line
 and the fringes. It also runs the functions in
-`writeroom-global-functions' to undo their effects if
+`writeroom-global-effects' to undo their effects if
 `writeroom-mode' is deactivated in the last buffer in which it
 was active."
   (setq writeroom-buffers (delq (current-buffer) writeroom-buffers))
