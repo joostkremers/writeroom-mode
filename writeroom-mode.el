@@ -102,7 +102,8 @@ buffer."
               (const :tag "Disable transparency" writeroom-transparency)
               (const :tag "Disable scroll bar" writeroom-scroll-bar)
               (const :tag "Disable menu bar" writeroom-menu-bar)
-              (const :tag "Disable tool bar" writeroom-tool-bar)))
+              (const :tag "Disable tool bar" writeroom-tool-bar)
+              (repeat :inline t :tag "Custom effects" function)))
 
 (defcustom writeroom-major-modes '(text-mode)
   "List of major modes in which writeroom-mode is activated.

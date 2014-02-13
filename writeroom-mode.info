@@ -1,5 +1,5 @@
 This is writeroom-mode.info, produced by makeinfo version 4.13 from
-writeroom-mode.texi.
+./writeroom-mode.texi.
 
 INFO-DIR-SECTION Emacs START-INFO-DIR-ENTRY * Writeroom mode:
 (writeroom-mode).        Distraction-free writing.  END-INFO-DIR-ENTRY
@@ -30,12 +30,19 @@ Install `writeroom-mode.el' in the usual way (it is on Melpa
 following things:
 
    * activate fullscreen
+
    * disable transparency
+
    * disable the menu bar
+
    * disable the tool bar
+
    * disable the scroll bar
+
    * disable the fringes
+
    * disable the mode line
+
    * add window margins to the current buffer so that the text is 80
      characters wide.
 
@@ -76,9 +83,9 @@ which it was activated manually.
 
 
 Tag Table:
-Node: Top224
-Node: Writeroom-mode338
-Ref: #writeroom-mode447
+Node: Top226
+Node: Writeroom-mode340
+Ref: #writeroom-mode449
 
 End Tag Table
 
