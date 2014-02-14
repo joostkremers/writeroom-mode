@@ -1,6 +1,6 @@
 ;;; writeroom-mode.el --- Minor mode for distraction-free writing  -*- lexical-binding: t -*-
 
-;; Copyright (c) 2012 Joost Kremers
+;; Copyright (c) 2012-2014 Joost Kremers
 
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
@@ -35,7 +35,7 @@
 
 ;; writeroom-mode is a minor mode for Emacs that implements a
 ;; distraction-free writing mode similar to the famous Writeroom editor for
-;; OS X. writeroom-mode is meant for GNU Emacs 24 and won't run on older
+;; OS X. writeroom-mode is meant for GNU Emacs 24 and isn't tested on older
 ;; versions.
 ;;
 ;; See the README or info manual for usage instructions.
