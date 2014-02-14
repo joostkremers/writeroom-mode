@@ -211,10 +211,10 @@ enabled. WINDOW defaults to the selected window."
       (setq window (selected-window)))
   (if arg
       (progn
-        (writeroom-set-margins window 0)
-        (writeroom-set-fringes window t))
-    (writeroom-set-margins window nil)
-    (writeroom-set-fringes window nil)))
+        (writeroom-set-fringes window t)
+        (writeroom-set-margins window 0)) 
+    (writeroom-set-fringes window nil)
+    (writeroom-set-margins window nil)))
 
 (defun writeroom-window-width (window)
   "Return the full width of WINDOW.
