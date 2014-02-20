@@ -39,7 +39,7 @@
 ;; versions.
 ;;
 ;; See the README or info manual for usage instructions.
-;; 
+;;
 ;;; Code:
 
 ;; bookkeeping
@@ -79,7 +79,7 @@ Used to restore the mode line after disabling writeroom-mode.")
 (defcustom writeroom-disable-fringe t
   "Whether to disable the left and right fringes when writeroom is activated."
   :group 'writeroom
-  :type 'boolean)  
+  :type 'boolean)
 
 (defcustom writeroom-fullscreen-effect 'fullboth
   "Effect applied when enabling fullscreen.
@@ -212,32 +212,23 @@ enabled. WINDOW defaults to the selected window."
   (if arg
       (progn
         (writeroom-set-fringes window t)
-        (writeroom-set-margins window 0)) 
+        (writeroom-set-margins window 0))
     (writeroom-set-fringes window nil)
     (writeroom-set-margins window nil)))
 
-(defun writeroom-window-width (window)
-  "Return the full width of WINDOW.
-The full width is the width of the text area plus the width of
-the margins."
-  (let ((margins (window-margins window))
-        (textarea (window-body-width window)))
-    (+ textarea
-       (or (car margins) 0)
-       (or (cdr margins) 0))))
-
-(defun writeroom-set-margins (window width)
+(defun writeroom-set-margins (window margin)
   "Set/unset window margins for WINDOW.
-If WIDTH is nil, the margins are set according to
-`writeroom-width', otherwise the margins are set to WIDTH."
-  (let* ((current-width (writeroom-window-width window))
-         (margin (cond
-                 ((integerp width) width)
-                 ((integerp writeroom-width)
-                  (/ (- current-width writeroom-width) 2))
-                 ((floatp writeroom-width)
-                  (/ (- current-width (truncate (* current-width writeroom-width))) 2)))))
-    (set-window-margins window margin margin)))
+If MARGIN is nil, the margins are set according to
+`writeroom-width', otherwise the margins are set to MARGIN."
+  (or margin
+      (let ((current-width (window-total-width window)))
+        (setq margin
+              (cond
+               ((integerp writeroom-width)
+                (/ (- current-width writeroom-width) 2))
+               ((floatp writeroom-width)
+                (/ (- current-width (truncate (* current-width writeroom-width))) 2))))))
+  (set-window-margins window margin margin))
 
 (defun writeroom-set-fringes (window arg)
   "Enable or disable WINDOW's fringes.
