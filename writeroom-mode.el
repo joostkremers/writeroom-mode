@@ -152,9 +152,9 @@ with `global-writeroom-mode'."
   "Turn the scroll bar on/off."
   (if arg
       (progn
-        (setq writeroom-scroll-bar (frame-parameter nil 'scroll-bar-width))
-        (set-frame-parameter nil 'scroll-bar-width 0))
-    (set-frame-parameter nil 'scroll-bar-width writeroom-scroll-bar)
+        (setq writeroom-scroll-bar (frame-parameter nil 'vertical-scroll-bars))
+        (set-frame-parameter nil 'vertical-scroll-bars nil))
+    (set-frame-parameter nil 'vertical-scroll-bars writeroom-scroll-bar)
     (setq writeroom-scroll-bar nil)))
 
 (defun turn-on-writeroom-mode ()
