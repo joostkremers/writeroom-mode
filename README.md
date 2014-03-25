@@ -15,15 +15,16 @@
 * disable the menu bar
 * disable the tool bar
 * disable the scroll bar
+* maximise the current window (i.e., delete all other windows in the frame)
 * disable the fringes
 * disable the mode line
-* add window margins to the current buffer so that the text is 80 characters wide.
+* add window margins to the current buffer so that the text is 80 characters wide
 
 The last three effects are buffer-local. The other effects apply to the current frame. Because `writeroom-mode` is a minor mode, this isn't entirely on the up and up, since minor modes aren't supposed to have such global effects. But `writeroom-mode` is meant for distraction-free writing, so these effects do make sense.
 
 ## Customisation ##
 
-All `writeroom-mode` effects can be switched off separately in the customisation group `writeroom`. The option `writeroom-global-effects` lists the global effects (fullscreen, transparency, scroll bar, menu bar and tool bar), which can be switched off individually. The fringes and the mode line each have a toggle option.
+All `writeroom-mode` effects can be switched off separately in the customisation group `writeroom`. The option `writeroom-global-effects` lists the global effects (fullscreen, transparency, scroll bar, menu bar and tool bar), which can be switched off individually. The fringes, the mode line and the window maximisation each have a toggle option.
 
 Normally, the option 'fullscreen' disables the window decorations and makes the Emacs frame occupy the entire screen, covering the window manager's panel or task bar. If you prefer to "just" maximise the frame (i.e., keep the window decorations and do not cover the window manager's panel), you can set the option `writeroom-fullscreen-effect` to `maximized` instead of `fullboth` (the default).
 

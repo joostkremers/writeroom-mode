@@ -81,6 +81,14 @@ Used to restore the mode line after disabling writeroom-mode.")
   :group 'writeroom
   :type 'boolean)
 
+(defcustom writeroom-maximize-window t
+  "Whether to maximize the current window in its frame.
+When set to `t', `writeroom-mode' deletes all other windows in
+the current frame."
+  :group 'writeroom
+  :type '(choice (const :tag "Maximize window" t)
+                 (const :tag "Do not maximize window" nil)))
+
 (defcustom writeroom-fullscreen-effect 'fullboth
   "Effect applied when enabling fullscreen.
 The value can be `fullboth', in which case fullscreen is
@@ -241,14 +249,16 @@ them."
 
 (defun writeroom-enable ()
   "Set up writeroom-mode for the current buffer.
-This function sets the margins and disables the mode line and the
-fringes. It also runs the functions in
+This function sets the margins, disables the mode line and the
+fringes, and maximizes the window. It also runs the functions in
 `writeroom-global-effects' if the current buffer is the first
 buffer in which `writeroom-mode' is activated."
   (when (not writeroom-buffers)
     (writeroom-activate-global-effects t))
   (add-to-list 'writeroom-buffers (current-buffer))
   (add-hook 'window-configuration-change-hook 'writeroom-adjust-window nil t)
+  (when writeroom-maximize-window
+    (delete-other-windows))
   (when writeroom-disable-mode-line
     (setq writeroom-mode-line mode-line-format)
     (setq mode-line-format nil))

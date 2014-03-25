@@ -65,12 +65,15 @@ things:
 
    * disable the scroll bar
 
+   * maximise the current window (i.e., delete all other windows in the
+     frame)
+
    * disable the fringes
 
    * disable the mode line
 
    * add window margins to the current buffer so that the text is 80
-     characters wide.
+     characters wide
 
 The last three effects are buffer-local. The other effects apply to the
 current frame. Because `writeroom-mode' is a minor mode, this isn't
@@ -87,8 +90,8 @@ File: writeroom-mode.info,  Node: Customisation,  Next: Multiple writeroom-mode 
 All `writeroom-mode' effects can be switched off separately in the
 customisation group `writeroom'. The option `writeroom-global-effects'
 lists the global effects (fullscreen, transparency, scroll bar, menu
-bar and tool bar), which can be switched off individually. The fringes
-and the mode line each have a toggle option.
+bar and tool bar), which can be switched off individually. The fringes,
+the mode line and the window maximisation each have a toggle option.
 
 Normally, the option 'fullscreen' disables the window decorations and
 makes the Emacs frame occupy the entire screen, covering the window
@@ -162,14 +165,14 @@ Node: Installation815
 Ref: #installation935
 Node: Usage1197
 Ref: #usage1325
-Node: Customisation2070
-Ref: #customisation2233
-Node: Multiple writeroom-mode buffers3218
-Ref: #multiple-writeroom-mode-buffers3433
-Node: Adding global effects4388
-Ref: #adding-global-effects4586
-Node: New in version 25155
-Ref: #new-in-version-25303
+Node: Customisation2154
+Ref: #customisation2317
+Node: Multiple writeroom-mode buffers3327
+Ref: #multiple-writeroom-mode-buffers3542
+Node: Adding global effects4497
+Ref: #adding-global-effects4695
+Node: New in version 25264
+Ref: #new-in-version-25412
 
 End Tag Table
 
