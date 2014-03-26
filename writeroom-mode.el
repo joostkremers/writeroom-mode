@@ -100,7 +100,11 @@ maximized but window decorations are still available."
 
 (define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "2.0")
 
-(defcustom writeroom-global-effects '(writeroom-fullscreen writeroom-transparency writeroom-scroll-bar writeroom-menu-bar writeroom-tool-bar)
+(defcustom writeroom-global-effects '(writeroom--fullscreen
+                                      writeroom--transparency
+                                      writeroom--scroll-bar
+                                      writeroom--menu-bar
+                                      writeroom--tool-bar)
   "List of global effects for `writeroom-mode'.
 These effects are enabled when `writeroom-mode' is activated in
 the first buffer and disabled when it is deactivated in the last
