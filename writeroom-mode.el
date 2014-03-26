@@ -98,7 +98,7 @@ maximized but window decorations are still available."
   :type '(choice (const :tag "Fullscreen" fullboth)
                  (const :tag "Maximized" maximized)))
 
-(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "2.0")
+(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
 
 (defcustom writeroom-global-effects '(writeroom--fullscreen
                                       writeroom--transparency
