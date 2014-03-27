@@ -42,21 +42,8 @@
 ;;
 ;;; Code:
 
-;; bookkeeping
 (defvar writeroom--buffers nil
-  "List of buffers in which writeroom-mode is activated.")
-(defvar writeroom--fullscreen nil
-  "Record fullscreen status before enabling `writeroom-mode'.")
-(defvar writeroom--transparency nil
-  "Record transparency statut before enabling `writeroom-mode'.")
-(defvar writeroom--menu-bar nil
-  "Record menu bar status before enabling `writeroom-mode'.")
-(defvar writeroom--tool-bar nil
-  "Record tool bar status before enabling `writeroom-mode'.")
-(defvar writeroom--scroll-bar nil
-  "Record scrollbar status before enabling `writeroom-mode'.")
-(defvar writeroom--internal-border-width nil
-  "Record internal border width before enabling `writeroom-mode'.")
+  "List of buffers in which `writeroom-mode' is activated.")
 
 (defgroup writeroom nil "Minor mode for distraction-free writing."
   :group 'wp
@@ -109,24 +96,6 @@ Effects'. This adds a border around the text area."
 
 (define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
 
-(defcustom writeroom-global-effects '(writeroom--fullscreen
-                                      writeroom--transparency
-                                      writeroom--scroll-bar
-                                      writeroom--menu-bar
-                                      writeroom--tool-bar)
-  "List of global effects for `writeroom-mode'.
-These effects are enabled when `writeroom-mode' is activated in
-the first buffer and disabled when it is deactivated in the last
-buffer."
-  :group 'writeroom
-  :type '(set (const :tag "Fullscreen" writeroom--fullscreen)
-              (const :tag "Disable transparency" writeroom--transparency)
-              (const :tag "Disable scroll bar" writeroom--scroll-bar)
-              (const :tag "Disable menu bar" writeroom--menu-bar)
-              (const :tag "Disable tool bar" writeroom--tool-bar)
-              (const :tag "Add border" writeroom--border)
-              (repeat :inline t :tag "Custom effects" function)))
-
 (defcustom writeroom-major-modes '(text-mode)
   "List of major modes in which writeroom-mode is activated.
 This option is only relevant when activating `writeroom-mode'
@@ -134,60 +103,67 @@ with `global-writeroom-mode'."
   :group 'writeroom
   :type '(repeat (symbol :tag "Major mode")))
 
-(defun writeroom--fullscreen (arg)
-  "Turn fullscreen on/off."
-  (if arg
-      (progn
-        (setq writeroom--fullscreen (frame-parameter nil 'fullscreen))
-        (set-frame-parameter nil 'fullscreen writeroom-fullscreen-effect))
-    (set-frame-parameter nil 'fullscreen writeroom--fullscreen)
-    (setq writeroom--fullscreen nil)))
+(defcustom writeroom-global-effects '(writeroom-toggle-fullscreen
+                                      writeroom-toggle-alpha
+                                      writeroom-toggle-vertical-scroll-bars
+                                      writeroom-toggle-menu-bar-lines
+                                      writeroom-toggle-tool-bar-lines)
+  "List of global effects for `writeroom-mode'.
+These effects are enabled when `writeroom-mode' is activated in
+the first buffer and disabled when it is deactivated in the last
+buffer."
+  :group 'writeroom
+  :type '(set (const :tag "Fullscreen" writeroom-toggle-fullscreen)
+              (const :tag "Disable transparency" writeroom-toggle-alpha)
+              (const :tag "Disable menu bar" writeroom-toggle-menu-bar-lines)
+              (const :tag "Disable tool bar" writeroom-toggle-tool-bar-lines)
+              (const :tag "Disable scroll bar" writeroom-toggle-vertical-scroll-bars)
+              (const :tag "Add border" writeroom-toggle-internal-border-width)
+              (repeat :inline t :tag "Custom effects" function)))
 
-(defun writeroom--transparency (arg)
-  "Turn transparency on/off."
-  (if arg
-      (progn
-        (setq writeroom--transparency (frame-parameter nil 'alpha))
-        (set-frame-parameter nil 'alpha '(100 100)))
-    (set-frame-parameter nil 'alpha writeroom--transparency)
-    (setq writeroom--transparency nil)))
+;; Global effect functions
+;;
+;; Global effect functions take one argument, which is `t' to activate the
+;; effect and `nil' to deactivate it. They all work by modifying frame
+;; parameters of the current frame. When activated, the value of the
+;; relevant frame parameter is stored in another frame parameter by the
+;; same name prepended with `writeroom-'. In this way, the original value
+;; can be restored.
 
-(defun writeroom--menu-bar (arg)
-  "Turn the menu bar on/off."
-  (if arg
-      (progn
-        (setq writeroom--menu-bar (frame-parameter nil 'menu-bar-lines))
-        (set-frame-parameter nil 'menu-bar-lines 0))
-    (set-frame-parameter nil 'menu-bar-lines writeroom--menu-bar)
-    (setq writeroom--menu-bar nil)))
+(defmacro define-writeroom-global-effect (fp value)
+  "Define a global effect.
+The effect is activated by setting frame parameter FP to VALUE.
+FP should be an unquoted symbol, the name of a frame parameter;
+VALUE must be quoted (unless it is a string or a number, of
+course). It can also be an unquoted symbol, in which case it
+should be the name of a global variable whose value is then
+assigned to FP.
 
-(defun writeroom--tool-bar (arg)
-  "Turn the tool bar on/off."
-  (if arg
-      (progn
-        (setq writeroom--tool-bar (frame-parameter nil 'tool-bar-lines))
-        (set-frame-parameter nil 'tool-bar-lines 0))
-    (set-frame-parameter nil 'tool-bar-lines writeroom--tool-bar)
-    (setq writeroom--tool-bar nil)))
+This macro defines a function `writeroom-toggle-<FP>' that takes
+one argument and activates the effect if this argument is `t' and
+deactivates it when it is `nil'. When the effect is activated,
+the original value of frame parameter FP is stored in a frame
+parameter `writeroom-<FP>', so that it can be restored when the
+effect is deactivated."
+  (declare (indent defun))
+  (let ((wfp (intern (format "writeroom-%s" fp))))
+    `(fset (quote ,(intern (format "writeroom-toggle-%s" fp)))
+           #'(lambda (arg)
+               (if arg
+                   (progn
+                     (set-frame-parameter nil (quote ,wfp) (frame-parameter nil (quote ,fp)))
+                     (set-frame-parameter nil (quote ,fp) ,value))
+                 (set-frame-parameter nil (quote ,fp) (frame-parameter nil (quote ,wfp)))
+                 (set-frame-parameter nil (quote ,wfp) nil))))))
 
-(defun writeroom--scroll-bar (arg)
-  "Turn the scroll bar on/off."
-  (if arg
-      (progn
-        (setq writeroom--scroll-bar (frame-parameter nil 'vertical-scroll-bars))
-        (set-frame-parameter nil 'vertical-scroll-bars nil))
-    (set-frame-parameter nil 'vertical-scroll-bars writeroom--scroll-bar)
-    (setq writeroom--scroll-bar nil)))
+(define-writeroom-global-effect fullscreen writeroom-fullscreen-effect)
+(define-writeroom-global-effect alpha '(100 100))
+(define-writeroom-global-effect vertical-scroll-bars nil)
+(define-writeroom-global-effect menu-bar-lines 0)
+(define-writeroom-global-effect tool-bar-lines 0)
+(define-writeroom-global-effect internal-border-width writeroom-border-width)
 
-(defun writeroom--border (arg)
-  "Set/unset the internal frame border."
-  (if arg
-      (progn
-        (setq writeroom--internal-border-width (frame-parameter nil 'internal-border-width))
-        (set-frame-parameter nil 'internal-border-width writeroom-border-width))
-    (set-frame-parameter nil 'internal-border-width writeroom--internal-border-width)
-    (setq writeroom--internal-border-width nil)))
-
+;; mode definitions
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.
 This function activates `writeroom-mode' in a buffer if that
