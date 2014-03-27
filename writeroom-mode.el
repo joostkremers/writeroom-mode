@@ -55,6 +55,8 @@
   "Record tool bar status before enabling `writeroom-mode'.")
 (defvar writeroom--scroll-bar nil
   "Record scrollbar status before enabling `writeroom-mode'.")
+(defvar writeroom--internal-border-width nil
+  "Record internal border width before enabling `writeroom-mode'.")
 
 (defgroup writeroom nil "Minor mode for distraction-free writing."
   :group 'wp
@@ -98,6 +100,13 @@ maximized but window decorations are still available."
   :type '(choice (const :tag "Fullscreen" fullboth)
                  (const :tag "Maximized" maximized)))
 
+(defcustom writeroom-border-width 30
+  "Width of the border.
+To use this option, select the option \"Add border\" in `Global
+Effects'. This adds a border around the text area."
+  :group 'writeroom
+  :type '(integer :tag "Border width"))
+
 (define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
 
 (defcustom writeroom-global-effects '(writeroom--fullscreen
@@ -115,6 +124,7 @@ buffer."
               (const :tag "Disable scroll bar" writeroom--scroll-bar)
               (const :tag "Disable menu bar" writeroom--menu-bar)
               (const :tag "Disable tool bar" writeroom--tool-bar)
+              (const :tag "Add border" writeroom--border)
               (repeat :inline t :tag "Custom effects" function)))
 
 (defcustom writeroom-major-modes '(text-mode)
@@ -168,6 +178,15 @@ with `global-writeroom-mode'."
         (set-frame-parameter nil 'vertical-scroll-bars nil))
     (set-frame-parameter nil 'vertical-scroll-bars writeroom--scroll-bar)
     (setq writeroom--scroll-bar nil)))
+
+(defun writeroom--border (arg)
+  "Set/unset the internal frame border."
+  (if arg
+      (progn
+        (setq writeroom--internal-border-width (frame-parameter nil 'internal-border-width))
+        (set-frame-parameter nil 'internal-border-width writeroom-border-width))
+    (set-frame-parameter nil 'internal-border-width writeroom--internal-border-width)
+    (setq writeroom--internal-border-width nil)))
 
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.
