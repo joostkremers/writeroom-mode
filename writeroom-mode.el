@@ -101,7 +101,7 @@ maximized but window decorations are still available."
                  (const :tag "Maximized" maximized)))
 
 (defcustom writeroom-border-width 30
-  "Width of the border.
+  "Width in pixels of the border.
 To use this option, select the option \"Add border\" in `Global
 Effects'. This adds a border around the text area."
   :group 'writeroom
