@@ -61,8 +61,8 @@
   :type 'boolean)
 
 (defvar writeroom--mode-line nil
-  "Contents of mode-line-format before disabling the mode line.
-Used to restore the mode line after disabling writeroom-mode.")
+  "Contents of `mode-line-format' before disabling the mode line.
+Used to restore the mode line after disabling `writeroom-mode'.")
 (make-variable-buffer-local 'writeroom--mode-line)
 
 (defcustom writeroom-disable-fringe t
