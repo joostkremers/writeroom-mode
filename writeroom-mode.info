@@ -81,6 +81,9 @@ entirely on the up and up, since minor modes aren't supposed to have
 such global effects. But `writeroom-mode' is meant for distraction-free
 writing, so these effects do make sense.
 
+There is also the option to add a border around the text area, but this
+is disabled by default.
+
 
 File: writeroom-mode.info,  Node: Customisation,  Next: Multiple writeroom-mode buffers,  Prev: Usage,  Up: Writeroom-mode
 
@@ -90,8 +93,9 @@ File: writeroom-mode.info,  Node: Customisation,  Next: Multiple writeroom-mode 
 All `writeroom-mode' effects can be switched off separately in the
 customisation group `writeroom'. The option `writeroom-global-effects'
 lists the global effects (fullscreen, transparency, scroll bar, menu
-bar and tool bar), which can be switched off individually. The fringes,
-the mode line and the window maximisation each have a toggle option.
+bar, tool bar, and border), which can be switched off individually. The
+fringes, the mode line and the window maximisation each have a toggle
+option.
 
 Normally, the option 'fullscreen' disables the window decorations and
 makes the Emacs frame occupy the entire screen, covering the window
@@ -100,7 +104,10 @@ manager's panel or task bar. If you prefer to "just" maximise the frame
 manager's panel), you can set the option `writeroom-fullscreen-effect'
 to `maximized' instead of `fullboth' (the default).
 
-Lastly, the width of the text area is controlled by the option
+The width of the (normally disabled) border around the text area is
+controlled by the user option `writeroom-border-width'.
+
+The width of the text area can be specified with the option
 `writeroom-width'. It can be an absolute value, in which case it
 indicates the number of columns, or it can be a percentage of the
 window's width. In that case, it should be a number between 0 and 1.
@@ -165,14 +172,14 @@ Node: Installation815
 Ref: #installation935
 Node: Usage1197
 Ref: #usage1325
-Node: Customisation2154
-Ref: #customisation2317
-Node: Multiple writeroom-mode buffers3327
-Ref: #multiple-writeroom-mode-buffers3542
-Node: Adding global effects4497
-Ref: #adding-global-effects4695
-Node: New in version 25264
-Ref: #new-in-version-25412
+Node: Customisation2251
+Ref: #customisation2414
+Node: Multiple writeroom-mode buffers3555
+Ref: #multiple-writeroom-mode-buffers3770
+Node: Adding global effects4725
+Ref: #adding-global-effects4923
+Node: New in version 25492
+Ref: #new-in-version-25640
 
 End Tag Table
 
