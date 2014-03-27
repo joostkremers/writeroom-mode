@@ -33,7 +33,7 @@ All `writeroom-mode` effects can be switched off separately in the customisation
 
 Normally, the option 'fullscreen' disables the window decorations and makes the Emacs frame occupy the entire screen, covering the window manager's panel or task bar. If you prefer to "just" maximise the frame (i.e., keep the window decorations and do not cover the window manager's panel), you can set the option `writeroom-fullscreen-effect` to `maximized` instead of `fullboth` (the default).
 
-The width of the (normally disabled) border around the text area is controlled by the user option `writeroom-border-width`.
+The width of the (normally disabled) border around the text area is controlled by the user option `writeroom-border-width`. To use this option, check the relevant box in the customisation option 'Global Effects' or add the symbol `writeroom--border` to the variable `writeroom-global-effects`.
 
 The width of the text area can be specified with the option `writeroom-width`. It can be an absolute value, in which case it indicates the number of columns, or it can be a percentage of the window's width. In that case, it should be a number between 0 and 1.
 

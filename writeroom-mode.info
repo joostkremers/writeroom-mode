@@ -105,7 +105,10 @@ manager's panel), you can set the option `writeroom-fullscreen-effect'
 to `maximized' instead of `fullboth' (the default).
 
 The width of the (normally disabled) border around the text area is
-controlled by the user option `writeroom-border-width'.
+controlled by the user option `writeroom-border-width'. To use this
+option, check the relevant box in the customisation option 'Global
+Effects' or add the symbol `writeroom--border' to the variable
+`writeroom-global-effects'.
 
 The width of the text area can be specified with the option
 `writeroom-width'. It can be an absolute value, in which case it
@@ -174,12 +177,12 @@ Node: Usage1197
 Ref: #usage1325
 Node: Customisation2251
 Ref: #customisation2414
-Node: Multiple writeroom-mode buffers3555
-Ref: #multiple-writeroom-mode-buffers3770
-Node: Adding global effects4725
-Ref: #adding-global-effects4923
-Node: New in version 25492
-Ref: #new-in-version-25640
+Node: Multiple writeroom-mode buffers3725
+Ref: #multiple-writeroom-mode-buffers3940
+Node: Adding global effects4895
+Ref: #adding-global-effects5093
+Node: New in version 25662
+Ref: #new-in-version-25810
 
 End Tag Table
 
