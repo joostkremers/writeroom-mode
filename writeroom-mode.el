@@ -121,15 +121,6 @@ buffer."
               (const :tag "Add border" writeroom-toggle-internal-border-width)
               (repeat :inline t :tag "Custom effects" function)))
 
-;; Global effect functions
-;;
-;; Global effect functions take one argument, which is `t' to activate the
-;; effect and `nil' to deactivate it. They all work by modifying frame
-;; parameters of the current frame. When activated, the value of the
-;; relevant frame parameter is stored in another frame parameter by the
-;; same name prepended with `writeroom-'. In this way, the original value
-;; can be restored.
-
 (defmacro define-writeroom-global-effect (fp value)
   "Define a global effect.
 The effect is activated by setting frame parameter FP to VALUE.
@@ -163,7 +154,6 @@ effect is deactivated."
 (define-writeroom-global-effect tool-bar-lines 0)
 (define-writeroom-global-effect internal-border-width writeroom-border-width)
 
-;; mode definitions
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.
 This function activates `writeroom-mode' in a buffer if that
