@@ -5,7 +5,7 @@
 
 ## Installation ##
 
-`writeroom-mode` can be installed by putting `writeroom-mode.el` in your `load-path` and calling `(load "writeroom-mode")` in your `init.el` or, more conveniently, through the package manager: `writeroom-mode` is available on [Melpa](http://melpa.milkbox.net/).
+`writeroom-mode` can be installed by putting `writeroom-mode.el` in your `load-path` and calling `(load "writeroom-mode")` in your `init.el` or, more conveniently, through the package manager: `writeroom-mode` is available on [Melpa](http://melpa.org/).
 
 
 ## Usage ##

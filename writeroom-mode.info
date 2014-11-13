@@ -43,7 +43,7 @@ File: writeroom-mode.info,  Node: Installation,  Next: Usage,  Up: Writeroom-mod
 `writeroom-mode' can be installed by putting `writeroom-mode.el' in
 your `load-path' and calling `(load "writeroom-mode")' in your
 `init.el' or, more conveniently, through the package manager:
-`writeroom-mode' is available on Melpa (http://melpa.milkbox.net/).
+`writeroom-mode' is available on Melpa (http://melpa.org/).
 
 
 File: writeroom-mode.info,  Node: Usage,  Next: Customisation,  Prev: Installation,  Up: Writeroom-mode
@@ -107,8 +107,8 @@ to `maximized' instead of `fullboth' (the default).
 The width of the (normally disabled) border around the text area is
 controlled by the user option `writeroom-border-width'. To use this
 option, check the relevant box in the customisation option 'Global
-Effects' or add the symbol `writeroom--border' to the variable
-`writeroom-global-effects'.
+Effects' or add the symbol `writeroom-toggle-internal-border-width' to
+the variable `writeroom-global-effects'.
 
 The width of the text area can be specified with the option
 `writeroom-width'. It can be an absolute value, in which case it
@@ -173,16 +173,16 @@ Node: Writeroom-mode340
 Ref: #writeroom-mode449
 Node: Installation815
 Ref: #installation935
-Node: Usage1197
-Ref: #usage1325
-Node: Customisation2251
-Ref: #customisation2414
-Node: Multiple writeroom-mode buffers3725
-Ref: #multiple-writeroom-mode-buffers3940
-Node: Adding global effects4895
-Ref: #adding-global-effects5093
-Node: New in version 25662
-Ref: #new-in-version-25810
+Node: Usage1189
+Ref: #usage1317
+Node: Customisation2243
+Ref: #customisation2406
+Node: Multiple writeroom-mode buffers3738
+Ref: #multiple-writeroom-mode-buffers3953
+Node: Adding global effects4908
+Ref: #adding-global-effects5106
+Node: New in version 25675
+Ref: #new-in-version-25823
 
 End Tag Table
 
