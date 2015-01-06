@@ -6,7 +6,7 @@
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
 ;; Package-Requires: ((emacs "24.1"))
-;; Version: 2.0
+;; Version: 2.1
 ;; Keywords: text
 
 ;; Redistribution and use in source and binary forms, with or without
@@ -56,15 +56,26 @@
   :type '(choice (integer :label "Absolute width:")
                  (float :label "Relative width:" :value 0.5)))
 
-(defcustom writeroom-disable-mode-line t
-  "Whether to disable the mode line in writeroom buffers."
+(defcustom writeroom-mode-line nil
+  "The mode line format to use.
+By default, this option is set to `nil', which disables the mode
+line when `writeroom-mode' is activated. By setting the option to
+`t', the standard mode line is retained. Alternatively, it is
+possible to specify a special mode line for `writeroom-mode'
+buffers. If this option is chosen, the default is to only show
+the buffer's modification status and the buffer name, but the
+format can be customized. See the documentation for the variable
+`mode-line-format' for further inormation."
   :group 'writeroom
-  :type 'boolean)
+  :type '(choice (const :tag "Disable the mode line" nil)
+                 (const :tag "Use default mode line" t)
+                 (sexp :tag "Customize mode line"
+                       :value ("   " mode-line-modified "   " mode-line-buffer-identification))))
 
-(defvar writeroom--mode-line nil
+(defvar writeroom--saved-mode-line nil
   "Contents of `mode-line-format' before disabling the mode line.
 Used to restore the mode line after disabling `writeroom-mode'.")
-(make-variable-buffer-local 'writeroom--mode-line)
+(make-variable-buffer-local 'writeroom--saved-mode-line)
 
 (defcustom writeroom-disable-fringe t
   "Whether to disable the left and right fringes when writeroom is activated."
@@ -249,9 +260,9 @@ buffer in which `writeroom-mode' is activated."
   (add-hook 'window-configuration-change-hook #'writeroom--adjust-window nil t)
   (when writeroom-maximize-window
     (delete-other-windows))
-  (when writeroom-disable-mode-line
-    (setq writeroom--mode-line mode-line-format)
-    (setq mode-line-format nil))
+  (unless (eq writeroom-mode-line t) ; if t, use standard mode line
+    (setq writeroom--saved-mode-line mode-line-format)
+    (setq mode-line-format writeroom-mode-line))
   ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
@@ -269,9 +280,9 @@ was active."
   (when (not writeroom--buffers)
     (writeroom--activate-global-effects nil))
   (remove-hook 'window-configuration-change-hook #'writeroom--adjust-window t)
-  (when writeroom-disable-mode-line
-    (setq mode-line-format writeroom--mode-line)
-    (setq writeroom--mode-line nil))
+  (when writeroom--saved-mode-line
+    (setq mode-line-format writeroom--saved-mode-line)
+    (setq writeroom--saved-mode-line nil))
   ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)

@@ -29,13 +29,15 @@ There is also the option to add a border around the text area, but this is disab
 
 ## Customisation ##
 
-All `writeroom-mode` effects can be switched off separately in the customisation group `writeroom`. The option `writeroom-global-effects` lists the global effects (fullscreen, transparency, scroll bar, menu bar, tool bar, and border), which can be switched off individually. The fringes, the mode line and the window maximisation each have a toggle option.
+All `writeroom-mode` effects can be switched off separately in the customisation group `writeroom`. The option `writeroom-global-effects` lists the global effects (fullscreen, transparency, scroll bar, menu bar, tool bar, and border), which can be switched off individually. The fringes and the window maximisation have a toggle option.
 
 Normally, the option 'fullscreen' disables the window decorations and makes the Emacs frame occupy the entire screen, covering the window manager's panel or task bar. If you prefer to "just" maximise the frame (i.e., keep the window decorations and do not cover the window manager's panel), you can set the option `writeroom-fullscreen-effect` to `maximized` instead of `fullboth` (the default).
 
-The width of the (normally disabled) border around the text area is controlled by the user option `writeroom-border-width`. To use this option, check the relevant box in the customisation option 'Global Effects' or add the symbol `writeroom-toggle-internal-border-width` to the variable `writeroom-global-effects`.
+The option `writeroom-mode-line` is used to control the appearance of the mode line. By default, it is disabled, but this option allows you to use the default mode line or to customise the mode line for `writeroom-mode` buffers. If you choose the latter option, the suggested mode line format displays only the modification status and the buffer name, but you can change this.
 
 The width of the text area can be specified with the option `writeroom-width`. It can be an absolute value, in which case it indicates the number of columns, or it can be a percentage of the window's width. In that case, it should be a number between 0 and 1.
+
+The width of the (normally disabled) border around the text area is controlled by the user option `writeroom-border-width`. To use this option, check the relevant box in the customisation option 'Global Effects' or add the symbol `writeroom-toggle-internal-border-width` to the variable `writeroom-global-effects`.
 
 
 ## Multiple writeroom-mode buffers ##
