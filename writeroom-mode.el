@@ -5,6 +5,7 @@
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
+;; Package-Requires: ((emacs "24"))
 ;; Version: 2.0
 ;; Keywords: text
 
