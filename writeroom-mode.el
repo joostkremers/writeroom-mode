@@ -234,7 +234,9 @@ If MARGIN is nil, the margins are set according to
         (setq margin
               (cond
                ((integerp writeroom-width)
-                (/ (- current-width writeroom-width) 2))
+                (if (< current-width writeroom-width)
+                    0
+                  (/ (- current-width writeroom-width) 2)))
                ((floatp writeroom-width)
                 (/ (- current-width (truncate (* current-width writeroom-width))) 2))))))
   (set-window-margins window margin margin))
