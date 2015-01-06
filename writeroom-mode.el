@@ -140,13 +140,13 @@ effect is deactivated."
   (declare (indent defun))
   (let ((wfp (intern (format "writeroom-%s" fp))))
     `(fset (quote ,(intern (format "writeroom-toggle-%s" fp)))
-           #'(lambda (arg)
-               (if arg
-                   (progn
-                     (set-frame-parameter nil (quote ,wfp) (frame-parameter nil (quote ,fp)))
-                     (set-frame-parameter nil (quote ,fp) ,value))
-                 (set-frame-parameter nil (quote ,fp) (frame-parameter nil (quote ,wfp)))
-                 (set-frame-parameter nil (quote ,wfp) nil))))))
+           (lambda (arg)
+             (if arg
+                 (progn
+                   (set-frame-parameter nil (quote ,wfp) (frame-parameter nil (quote ,fp)))
+                   (set-frame-parameter nil (quote ,fp) ,value))
+               (set-frame-parameter nil (quote ,fp) (frame-parameter nil (quote ,wfp)))
+               (set-frame-parameter nil (quote ,wfp) nil))))))
 
 (define-writeroom-global-effect fullscreen writeroom-fullscreen-effect)
 (define-writeroom-global-effect alpha '(100 100))
@@ -191,8 +191,8 @@ effects accordingly."
   "Activate or deactivate global effects.
 The effects are activated if ARG is non-nil, and deactivated
 otherwise."
-  (mapc #'(lambda (fn)
-            (funcall fn arg))
+  (mapc (lambda (fn)
+          (funcall fn arg))
         writeroom-global-effects))
 
 (defun writeroom--adjust-window (&optional arg window)
@@ -246,7 +246,7 @@ buffer in which `writeroom-mode' is activated."
   (when (not writeroom--buffers)
     (writeroom--activate-global-effects t))
   (add-to-list 'writeroom--buffers (current-buffer))
-  (add-hook 'window-configuration-change-hook 'writeroom--adjust-window nil t)
+  (add-hook 'window-configuration-change-hook #'writeroom--adjust-window nil t)
   (when writeroom-maximize-window
     (delete-other-windows))
   (when writeroom-disable-mode-line
@@ -254,8 +254,8 @@ buffer in which `writeroom-mode' is activated."
     (setq mode-line-format nil))
   ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
-  (mapc #'(lambda (w)
-            (writeroom--adjust-window nil w))
+  (mapc (lambda (w)
+          (writeroom--adjust-window nil w))
         (get-buffer-window-list (current-buffer) nil)))
 
 (defun writeroom--disable ()
@@ -268,14 +268,14 @@ was active."
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
   (when (not writeroom--buffers)
     (writeroom--activate-global-effects nil))
-  (remove-hook 'window-configuration-change-hook 'writeroom--adjust-window t)
+  (remove-hook 'window-configuration-change-hook #'writeroom--adjust-window t)
   (when writeroom-disable-mode-line
     (setq mode-line-format writeroom--mode-line)
     (setq writeroom--mode-line nil))
   ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
-  (mapc #'(lambda (w)
-            (writeroom--adjust-window t w))
+  (mapc (lambda (w)
+          (writeroom--adjust-window t w))
         (get-buffer-window-list (current-buffer) nil)))
 
 (provide 'writeroom-mode)
