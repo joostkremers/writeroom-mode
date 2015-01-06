@@ -280,4 +280,4 @@ was active."
 
 (provide 'writeroom-mode)
 
-;;; writeroom-mode ends here
+;;; writeroom-mode.el ends here
