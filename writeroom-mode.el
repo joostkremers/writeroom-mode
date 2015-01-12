@@ -5,7 +5,7 @@
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
-;; Package-Requires: ((emacs "24.1"))
+;; Package-Requires: ((emacs "24.1") (visual-fill-column "1.1"))
 ;; Version: 2
 ;; Keywords: text
 
