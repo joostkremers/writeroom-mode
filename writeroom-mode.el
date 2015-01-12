@@ -60,9 +60,9 @@
 
 (defcustom writeroom-mode-line nil
   "The mode line format to use.
-By default, this option is set to `nil', which disables the mode
+By default, this option is set to nil, which disables the mode
 line when `writeroom-mode' is activated. By setting the option to
-`t', the standard mode line is retained. Alternatively, it is
+t, the standard mode line is retained. Alternatively, it is
 possible to specify a special mode line for `writeroom-mode'
 buffers. If this option is chosen, the default is to only show
 the buffer's modification status and the buffer name, but the
@@ -86,7 +86,7 @@ Used to restore the mode line after disabling `writeroom-mode'.")
 
 (defcustom writeroom-maximize-window t
   "Whether to maximize the current window in its frame.
-When set to `t', `writeroom-mode' deletes all other windows in
+When set to t, `writeroom-mode' deletes all other windows in
 the current frame."
   :group 'writeroom
   :type '(choice (const :tag "Maximize window" t)
@@ -145,8 +145,8 @@ should be the name of a global variable whose value is then
 assigned to FP.
 
 This macro defines a function `writeroom-toggle-<FP>' that takes
-one argument and activates the effect if this argument is `t' and
-deactivates it when it is `nil'. When the effect is activated,
+one argument and activates the effect if this argument is t and
+deactivates it when it is nil. When the effect is activated,
 the original value of frame parameter FP is stored in a frame
 parameter `writeroom-<FP>', so that it can be restored when the
 effect is deactivated."
