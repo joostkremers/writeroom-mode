@@ -40,10 +40,9 @@ File: writeroom-mode.info,  Node: Installation,  Next: Usage,  Up: Writeroom-mod
 1.1 Installation
 ================
 
-`writeroom-mode' can be installed by putting `writeroom-mode.el' in
-your `load-path' and calling `(load "writeroom-mode")' in your
-`init.el' or, more conveniently, through the package manager:
-`writeroom-mode' is available on Melpa (http://melpa.org/).
+`writeroom-mode' can be installed through the package manager from
+Melpa (http://melpa.org/). If installing manually, make sure to also
+install `visual-fill-column'.
 
 
 File: writeroom-mode.info,  Node: Usage,  Next: Customisation,  Prev: Installation,  Up: Writeroom-mode
@@ -179,16 +178,16 @@ Node: Writeroom-mode340
 Ref: #writeroom-mode449
 Node: Installation815
 Ref: #installation935
-Node: Usage1189
-Ref: #usage1317
-Node: Customisation2243
-Ref: #customisation2406
-Node: Multiple writeroom-mode buffers4096
-Ref: #multiple-writeroom-mode-buffers4311
-Node: Adding global effects5266
-Ref: #adding-global-effects5464
-Node: New in version 26033
-Ref: #new-in-version-26181
+Node: Usage1102
+Ref: #usage1230
+Node: Customisation2156
+Ref: #customisation2319
+Node: Multiple writeroom-mode buffers4009
+Ref: #multiple-writeroom-mode-buffers4224
+Node: Adding global effects5179
+Ref: #adding-global-effects5377
+Node: New in version 25946
+Ref: #new-in-version-26094
 
 End Tag Table
 

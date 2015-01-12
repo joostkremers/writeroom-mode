@@ -5,7 +5,7 @@
 
 ## Installation ##
 
-`writeroom-mode` can be installed by putting `writeroom-mode.el` in your `load-path` and calling `(load "writeroom-mode")` in your `init.el` or, more conveniently, through the package manager: `writeroom-mode` is available on [Melpa](http://melpa.org/).
+`writeroom-mode` can be installed through the package manager from [Melpa](http://melpa.org/). If installing manually, make sure to also install `visual-fill-column`.
 
 
 ## Usage ##
