@@ -58,6 +58,12 @@
   :type '(choice (integer :label "Absolute width:")
                  (float :label "Relative width:" :value 0.5)))
 
+(defvar writeroom--saved-visual-fill-column nil
+  "Flag to store the status of `visual-fill-column-mode'.
+Used to restore `visual-fill-colum-mode' if it was active before
+activating `writeroom-mode'.")
+(make-variable-buffer-local 'writeroom--saved-visual-fill-column)
+
 (defcustom writeroom-mode-line nil
   "The mode line format to use.
 By default, this option is set to nil, which disables the mode
@@ -222,12 +228,17 @@ buffer in which `writeroom-mode' is activated."
   (unless (eq writeroom-mode-line t) ; if t, use standard mode line
     (setq writeroom--saved-mode-line mode-line-format)
     (setq mode-line-format writeroom-mode-line))
+
+  ;; save the status of `visual-fill-column-mode' before (re)enabling it
+  ;; with writeroom-specific settings.
+  (setq writeroom--saved-visual-fill-column visual-fill-column-mode)
   (setq visual-fill-column-width (if (floatp writeroom-width)
                                      (truncate (* (window-total-width) writeroom-width))
                                    writeroom-width)
         visual-fill-column-center-text t
         visual-fill-column-disable-fringe writeroom-disable-fringe)
   (visual-fill-column-mode 1)
+
   ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
@@ -252,13 +263,19 @@ was active."
   (kill-local-variable 'visual-fill-column-width)
   (kill-local-variable 'visual-fill-column-center-text)
   (kill-local-variable 'visual-fill-column-disable-fringe)
+
   ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
           (with-selected-window w
             (set-window-margins (selected-window) 0 0)
             (set-window-fringes (selected-window) nil nil)))
-        (get-buffer-window-list (current-buffer) nil)))
+        (get-buffer-window-list (current-buffer) nil))
+
+  ;; reenable `visual-fill-colummn-mode' with original settings if it was
+  ;; active before activating `writeroom-mode'.
+  (if writeroom--saved-visual-fill-column
+      (visual-fill-column-mode 1)))
 
 (provide 'writeroom-mode)
 
