@@ -24,7 +24,9 @@
 
 The last three effects are buffer-local. The other effects apply to the current frame. Because `writeroom-mode` is a minor mode, this isn't entirely on the up and up, since minor modes aren't supposed to have such global effects. But `writeroom-mode` is meant for distraction-free writing, so these effects do make sense.
 
-There is also the option to add a border around the text area, but this is disabled by default.
+It is also possible to restore the original window configuration when `writeroom-mode` is disabled. This is mostly useful when you use `writeroom-mode` in only a single buffer, because the window configuration that is restored is the one that existed when `writeroom-mode` was first activated.
+
+Lastly, there is the option to add a border around the text area, but this is disabled by default.
 
 
 ## Customisation ##
@@ -37,7 +39,7 @@ The option `writeroom-mode-line` is used to control the appearance of the mode l
 
 The width of the text area can be specified with the option `writeroom-width`. It can be an absolute value, in which case it indicates the number of columns, or it can be a percentage of the window's width. In that case, it should be a number between 0 and 1.
 
-The width of the (normally disabled) border around the text area is controlled by the user option `writeroom-border-width`. To use this option, check the relevant box in the customisation option 'Global Effects' or add the symbol `writeroom-toggle-internal-border-width` to the variable `writeroom-global-effects`.
+The option to restore the window configuration can be activated by setting the option `writeroom-restore-window-config`, which is disabled by default. Lastly, the width of the (normally disabled) border around the text area is controlled by the user option `writeroom-border-width`. To use this option, check the relevant box in the customisation option 'Global Effects' or add the symbol `writeroom-toggle-internal-border-width` to the variable `writeroom-global-effects`.
 
 
 ## Multiple writeroom-mode buffers ##

@@ -80,8 +80,14 @@ entirely on the up and up, since minor modes aren't supposed to have
 such global effects. But `writeroom-mode' is meant for distraction-free
 writing, so these effects do make sense.
 
-There is also the option to add a border around the text area, but this
-is disabled by default.
+It is also possible to restore the original window configuration when
+`writeroom-mode' is disabled. This is mostly useful when you use
+`writeroom-mode' in only a single buffer, because the window
+configuration that is restored is the one that existed when
+`writeroom-mode' was first activated.
+
+Lastly, there is the option to add a border around the text area, but
+this is disabled by default.
 
 
 File: writeroom-mode.info,  Node: Customisation,  Next: Multiple writeroom-mode buffers,  Prev: Usage,  Up: Writeroom-mode
@@ -114,11 +120,14 @@ The width of the text area can be specified with the option
 indicates the number of columns, or it can be a percentage of the
 window's width. In that case, it should be a number between 0 and 1.
 
-The width of the (normally disabled) border around the text area is
-controlled by the user option `writeroom-border-width'. To use this
-option, check the relevant box in the customisation option 'Global
-Effects' or add the symbol `writeroom-toggle-internal-border-width' to
-the variable `writeroom-global-effects'.
+The option to restore the window configuration can be activated by
+setting the option `writeroom-restore-window-config', which is disabled
+by default. Lastly, the width of the (normally disabled) border around
+the text area is controlled by the user option
+`writeroom-border-width'. To use this option, check the relevant box in
+the customisation option 'Global Effects' or add the symbol
+`writeroom-toggle-internal-border-width' to the variable
+`writeroom-global-effects'.
 
 
 File: writeroom-mode.info,  Node: Multiple writeroom-mode buffers,  Next: Adding global effects,  Prev: Customisation,  Up: Writeroom-mode
@@ -180,14 +189,14 @@ Node: Installation815
 Ref: #installation935
 Node: Usage1102
 Ref: #usage1230
-Node: Customisation2156
-Ref: #customisation2319
-Node: Multiple writeroom-mode buffers4009
-Ref: #multiple-writeroom-mode-buffers4224
-Node: Adding global effects5179
-Ref: #adding-global-effects5377
-Node: New in version 25946
-Ref: #new-in-version-26094
+Node: Customisation2454
+Ref: #customisation2617
+Node: Multiple writeroom-mode buffers4466
+Ref: #multiple-writeroom-mode-buffers4681
+Node: Adding global effects5636
+Ref: #adding-global-effects5834
+Node: New in version 26403
+Ref: #new-in-version-26551
 
 End Tag Table
 

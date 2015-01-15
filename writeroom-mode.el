@@ -6,7 +6,7 @@
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
 ;; Package-Requires: ((emacs "24.1") (visual-fill-column "1.1"))
-;; Version: 2.7
+;; Version: 2.8
 ;; Keywords: text
 
 ;; Redistribution and use in source and binary forms, with or without
@@ -123,6 +123,20 @@ with `global-writeroom-mode'."
   :group 'writeroom
   :type '(repeat (symbol :tag "Major mode")))
 
+(defcustom writeroom-restore-window-config nil
+  "If set, restore window configuration after disabling `writeroom-mode'.
+Setting this option makes sense primarily if `writeroom-mode' is
+used in one buffer only. The window configuration that is stored
+is the one that exists when `writeroom-mode' is first called, and
+it is restored when `writeroom-mode' is deactivated in the last
+buffer."
+  :group 'writeroom
+  :type '(choice (const :tag "Do not restore window configuration" nil)
+                 (const :tag "Restore window configuration" t)))
+
+(defvar writeroom--saved-window-config nil
+  "Window configuration active before `writeroom-mode' is activated.")
+
 (defcustom writeroom-global-effects '(writeroom-toggle-fullscreen
                                       writeroom-toggle-alpha
                                       writeroom-toggle-vertical-scroll-bars
@@ -221,7 +235,9 @@ fringes, and maximizes the window. It also runs the functions in
 `writeroom-global-effects' if the current buffer is the first
 buffer in which `writeroom-mode' is activated."
   (when (not writeroom--buffers)
-    (writeroom--activate-global-effects t))
+    (writeroom--activate-global-effects t)
+    (if writeroom-restore-window-config
+        (setq writeroom--saved-window-config (current-window-configuration))))
   (add-to-list 'writeroom--buffers (current-buffer))
   (when writeroom-maximize-window
     (delete-other-windows))
@@ -255,7 +271,9 @@ and the fringes. It also runs the functions in
 was active."
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
   (when (not writeroom--buffers)
-    (writeroom--activate-global-effects nil))
+    (writeroom--activate-global-effects nil)
+    (if writeroom-restore-window-config
+        (set-window-configuration writeroom--saved-window-config)))
   (when writeroom--saved-mode-line
     (setq mode-line-format writeroom--saved-mode-line)
     (setq writeroom--saved-mode-line nil))
