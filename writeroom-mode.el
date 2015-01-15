@@ -209,10 +209,10 @@ buffer's major mode is a member of `writeroom-major-modes'."
   :group 'writeroom)
 
 (defun writeroom--kill-buffer-function ()
-  "Function to run when killing a buffer.
-This function checks if `writeroom-mode' is enabled in the buffer
-to be killed and adjusts `writeroom--buffers' and the global
-effects accordingly."
+  "Disable `writeroom-mode' before killing a buffer, if necessary.
+This function is for use in `kill-buffer-hook'. It checks whether
+`writeroom-mode' is enabled in the buffer to be killed and
+adjusts `writeroom--buffers' and the global effects accordingly."
   (when writeroom-mode
     (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
     (when (not writeroom--buffers)
