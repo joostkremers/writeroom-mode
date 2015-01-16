@@ -134,6 +134,12 @@ buffer."
   :type '(choice (const :tag "Do not restore window configuration" nil)
                  (const :tag "Restore window configuration" t)))
 
+(defcustom writeroom-extra-line-spacing 0.8
+  "Additional line spacing for `writeroom-mode`"
+   :group 'writeroom
+   :type '(choice (integer :label "Absolute height:")
+		  (float :label "Relative height:" :value 0.8)))
+
 (defvar writeroom--saved-window-config nil
   "Window configuration active before `writeroom-mode' is activated.")
 
@@ -141,7 +147,8 @@ buffer."
                                       writeroom-toggle-alpha
                                       writeroom-toggle-vertical-scroll-bars
                                       writeroom-toggle-menu-bar-lines
-                                      writeroom-toggle-tool-bar-lines)
+                                      writeroom-toggle-tool-bar-lines
+				      writeroom-toggle-line-spacing)
   "List of global effects for `writeroom-mode'.
 These effects are enabled when `writeroom-mode' is activated in
 the first buffer and disabled when it is deactivated in the last
@@ -153,6 +160,7 @@ buffer."
               (const :tag "Disable tool bar" writeroom-toggle-tool-bar-lines)
               (const :tag "Disable scroll bar" writeroom-toggle-vertical-scroll-bars)
               (const :tag "Add border" writeroom-toggle-internal-border-width)
+              (const :tag "Disable line-spacing" writeroom-toggle-line-spacing)
               (repeat :inline t :tag "Custom effects" function)))
 
 (defmacro define-writeroom-global-effect (fp value)
@@ -187,6 +195,7 @@ effect is deactivated."
 (define-writeroom-global-effect menu-bar-lines 0)
 (define-writeroom-global-effect tool-bar-lines 0)
 (define-writeroom-global-effect internal-border-width writeroom-border-width)
+(define-writeroom-global-effect line-spacing writeroom-extra-line-spacing)
 
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.
