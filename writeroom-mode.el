@@ -73,7 +73,7 @@ possible to specify a special mode line for `writeroom-mode'
 buffers. If this option is chosen, the default is to only show
 the buffer's modification status and the buffer name, but the
 format can be customized. See the documentation for the variable
-`mode-line-format' for further inormation."
+`mode-line-format' for further information."
   :group 'writeroom
   :type '(choice (const :tag "Disable the mode line" nil)
                  (const :tag "Use default mode line" t)
