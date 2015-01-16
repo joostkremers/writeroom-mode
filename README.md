@@ -24,22 +24,73 @@
 
 The last three effects are buffer-local. The other effects apply to the current frame. Because `writeroom-mode` is a minor mode, this isn't entirely on the up and up, since minor modes aren't supposed to have such global effects. But `writeroom-mode` is meant for distraction-free writing, so these effects do make sense.
 
-It is also possible to restore the original window configuration when `writeroom-mode` is disabled. This is mostly useful when you use `writeroom-mode` in only a single buffer, because the window configuration that is restored is the one that existed when `writeroom-mode` was first activated.
-
-Lastly, there is the option to add a border around the text area, but this is disabled by default.
+There are some more options that are disabled by default but can be enabled in the customisation buffer.
 
 
 ## Customisation ##
 
-All `writeroom-mode` effects can be switched off separately in the customisation group `writeroom`. The option `writeroom-global-effects` lists the global effects (fullscreen, transparency, scroll bar, menu bar, tool bar, and border), which can be switched off individually. The fringes and the window maximisation have a toggle option.
+### Global Writeroom Mode ###
 
-Normally, the option 'fullscreen' disables the window decorations and makes the Emacs frame occupy the entire screen, covering the window manager's panel or task bar. If you prefer to "just" maximise the frame (i.e., keep the window decorations and do not cover the window manager's panel), you can set the option `writeroom-fullscreen-effect` to `maximized` instead of `fullboth` (the default).
+Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes in `writeroom-major-modes`.
 
-The option `writeroom-mode-line` is used to control the appearance of the mode line. By default, it is disabled, but this option allows you to use the default mode line or to customise the mode line for `writeroom-mode` buffers. If you choose the latter option, the suggested mode line format displays only the modification status and the buffer name, but you can change this.
 
-The width of the text area can be specified with the option `writeroom-width`. It can be an absolute value, in which case it indicates the number of columns, or it can be a percentage of the window's width. In that case, it should be a number between 0 and 1.
+### Border Width ###
 
-The option to restore the window configuration can be activated by setting the option `writeroom-restore-window-config`, which is disabled by default. Lastly, the width of the (normally disabled) border around the text area is controlled by the user option `writeroom-border-width`. To use this option, check the relevant box in the customisation option 'Global Effects' or add the symbol `writeroom-toggle-internal-border-width` to the variable `writeroom-global-effects`.
+Width of the border around the text area. Disabled by default, see `writeroom-global-effects` to enable the border.
+
+
+### Disable Fringe ###
+
+Disable left and right fringes.
+
+
+### Extra Line Spacing ###
+
+Increase the line spacing. Can be an absolute value (the number of pixels to add to the line) or a number relative to the default line height. Disabled by default.
+
+
+### Fullscreen Effect ###
+
+Effect to apply when `writeroom-mode` activates fullscreen. Can be `fullboth`, which uses the entire screen (i.e., window decorations are disabled and the window manager’s panel or task bar is covered by the Emacs frame) or `maximized`, in which case the Emacs frame is maximised but keeps its window decorations and does not cover the panel.
+
+
+### Global Effects ###
+
+List of global effects:
+
+- `fullscreen`
+- `transparency`
+- `scroll bar`
+- `menu bar`
+- `tool bar`
+- `border` (add a border around the text area; disabled by default)
+
+Each option can be enabled or disabled individually.
+
+
+### Major Modes ###
+
+List of major modes in which `writeroom-mode` should be activated automatically. Use in conjunction with `global-writeroom-mode`.
+
+
+### Maximize Window ###
+
+Maximise the current window in its frame, i.e., delete all other windows.
+
+
+### Mode Line ###
+
+Mode line format to use. By default, the mode line is disabled, but this option can be used to re-enable it. Either use the default mode line, or a customised mode line. The latter defaults to showing only the buffer’s name and its modified status, but it can be customised. See the doc string for `mode-line-format` for options.
+
+
+### Restore Window Config ###
+
+Restore the window configuration that existed before `writeroom-mode` was activated. This is primarily useful if you use `writeroom-mode` in only a single buffer, since the window configuration that is restored is the one that existed at the moment when `writeroom-mode` is called for the first time. Disabled by default.
+
+
+### Width ###
+
+Width of the text area. Can be specified as an absolute value (number of characters) or as a fraction of the total window width (in which case it should be a number between 0 and 1).
 
 
 ## Multiple writeroom-mode buffers ##
@@ -52,10 +103,3 @@ When `global-writeroom-mode` is active, the function `writeroom-mode` can still 
 ## Adding global effects ##
 
 It is possible to define your own global effects and have them activated automatically when `writeroom-mode` is activated. For example, you may want to add your own font or colour effects, or replace the default fullscreen function with one that works in an older Emacs version. To do this, write a function that takes one argument and that activates the effect when this argument is `t` and deactivates it when it is `nil`. Then add this function to the user option `writeroom-global-effects` by checking the box "Custom effects" and adding the function to the list.
-
-
-## New in version 2 ##
-
-* Add a global minor mode.
-* Automatically adjust margins when window width changes.
-* Rename `writeroom-global-functions` to `writeroom-global-effects`.
