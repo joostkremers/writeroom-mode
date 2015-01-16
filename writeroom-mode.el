@@ -240,8 +240,7 @@ otherwise."
 
 (defun writeroom--enable ()
   "Set up writeroom-mode for the current buffer.
-This function sets the margins, disables the mode line and the
-fringes, and maximizes the window. It also runs the functions in
+This function also runs the functions in
 `writeroom-global-effects' if the current buffer is the first
 buffer in which `writeroom-mode' is activated."
   (when (not writeroom--buffers)
@@ -280,8 +279,7 @@ buffer in which `writeroom-mode' is activated."
 
 (defun writeroom--disable ()
   "Reset the current buffer to its normal appearance.
-This function sets the margins to 0 and reenables the mode line
-and the fringes. It also runs the functions in
+This function also runs the functions in
 `writeroom-global-effects' to undo their effects if
 `writeroom-mode' is deactivated in the last buffer in which it
 was active."
