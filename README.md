@@ -58,12 +58,12 @@ Effect to apply when `writeroom-mode` activates fullscreen. Can be `fullboth`, w
 
 List of global effects:
 
-- `fullscreen`
-- `transparency`
-- `scroll bar`
-- `menu bar`
-- `tool bar`
-- `border` (add a border around the text area; disabled by default)
+- fullscreen
+- transparency
+- scroll bar
+- menu bar
+- tool bar
+- border (add a border around the text area; disabled by default)
 
 Each option can be enabled or disabled individually.
 
@@ -80,7 +80,7 @@ Maximise the current window in its frame, i.e., delete all other windows.
 
 ### Mode Line ###
 
-Mode line format to use. By default, the mode line is disabled, but this option can be used to re-enable it. Either use the default mode line, or a customised mode line. The latter defaults to showing only the buffer’s name and its modified status, but it can be customised. See the doc string for `mode-line-format` for options.
+Mode line format to use. By default, the mode line is disabled, but this option can be used to re-enable it. Either use the default mode line, or a customised mode line. The latter defaults to showing only the buffer’s name and its modified status, but this can be customised. See the doc string for `mode-line-format` for options.
 
 
 ### Restore Window Config ###

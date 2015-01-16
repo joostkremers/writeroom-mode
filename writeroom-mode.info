@@ -158,17 +158,17 @@ File: writeroom-mode.info,  Node: Global Effects,  Next: Major Modes,  Prev: Ful
 
 List of global effects:
 
-   * `fullscreen'
+   * fullscreen
 
-   * `transparency'
+   * transparency
 
-   * `scroll bar'
+   * scroll bar
 
-   * `menu bar'
+   * menu bar
 
-   * `tool bar'
+   * tool bar
 
-   * `border' (add a border around the text area; disabled by default)
+   * border (add a border around the text area; disabled by default)
 
 Each option can be enabled or disabled individually.
 
@@ -199,7 +199,7 @@ File: writeroom-mode.info,  Node: Mode Line,  Next: Restore Window Config,  Prev
 Mode line format to use. By default, the mode line is disabled, but
 this option can be used to re-enable it. Either use the default mode
 line, or a customised mode line. The latter defaults to showing only
-the buffer's name and its modified status, but it can be customised.
+the buffer's name and its modified status, but this can be customised.
 See the doc string for `mode-line-format' for options.
 
 
@@ -286,20 +286,20 @@ Node: Fullscreen Effect3640
 Ref: #fullscreen-effect3814
 Node: Global Effects4158
 Ref: #global-effects4319
-Node: Major Modes4563
-Ref: #major-modes4716
-Node: Maximize Window4847
-Ref: #maximize-window5003
-Node: Mode Line5078
-Ref: #mode-line5232
-Node: Restore Window Config5563
-Ref: #restore-window-config5733
-Node: Width6056
-Ref: #width6176
-Node: Multiple writeroom-mode buffers6360
-Ref: #multiple-writeroom-mode-buffers6575
-Node: Adding global effects7530
-Ref: #adding-global-effects7703
+Node: Major Modes4551
+Ref: #major-modes4704
+Node: Maximize Window4835
+Ref: #maximize-window4991
+Node: Mode Line5066
+Ref: #mode-line5220
+Node: Restore Window Config5553
+Ref: #restore-window-config5723
+Node: Width6046
+Ref: #width6166
+Node: Multiple writeroom-mode buffers6350
+Ref: #multiple-writeroom-mode-buffers6565
+Node: Adding global effects7520
+Ref: #adding-global-effects7693
 
 End Tag Table
 
