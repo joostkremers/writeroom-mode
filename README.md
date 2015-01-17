@@ -90,7 +90,17 @@ Width of the text area. Can be specified as an absolute value (number of charact
 
 ## The mode line ##
 
-By default, `writeroom-mode` disables the mode line. The command `writeroom-toggle-mode-line` makes the mode line temporarily visible in the header line.
+By default, `writeroom-mode` disables the mode line. Because the mode line can actually contain useful information, this may be impractical. For this reason, it is possible to use a customised mode line, which allows you to display information that is indispensable to you (e.g., the modified status, the file name).
+
+If, for some reason, you need to look at the full mode line, you can use the command `writeroom-toggle-mode-line`. This command makes the mode line visible in the header line (at the top of the window). Calling it again hides the mode line. This command is bound to `s-?` (`s` is the super key, i.e., the Windows key on PCs, the ⌘ key on Macs), but it can be rebound by putting something like the following in your `init.el`:
+
+```lisp
+(with-eval-after-load 'writeroom-mode
+  (define-key writeroom-mode-map (kbd "s-?") nil)
+  (define-key writeroom-mode-map (kbd "<some-key>") #’writeroom-toggle-mode-line))
+```
+
+The first `define-key` disables the binding for `s-?`. Substitute your preferred key binding in the second line to bind `writeroom-toggle-mode-line` to it.
 
 
 ## Multiple writeroom-mode buffers ##
