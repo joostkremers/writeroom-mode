@@ -48,6 +48,22 @@
 (defvar writeroom--buffers nil
   "List of buffers in which `writeroom-mode' is activated.")
 
+(defvar writeroom--local-variables '(mode-line-format
+                                     header-line-format
+                                     line-spacing)
+  "Local variables whose values need to be saved when `writeroom-mode' is activated.")
+
+(defvar-local writeroom--saved-data nil
+  "Buffer-local data to be stored when `writeroom-mode' is
+  activated, so that the settings can be restored when
+  `writeroom-mode' is deactivated.")
+
+(defvar-local writeroom--saved-visual-fill-column nil
+  "Status of `visual-fill-column-mode' before activating `writeroom-mode'.")
+
+(defvar writeroom--saved-window-config nil
+  "Window configuration active before `writeroom-mode' is activated.")
+
 (defgroup writeroom nil "Minor mode for distraction-free writing."
   :group 'wp
   :prefix "writeroom-")
@@ -57,12 +73,6 @@
   :group 'writeroom
   :type '(choice (integer :label "Absolute width:")
                  (float :label "Relative width:" :value 0.5)))
-
-(defvar writeroom--saved-visual-fill-column nil
-  "Flag to store the status of `visual-fill-column-mode'.
-Used to restore `visual-fill-colum-mode' if it was active before
-activating `writeroom-mode'.")
-(make-variable-buffer-local 'writeroom--saved-visual-fill-column)
 
 (defcustom writeroom-mode-line nil
   "The mode line format to use.
@@ -79,11 +89,6 @@ format can be customized. See the documentation for the variable
                  (const :tag "Use default mode line" t)
                  (sexp :tag "Customize mode line"
                        :value ("   " mode-line-modified "   " mode-line-buffer-identification))))
-
-(defvar writeroom--saved-mode-line nil
-  "Contents of `mode-line-format' before disabling the mode line.
-Used to restore the mode line after disabling `writeroom-mode'.")
-(make-variable-buffer-local 'writeroom--saved-mode-line)
 
 (defcustom writeroom-disable-fringe t
   "Whether to disable the left and right fringes when writeroom is activated."
@@ -114,8 +119,6 @@ Effects'. This adds a border around the text area."
   :group 'writeroom
   :type '(integer :tag "Border width"))
 
-(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
-
 (defcustom writeroom-major-modes '(text-mode)
   "List of major modes in which writeroom-mode is activated.
 This option is only relevant when activating `writeroom-mode'
@@ -140,12 +143,6 @@ buffer."
   :type '(choice (const :tag "Do not add extra line spacing" :value nil)
                  (integer :tag "Absolute height" :value 5)
                  (float :tag "Relative height" :value 0.8)))
-(defvar writeroom--saved-line-spacing nil
-  "Saved value of `line-spacing'.")
-(make-variable-buffer-local 'writeroom--saved-line-spacing)
-
-(defvar writeroom--saved-window-config nil
-  "Window configuration active before `writeroom-mode' is activated.")
 
 (defcustom writeroom-global-effects '(writeroom-toggle-fullscreen
                                       writeroom-toggle-alpha
@@ -164,6 +161,8 @@ buffer."
               (const :tag "Disable scroll bar" writeroom-toggle-vertical-scroll-bars)
               (const :tag "Add border" writeroom-toggle-internal-border-width)
               (repeat :inline t :tag "Custom effects" function)))
+
+(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
 
 (defmacro define-writeroom-global-effect (fp value)
   "Define a global effect.
@@ -243,6 +242,14 @@ otherwise."
 This function also runs the functions in
 `writeroom-global-effects' if the current buffer is the first
 buffer in which `writeroom-mode' is activated."
+  ;; save buffer-local variables, if they have a buffer-local binding
+  (setq writeroom--saved-data (mapcar (lambda (sym)
+                                        (if (local-variable-p sym)
+                                            (cons sym (buffer-local-value sym (current-buffer)))
+                                          sym))
+                                      writeroom--local-variables))
+  (setq writeroom--saved-visual-fill-column visual-fill-column-mode)
+
   (when (not writeroom--buffers)
     (writeroom--activate-global-effects t)
     (if writeroom-restore-window-config
@@ -253,16 +260,11 @@ buffer in which `writeroom-mode' is activated."
     (delete-other-windows))
 
   (when writeroom-extra-line-spacing
-    (setq writeroom--saved-line-spacing line-spacing)
     (setq line-spacing writeroom-extra-line-spacing))
 
   (unless (eq writeroom-mode-line t) ; if t, use standard mode line
-    (setq writeroom--saved-mode-line mode-line-format)
     (setq mode-line-format writeroom-mode-line))
 
-  ;; save the status of `visual-fill-column-mode' before (re)enabling it
-  ;; with writeroom-specific settings.
-  (setq writeroom--saved-visual-fill-column visual-fill-column-mode)
   (setq visual-fill-column-width (if (floatp writeroom-width)
                                      (truncate (* (window-total-width) writeroom-width))
                                    writeroom-width)
@@ -283,31 +285,32 @@ This function also runs the functions in
 `writeroom-global-effects' to undo their effects if
 `writeroom-mode' is deactivated in the last buffer in which it
 was active."
+  ;; disable visual-fill-column-mode
+  (visual-fill-column-mode -1)
+  (kill-local-variable 'visual-fill-column-width)
+  (kill-local-variable 'visual-fill-column-center-text)
+  (kill-local-variable 'visual-fill-column-disable-fringe)
+
+  ;; restore global effects if necessary
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
   (when (not writeroom--buffers)
     (writeroom--activate-global-effects nil)
     (if writeroom-restore-window-config
         (set-window-configuration writeroom--saved-window-config)))
 
-  (when writeroom-extra-line-spacing
-    (setq line-spacing writeroom--saved-line-spacing)
-    (setq writeroom--saved-line-spacing nil))
-
-  (when writeroom--saved-mode-line
-    (setq mode-line-format writeroom--saved-mode-line)
-    (setq writeroom--saved-mode-line nil))
-
-  (visual-fill-column-mode -1)
-  (kill-local-variable 'visual-fill-column-width)
-  (kill-local-variable 'visual-fill-column-center-text)
-  (kill-local-variable 'visual-fill-column-disable-fringe)
+  ;; restore local variables
+  (mapc (lambda (val)
+          (if (symbolp val)
+              (kill-local-variable val)
+            (set (car val) (cdr val))))
+        writeroom--saved-data)
 
   ;; if the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
           (with-selected-window w
             (set-window-margins (selected-window) 0 0)
-            (set-window-fringes (selected-window) nil nil)))
+            (set-window-fringes (selected-window) nil)))
         (get-buffer-window-list (current-buffer) nil))
 
   ;; reenable `visual-fill-colummn-mode' with original settings if it was
