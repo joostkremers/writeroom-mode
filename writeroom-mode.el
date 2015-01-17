@@ -58,6 +58,9 @@
   activated, so that the settings can be restored when
   `writeroom-mode' is deactivated.")
 
+(defvar-local writeroom--mode-line-showing nil
+  "Flag indicating whether the original mode line is displayed.")
+
 (defvar-local writeroom--saved-visual-fill-column nil
   "Status of `visual-fill-column-mode' before activating `writeroom-mode'.")
 
@@ -241,6 +244,18 @@ otherwise."
   (mapc (lambda (fn)
           (funcall fn arg))
         writeroom-global-effects))
+
+(defun writeroom-toggle-mode-line ()
+  "Toggle display of the original mode line in the header line."
+  (interactive)
+  (cond
+   ((not writeroom--mode-line-showing)
+    (setq header-line-format (or (cdr (assq 'mode-line-format writeroom--saved-data))
+                                 (default-value 'mode-line-format)))
+    (setq writeroom--mode-line-showing t))
+   (writeroom--mode-line-showing
+    (setq header-line-format (cdr (assq 'header-line-format writeroom--saved-data)))
+    (setq writeroom--mode-line-showing nil))))
 
 (defun writeroom--enable ()
   "Set up writeroom-mode for the current buffer.
