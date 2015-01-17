@@ -30,6 +30,7 @@ are not actively supported.
 * Installation::
 * Usage::
 * Customisation::
+* The mode line::
 * Multiple writeroom-mode buffers::
 * Adding global effects::
 
@@ -66,7 +67,7 @@ things:
    * maximise the current window (i.e., delete all other windows in the
      frame)
 
-   * disable the fringes
+   * place the fringes outside the margins
 
    * disable the mode line
 
@@ -79,11 +80,12 @@ entirely on the up and up, since minor modes aren't supposed to have
 such global effects. But `writeroom-mode' is meant for distraction-free
 writing, so these effects do make sense.
 
-There are some more options that are disabled by default but can be
-enabled in the customisation buffer.
+All these effects can be disabled or customised. In addition, there are
+several more options that are disabled by default but can be enabled in
+the customisation buffer.
 
 
-File: writeroom-mode.info,  Node: Customisation,  Next: Multiple writeroom-mode buffers,  Prev: Usage,  Up: Writeroom-mode
+File: writeroom-mode.info,  Node: Customisation,  Next: The mode line,  Prev: Usage,  Up: Writeroom-mode
 
 1.3 Customisation
 =================
@@ -92,13 +94,12 @@ File: writeroom-mode.info,  Node: Customisation,  Next: Multiple writeroom-mode 
 
 * Global Writeroom Mode::
 * Border Width::
-* Disable Fringe::
+* Fringes Outside Margins::
 * Extra Line Spacing::
 * Fullscreen Effect::
 * Global Effects::
 * Major Modes::
 * Maximize Window::
-* Mode Line::
 * Restore Window Config::
 * Width::
 
@@ -112,7 +113,7 @@ Activate this option to automatically turn on `writeroom-mode' in any
 buffer that has one of the major modes in `writeroom-major-modes'.
 
 
-File: writeroom-mode.info,  Node: Border Width,  Next: Disable Fringe,  Prev: Global Writeroom Mode,  Up: Customisation
+File: writeroom-mode.info,  Node: Border Width,  Next: Fringes Outside Margins,  Prev: Global Writeroom Mode,  Up: Customisation
 
 1.3.2 Border Width
 ------------------
@@ -121,15 +122,18 @@ Width of the border around the text area. Disabled by default, see
 `writeroom-global-effects' to enable the border.
 
 
-File: writeroom-mode.info,  Node: Disable Fringe,  Next: Extra Line Spacing,  Prev: Border Width,  Up: Customisation
+File: writeroom-mode.info,  Node: Fringes Outside Margins,  Next: Extra Line Spacing,  Prev: Border Width,  Up: Customisation
 
-1.3.3 Disable Fringe
---------------------
+1.3.3 Fringes Outside Margins
+-----------------------------
 
-Disable left and right fringes.
+If set, place the fringes outside the margins. `writeroom-mode' expands
+the window margins, causing the fringes to be pushed inside, which may
+be visually distracting. This option keeps the fringes at the window's
+edges. Unset it if you prefer to have the fringes close to the text.
 
 
-File: writeroom-mode.info,  Node: Extra Line Spacing,  Next: Fullscreen Effect,  Prev: Disable Fringe,  Up: Customisation
+File: writeroom-mode.info,  Node: Extra Line Spacing,  Next: Fullscreen Effect,  Prev: Fringes Outside Margins,  Up: Customisation
 
 1.3.4 Extra Line Spacing
 ------------------------
@@ -182,7 +186,7 @@ List of major modes in which `writeroom-mode' should be activated
 automatically. Use in conjunction with `global-writeroom-mode'.
 
 
-File: writeroom-mode.info,  Node: Maximize Window,  Next: Mode Line,  Prev: Major Modes,  Up: Customisation
+File: writeroom-mode.info,  Node: Maximize Window,  Next: Restore Window Config,  Prev: Major Modes,  Up: Customisation
 
 1.3.8 Maximize Window
 ---------------------
@@ -191,22 +195,10 @@ Maximise the current window in its frame, i.e., delete all other
 windows.
 
 
-File: writeroom-mode.info,  Node: Mode Line,  Next: Restore Window Config,  Prev: Maximize Window,  Up: Customisation
+File: writeroom-mode.info,  Node: Restore Window Config,  Next: Width,  Prev: Maximize Window,  Up: Customisation
 
-1.3.9 Mode Line
----------------
-
-Mode line format to use. By default, the mode line is disabled, but
-this option can be used to re-enable it. Either use the default mode
-line, or a customised mode line. The latter defaults to showing only
-the buffer's name and its modified status, but this can be customised.
-See the doc string for `mode-line-format' for options.
-
-
-File: writeroom-mode.info,  Node: Restore Window Config,  Next: Width,  Prev: Mode Line,  Up: Customisation
-
-1.3.10 Restore Window Config
-----------------------------
+1.3.9 Restore Window Config
+---------------------------
 
 Restore the window configuration that existed before `writeroom-mode'
 was activated. This is primarily useful if you use `writeroom-mode' in
@@ -217,7 +209,7 @@ for the first time. Disabled by default.
 
 File: writeroom-mode.info,  Node: Width,  Prev: Restore Window Config,  Up: Customisation
 
-1.3.11 Width
+1.3.10 Width
 ------------
 
 Width of the text area. Can be specified as an absolute value (number
@@ -225,9 +217,19 @@ of characters) or as a fraction of the total window width (in which
 case it should be a number between 0 and 1).
 
 
-File: writeroom-mode.info,  Node: Multiple writeroom-mode buffers,  Next: Adding global effects,  Prev: Customisation,  Up: Writeroom-mode
+File: writeroom-mode.info,  Node: The mode line,  Next: Multiple writeroom-mode buffers,  Prev: Customisation,  Up: Writeroom-mode
 
-1.4 Multiple writeroom-mode buffers
+1.4 The mode line
+=================
+
+By default, `writeroom-mode' disables the mode line. The command
+`writeroom-toggle-mode-line' makes the mode line temporarily visible in
+the header line.
+
+
+File: writeroom-mode.info,  Node: Multiple writeroom-mode buffers,  Next: Adding global effects,  Prev: The mode line,  Up: Writeroom-mode
+
+1.5 Multiple writeroom-mode buffers
 ===================================
 
 It is possible to activate `writeroom-mode' in more than one buffer.
@@ -249,7 +251,7 @@ in which it is active, also those in which it was activated manually.
 
 File: writeroom-mode.info,  Node: Adding global effects,  Prev: Multiple writeroom-mode buffers,  Up: Writeroom-mode
 
-1.5 Adding global effects
+1.6 Adding global effects
 =========================
 
 It is possible to define your own global effects and have them
@@ -268,38 +270,38 @@ Tag Table:
 Node: Top226
 Node: Writeroom-mode340
 Ref: #writeroom-mode449
-Node: Installation794
-Ref: #installation914
-Node: Usage1081
-Ref: #usage1209
-Node: Customisation2144
-Ref: #customisation2307
-Node: Global Writeroom Mode2529
-Ref: #global-writeroom-mode2686
-Node: Border Width2824
-Ref: #border-width2986
-Node: Disable Fringe3103
-Ref: #disable-fringe3266
-Node: Extra Line Spacing3299
-Ref: #extra-line-spacing3475
-Node: Fullscreen Effect3640
-Ref: #fullscreen-effect3814
-Node: Global Effects4158
-Ref: #global-effects4319
-Node: Major Modes4551
-Ref: #major-modes4704
-Node: Maximize Window4835
-Ref: #maximize-window4991
-Node: Mode Line5066
-Ref: #mode-line5220
-Node: Restore Window Config5553
-Ref: #restore-window-config5723
-Node: Width6046
-Ref: #width6166
-Node: Multiple writeroom-mode buffers6350
-Ref: #multiple-writeroom-mode-buffers6565
-Node: Adding global effects7520
-Ref: #adding-global-effects7693
+Node: Installation812
+Ref: #installation932
+Node: Usage1099
+Ref: #usage1227
+Node: Customisation2245
+Ref: #customisation2390
+Node: Global Writeroom Mode2607
+Ref: #global-writeroom-mode2764
+Node: Border Width2902
+Ref: #border-width3073
+Node: Fringes Outside Margins3190
+Ref: #fringes-outside-margins3380
+Node: Extra Line Spacing3664
+Ref: #extra-line-spacing3849
+Node: Fullscreen Effect4014
+Ref: #fullscreen-effect4188
+Node: Global Effects4532
+Ref: #global-effects4693
+Node: Major Modes4925
+Ref: #major-modes5078
+Node: Maximize Window5209
+Ref: #maximize-window5377
+Node: Restore Window Config5452
+Ref: #restore-window-config5626
+Node: Width5949
+Ref: #width6069
+Node: The mode line6253
+Ref: #the-mode-line6424
+Node: Multiple writeroom-mode buffers6579
+Ref: #multiple-writeroom-mode-buffers6794
+Node: Adding global effects7749
+Ref: #adding-global-effects7922
 
 End Tag Table
 

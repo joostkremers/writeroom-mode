@@ -5,8 +5,8 @@
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
-;; Package-Requires: ((emacs "24.1") (visual-fill-column "1.1"))
-;; Version: 2.8
+;; Package-Requires: ((emacs "24.1") (visual-fill-column "1.4"))
+;; Version: 2.9
 ;; Keywords: text
 
 ;; Redistribution and use in source and binary forms, with or without
@@ -90,10 +90,9 @@ format can be customized. See the documentation for the variable
                  (sexp :tag "Customize mode line"
                        :value ("   " mode-line-modified "   " mode-line-buffer-identification))))
 
-(defcustom writeroom-disable-fringe t
-  "Whether to disable the left and right fringes when writeroom is activated."
-  :group 'writeroom
-  :type 'boolean)
+(make-obsolete-variable 'writeroom-disable-fringe
+                        "The variable `writeroom-disable-fringe' is no longer used."
+                        "`writeroom-mode' version 2.9")
 
 (defcustom writeroom-maximize-window t
   "Whether to maximize the current window in its frame.
@@ -118,6 +117,12 @@ To use this option, select the option \"Add border\" in `Global
 Effects'. This adds a border around the text area."
   :group 'writeroom
   :type '(integer :tag "Border width"))
+
+(defcustom writeroom-fringes-outside-margins t
+  "If set, place the fringes outside the modeline."
+  :group 'writeroom
+  :type '(choice (const :tag "Place fringes outside margins" t)
+                 (const :tag "Place fringes inside margins" nil)))
 
 (defcustom writeroom-major-modes '(text-mode)
   "List of major modes in which writeroom-mode is activated.
@@ -269,7 +274,7 @@ buffer in which `writeroom-mode' is activated."
                                      (truncate (* (window-total-width) writeroom-width))
                                    writeroom-width)
         visual-fill-column-center-text t
-        visual-fill-column-disable-fringe writeroom-disable-fringe)
+        visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins)
   (visual-fill-column-mode 1)
 
   ;; if the current buffer is displayed in some window, the windows'
@@ -289,7 +294,7 @@ was active."
   (visual-fill-column-mode -1)
   (kill-local-variable 'visual-fill-column-width)
   (kill-local-variable 'visual-fill-column-center-text)
-  (kill-local-variable 'visual-fill-column-disable-fringe)
+  (kill-local-variable 'visual-fill-column-fringes-outside-margins)
 
   ;; restore global effects if necessary
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))

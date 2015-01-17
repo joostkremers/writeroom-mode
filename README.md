@@ -18,13 +18,13 @@
 * disable the tool bar
 * disable the scroll bar
 * maximise the current window (i.e., delete all other windows in the frame)
-* disable the fringes
+* place the fringes outside the margins
 * disable the mode line
 * add window margins to the current buffer so that the text is 80 characters wide
 
 The last three effects are buffer-local. The other effects apply to the current frame. Because `writeroom-mode` is a minor mode, this isn't entirely on the up and up, since minor modes aren't supposed to have such global effects. But `writeroom-mode` is meant for distraction-free writing, so these effects do make sense.
 
-There are some more options that are disabled by default but can be enabled in the customisation buffer.
+All these effects can be disabled or customised. In addition, there are several more options that are disabled by default but can be enabled in the customisation buffer.
 
 
 ## Customisation ##
@@ -39,9 +39,9 @@ Activate this option to automatically turn on `writeroom-mode` in any buffer tha
 Width of the border around the text area. Disabled by default, see `writeroom-global-effects` to enable the border.
 
 
-### Disable Fringe ###
+### Fringes Outside Margins ###
 
-Disable left and right fringes.
+If set, place the fringes outside the margins. `writeroom-mode` expands the window margins, causing the fringes to be pushed inside, which may be visually distracting. This option keeps the fringes at the window’s edges. Unset it if you prefer to have the fringes close to the text.
 
 
 ### Extra Line Spacing ###
@@ -78,11 +78,6 @@ List of major modes in which `writeroom-mode` should be activated automatically.
 Maximise the current window in its frame, i.e., delete all other windows.
 
 
-### Mode Line ###
-
-Mode line format to use. By default, the mode line is disabled, but this option can be used to re-enable it. Either use the default mode line, or a customised mode line. The latter defaults to showing only the buffer’s name and its modified status, but this can be customised. See the doc string for `mode-line-format` for options.
-
-
 ### Restore Window Config ###
 
 Restore the window configuration that existed before `writeroom-mode` was activated. This is primarily useful if you use `writeroom-mode` in only a single buffer, since the window configuration that is restored is the one that existed at the moment when `writeroom-mode` is called for the first time. Disabled by default.
@@ -91,6 +86,11 @@ Restore the window configuration that existed before `writeroom-mode` was activa
 ### Width ###
 
 Width of the text area. Can be specified as an absolute value (number of characters) or as a fraction of the total window width (in which case it should be a number between 0 and 1).
+
+
+## The mode line ##
+
+By default, `writeroom-mode` disables the mode line. The command `writeroom-toggle-mode-line` makes the mode line temporarily visible in the header line.
 
 
 ## Multiple writeroom-mode buffers ##
