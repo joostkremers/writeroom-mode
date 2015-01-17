@@ -212,6 +212,12 @@ buffer's major mode is a member of `writeroom-major-modes'."
   (if (memq major-mode writeroom-major-modes)
       (writeroom-mode 1)))
 
+(defvar writeroom-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "s-?") #'writeroom-toggle-mode-line)
+    map)
+  "Keymap for writeroom-mode.")
+
 ;;;###autoload
 (define-minor-mode writeroom-mode
   "Minor mode for distraction-free writing."
@@ -255,7 +261,8 @@ otherwise."
     (setq writeroom--mode-line-showing t))
    (writeroom--mode-line-showing
     (setq header-line-format (cdr (assq 'header-line-format writeroom--saved-data)))
-    (setq writeroom--mode-line-showing nil))))
+    (setq writeroom--mode-line-showing nil)))
+  (set-window-buffer (selected-window) (current-buffer) 'keep-margins))
 
 (defun writeroom--enable ()
   "Set up writeroom-mode for the current buffer.
