@@ -53,16 +53,19 @@
                                      line-spacing)
   "Local variables whose values need to be saved when `writeroom-mode' is activated.")
 
-(defvar-local writeroom--saved-data nil
+(defvar writeroom--saved-data nil
   "Buffer-local data to be stored when `writeroom-mode' is
   activated, so that the settings can be restored when
   `writeroom-mode' is deactivated.")
+(make-variable-buffer-local 'writeroom--saved-data)
 
-(defvar-local writeroom--mode-line-showing nil
+(defvar writeroom--mode-line-showing nil
   "Flag indicating whether the original mode line is displayed.")
+(make-variable-buffer-local 'writeroom--mode-line-showing)
 
-(defvar-local writeroom--saved-visual-fill-column nil
+(defvar writeroom--saved-visual-fill-column nil
   "Status of `visual-fill-column-mode' before activating `writeroom-mode'.")
+(make-variable-buffer-local 'writeroom--saved-visual-fill-column)
 
 (defvar writeroom--saved-window-config nil
   "Window configuration active before `writeroom-mode' is activated.")
