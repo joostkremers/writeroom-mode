@@ -284,7 +284,7 @@ buffer in which `writeroom-mode' is activated."
     (writeroom--activate-global-effects t)
     (if writeroom-restore-window-config
         (setq writeroom--saved-window-config (current-window-configuration))))
-  (add-to-list 'writeroom--buffers (current-buffer))
+  (push (current-buffer) writeroom--buffers)
 
   (when writeroom-maximize-window
     (delete-other-windows))
