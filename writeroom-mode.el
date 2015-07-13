@@ -180,7 +180,7 @@ buffer."
 The effect is activated by setting frame parameter FP to VALUE.
 FP should be an unquoted symbol, the name of a frame parameter;
 VALUE must be quoted (unless it is a string or a number, of
-course). It can also be an unquoted symbol, in which case it
+course).  It can also be an unquoted symbol, in which case it
 should be the name of a global variable whose value is then
 assigned to FP.
 
