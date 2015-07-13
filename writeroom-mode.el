@@ -54,9 +54,7 @@
   "Local variables whose values need to be saved when `writeroom-mode' is activated.")
 
 (defvar writeroom--saved-data nil
-  "Buffer-local data to be stored when `writeroom-mode' is
-  activated, so that the settings can be restored when
-  `writeroom-mode' is deactivated.")
+  "Buffer-local data to be stored when `writeroom-mode' is activated.")
 (make-variable-buffer-local 'writeroom--saved-data)
 
 (defvar writeroom--mode-line-showing nil
@@ -236,7 +234,7 @@ buffer's major mode is a member of `writeroom-major-modes'."
 
 (defun writeroom--kill-buffer-function ()
   "Disable `writeroom-mode' before killing a buffer, if necessary.
-This function is for use in `kill-buffer-hook'. It checks whether
+This function is for use in `kill-buffer-hook'.  It checks whether
 `writeroom-mode' is enabled in the buffer to be killed and
 adjusts `writeroom--buffers' and the global effects accordingly."
   (when writeroom-mode
