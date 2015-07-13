@@ -54,7 +54,9 @@
   "Local variables whose values need to be saved when `writeroom-mode' is activated.")
 
 (defvar writeroom--saved-data nil
-  "Buffer-local data to be stored when `writeroom-mode' is activated.")
+  "Buffer-local data to be stored when `writeroom-mode' is activated.
+These settings are restored when `writeroom-mode' is
+deactivated.")
 (make-variable-buffer-local 'writeroom--saved-data)
 
 (defvar writeroom--mode-line-showing nil
@@ -81,12 +83,12 @@
 (defcustom writeroom-mode-line nil
   "The mode line format to use.
 By default, this option is set to nil, which disables the mode
-line when `writeroom-mode' is activated. By setting the option to
-t, the standard mode line is retained. Alternatively, it is
+line when `writeroom-mode' is activated.  By setting this option
+to t, the standard mode line is retained.  Alternatively, it is
 possible to specify a special mode line for `writeroom-mode'
-buffers. If this option is chosen, the default is to only show
+buffers.  If this option is chosen, the default is to only show
 the buffer's modification status and the buffer name, but the
-format can be customized. See the documentation for the variable
+format can be customized.  See the documentation for the variable
 `mode-line-format' for further information."
   :group 'writeroom
   :type '(choice (const :tag "Disable the mode line" nil)
@@ -138,7 +140,7 @@ with `global-writeroom-mode'."
 (defcustom writeroom-restore-window-config nil
   "If set, restore window configuration after disabling `writeroom-mode'.
 Setting this option makes sense primarily if `writeroom-mode' is
-used in one buffer only. The window configuration that is stored
+used in one buffer only.  The window configuration that is stored
 is the one that exists when `writeroom-mode' is first called, and
 it is restored when `writeroom-mode' is deactivated in the last
 buffer."
@@ -147,7 +149,7 @@ buffer."
                  (const :tag "Restore window configuration" t)))
 
 (defcustom writeroom-extra-line-spacing nil
-  "Additional line spacing for `writeroom-mode`"
+  "Additional line spacing for `writeroom-mode`."
   :group 'writeroom
   :type '(choice (const :tag "Do not add extra line spacing" :value nil)
                  (integer :tag "Absolute height" :value 5)
@@ -184,7 +186,7 @@ assigned to FP.
 
 This macro defines a function `writeroom-toggle-<FP>' that takes
 one argument and activates the effect if this argument is t and
-deactivates it when it is nil. When the effect is activated,
+deactivates it when it is nil.  When the effect is activated,
 the original value of frame parameter FP is stored in a frame
 parameter `writeroom-<FP>', so that it can be restored when the
 effect is deactivated."
