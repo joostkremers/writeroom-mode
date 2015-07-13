@@ -269,9 +269,9 @@ otherwise."
 
 (defun writeroom--enable ()
   "Set up writeroom-mode for the current buffer.
-This function also runs the functions in
-`writeroom-global-effects' if the current buffer is the first
-buffer in which `writeroom-mode' is activated."
+Also run the functions in `writeroom-global-effects' if the
+current buffer is the first buffer in which `writeroom-mode' is
+activated."
   ;; save buffer-local variables, if they have a buffer-local binding
   (setq writeroom--saved-data (mapcar (lambda (sym)
                                         (if (local-variable-p sym)
@@ -311,10 +311,9 @@ buffer in which `writeroom-mode' is activated."
 
 (defun writeroom--disable ()
   "Reset the current buffer to its normal appearance.
-This function also runs the functions in
-`writeroom-global-effects' to undo their effects if
-`writeroom-mode' is deactivated in the last buffer in which it
-was active."
+Also run the functions in `writeroom-global-effects' to undo
+their effects if `writeroom-mode' is deactivated in the last
+buffer in which it was active."
   ;; disable visual-fill-column-mode
   (visual-fill-column-mode -1)
   (kill-local-variable 'visual-fill-column-width)
