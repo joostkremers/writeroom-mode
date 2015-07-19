@@ -125,7 +125,7 @@ Effects'. This adds a border around the text area."
   :type '(integer :tag "Border width"))
 
 (defcustom writeroom-fringes-outside-margins t
-  "If set, place the fringes outside the modeline."
+  "If set, place the fringes outside the margins."
   :group 'writeroom
   :type '(choice (const :tag "Place fringes outside margins" t)
                  (const :tag "Place fringes inside margins" nil)))
