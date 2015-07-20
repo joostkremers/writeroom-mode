@@ -176,7 +176,7 @@ buffer."
 (define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
 
 (defmacro define-writeroom-global-effect (fp value)
-  "Define a global effect.
+  "Define a global effect for `writeroom-mode'.
 The effect is activated by setting frame parameter FP to VALUE.
 FP should be an unquoted symbol, the name of a frame parameter;
 VALUE must be quoted (unless it is a string or a number, of
