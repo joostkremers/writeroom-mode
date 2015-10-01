@@ -49,8 +49,8 @@
   "List of buffers in which `writeroom-mode' is activated.")
 
 (defvar writeroom--local-variables '(mode-line-format
-                                     header-line-format
-                                     line-spacing)
+                            header-line-format
+                            line-spacing)
   "Local variables whose values need to be saved when `writeroom-mode' is activated.")
 
 (defvar writeroom--saved-data nil
@@ -156,10 +156,10 @@ buffer."
                  (float :tag "Relative height" :value 0.8)))
 
 (defcustom writeroom-global-effects '(writeroom-toggle-fullscreen
-                                      writeroom-toggle-alpha
-                                      writeroom-toggle-vertical-scroll-bars
-                                      writeroom-toggle-menu-bar-lines
-                                      writeroom-toggle-tool-bar-lines)
+                             writeroom-toggle-alpha
+                             writeroom-toggle-vertical-scroll-bars
+                             writeroom-toggle-menu-bar-lines
+                             writeroom-toggle-tool-bar-lines)
   "List of global effects for `writeroom-mode'.
 These effects are enabled when `writeroom-mode' is activated in
 the first buffer and disabled when it is deactivated in the last
@@ -274,10 +274,10 @@ current buffer is the first buffer in which `writeroom-mode' is
 activated."
   ;; save buffer-local variables, if they have a buffer-local binding
   (setq writeroom--saved-data (mapcar (lambda (sym)
-                                        (if (local-variable-p sym)
-                                            (cons sym (buffer-local-value sym (current-buffer)))
-                                          sym))
-                                      writeroom--local-variables))
+                               (if (local-variable-p sym)
+                                   (cons sym (buffer-local-value sym (current-buffer)))
+                                 sym))
+                             writeroom--local-variables))
   (setq writeroom--saved-visual-fill-column visual-fill-column-mode)
 
   (when (not writeroom--buffers)
