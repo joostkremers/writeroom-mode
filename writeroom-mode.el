@@ -208,7 +208,7 @@ effect is deactivated."
 (define-writeroom-global-effect menu-bar-lines 0)
 (define-writeroom-global-effect tool-bar-lines 0)
 (define-writeroom-global-effect internal-border-width writeroom-border-width)
-(define-writeroom-global-effect sticky nil)
+(define-writeroom-global-effect sticky t)
 
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.

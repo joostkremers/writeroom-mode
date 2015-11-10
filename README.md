@@ -64,6 +64,7 @@ List of global effects:
 - menu bar
 - tool bar
 - border (add a border around the text area; disabled by default)
+- sticky (display the window on all virtual workspaces; disabled by default)
 
 Each option can be enabled or disabled individually.
 
