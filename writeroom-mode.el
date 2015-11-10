@@ -6,7 +6,7 @@
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
 ;; Package-Requires: ((emacs "24.1") (visual-fill-column "1.4"))
-;; Version: 2.10
+;; Version: 3.0
 ;; Keywords: text
 
 ;; Redistribution and use in source and binary forms, with or without
@@ -186,21 +186,22 @@ should be the name of a global variable whose value is then
 assigned to FP.
 
 This macro defines a function `writeroom-toggle-<FP>' that takes
-one argument and activates the effect if this argument is t and
-deactivates it when it is nil.  When the effect is activated,
-the original value of frame parameter FP is stored in a frame
+one argument and activates the effect if this argument is 1 and
+deactivates it if it is -1.  When the effect is activated, the
+original value of frame parameter FP is stored in a frame
 parameter `writeroom-<FP>', so that it can be restored when the
 effect is deactivated."
   (declare (indent defun))
   (let ((wfp (intern (format "writeroom-%s" fp))))
     `(fset (quote ,(intern (format "writeroom-toggle-%s" fp)))
-           (lambda (arg)
-             (if arg
-                 (progn
-                   (set-frame-parameter nil (quote ,wfp) (frame-parameter nil (quote ,fp)))
-                   (set-frame-parameter nil (quote ,fp) ,value))
+           (lambda (&optional arg)
+             (cond
+              ((= arg 1)                       ; activate
+               (set-frame-parameter nil (quote ,wfp) (frame-parameter nil (quote ,fp)))
+               (set-frame-parameter nil (quote ,fp) ,value))
+              ((= arg -1)                       ; deactivate
                (set-frame-parameter nil (quote ,fp) (frame-parameter nil (quote ,wfp)))
-               (set-frame-parameter nil (quote ,wfp) nil))))))
+               (set-frame-parameter nil (quote ,wfp) nil)))))))
 
 (define-writeroom-global-effect fullscreen writeroom-fullscreen-effect)
 (define-writeroom-global-effect alpha '(100 100))
@@ -244,14 +245,14 @@ adjusts `writeroom--buffers' and the global effects accordingly."
   (when writeroom-mode
     (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
     (when (not writeroom--buffers)
-      (writeroom--activate-global-effects nil))))
+      (writeroom--set-global-effects -1))))
 
 (add-hook 'kill-buffer-hook #'writeroom--kill-buffer-function)
 
-(defun writeroom--activate-global-effects (arg)
+(defun writeroom--set-global-effects (arg)
   "Activate or deactivate global effects.
-The effects are activated if ARG is non-nil, and deactivated
-otherwise."
+The effects are deactivated if ARG is a negative number, and
+deactivated otherwise."
   (mapc (lambda (fn)
           (funcall fn arg))
         writeroom-global-effects))
@@ -283,7 +284,7 @@ activated."
   (setq writeroom--saved-visual-fill-column visual-fill-column-mode)
 
   (when (not writeroom--buffers)
-    (writeroom--activate-global-effects t)
+    (writeroom--set-global-effects 1)
     (if writeroom-restore-window-config
         (setq writeroom--saved-window-config (current-window-configuration))))
   (push (current-buffer) writeroom--buffers)
@@ -325,7 +326,7 @@ buffer in which it was active."
   ;; restore global effects if necessary
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
   (when (not writeroom--buffers)
-    (writeroom--activate-global-effects nil)
+    (writeroom--set-global-effects -1)
     (if writeroom-restore-window-config
         (set-window-configuration writeroom--saved-window-config)))
 

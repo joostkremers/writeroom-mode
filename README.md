@@ -3,6 +3,11 @@
 `writeroom-mode` is a minor mode for Emacs that implements a distraction-free writing mode similar to the famous Writeroom editor for OS X. `writeroom-mode` is meant for GNU Emacs 24, lower versions are not actively supported.
 
 
+## Upgrading from version 2 ##
+
+The current version of `writeroom-mode` is 3.0. If you’re upgrading from version 2.x and you have custom global effects, you will probably have to redo them, because the arguments passed to the global effect functions have been changed to make them compatible with those used to (de)activate minor modes. See the section [Adding global effects](#adding-global-effects) for details.
+
+
 ## Installation ##
 
 `writeroom-mode` can be installed through the package manager from [Melpa](http://melpa.org/). If installing manually, make sure to also install `visual-fill-column`.
@@ -113,4 +118,17 @@ When `global-writeroom-mode` is active, the function `writeroom-mode` can still 
 
 ## Adding global effects ##
 
-It is possible to define your own global effects and have them activated automatically when `writeroom-mode` is activated. For example, you may want to add your own font or colour effects, or replace the default fullscreen function with one that works in an older Emacs version. To do this, write a function that takes one argument and that activates the effect when this argument is `t` and deactivates it when it is `nil`. Then add this function to the user option `writeroom-global-effects` by checking the box "Custom effects" and adding the function to the list.
+It is possible to define your own global effects and have them activated automatically when `writeroom-mode` is activated. For example, you may want to add your own font or colour effects, or replace the default fullscreen function with one that works in an older Emacs version. To do this, you should write a function that takes one argument and that activates the effect if the argument is `1` and disables it if the argument is `-1`. Then add this function to the user option `writeroom-global-effects` by checking the box "Custom effects", clicking the [INS] button and adding the function to the list.
+
+To give an example, if you want to activate a minimalist colour theme in `writeroom-mode`, you can write the following function:
+
+```lisp
+(defun my-writeroom-theme (arg)
+  (cond
+   ((= arg 1)
+    (enable-theme 'minimalist-dark))
+   ((= arg -1)
+    (disable-theme 'minimalist-dark))))
+```
+
+Note that the argument that global effect functions should accept is compatible with the arguments that minor mode functions take when called from Lisp: a positive number (among other possibilities) activates and a negative number deactivates. This makes it possible to add a global minor mode function to `writeroom-global-effects` and have it do the right thing.
