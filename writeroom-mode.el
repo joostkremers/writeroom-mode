@@ -171,6 +171,7 @@ buffer."
               (const :tag "Disable tool bar" writeroom-toggle-tool-bar-lines)
               (const :tag "Disable scroll bar" writeroom-toggle-vertical-scroll-bars)
               (const :tag "Add border" writeroom-toggle-internal-border-width)
+              (const :tag "Display frame on all workspaces" writeroom-toggle-sticky)
               (repeat :inline t :tag "Custom effects" function)))
 
 (define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
@@ -207,6 +208,7 @@ effect is deactivated."
 (define-writeroom-global-effect menu-bar-lines 0)
 (define-writeroom-global-effect tool-bar-lines 0)
 (define-writeroom-global-effect internal-border-width writeroom-border-width)
+(define-writeroom-global-effect sticky nil)
 
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.
