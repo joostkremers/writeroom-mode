@@ -251,8 +251,7 @@ adjusts `writeroom--buffers' and the global effects accordingly."
 
 (defun writeroom--set-global-effects (arg)
   "Activate or deactivate global effects.
-The effects are deactivated if ARG is a negative number, and
-deactivated otherwise."
+The effects are activated if ARG is 1, deactivated if it is -1."
   (mapc (lambda (fn)
           (funcall fn arg))
         writeroom-global-effects))
