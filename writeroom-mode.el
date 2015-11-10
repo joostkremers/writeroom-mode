@@ -155,23 +155,23 @@ buffer."
                  (integer :tag "Absolute height" :value 5)
                  (float :tag "Relative height" :value 0.8)))
 
-(defcustom writeroom-global-effects '(writeroom-toggle-fullscreen
-                             writeroom-toggle-alpha
-                             writeroom-toggle-vertical-scroll-bars
-                             writeroom-toggle-menu-bar-lines
-                             writeroom-toggle-tool-bar-lines)
+(defcustom writeroom-global-effects '(writeroom-set-fullscreen
+                             writeroom-set-alpha
+                             writeroom-set-vertical-scroll-bars
+                             writeroom-set-menu-bar-lines
+                             writeroom-set-tool-bar-lines)
   "List of global effects for `writeroom-mode'.
 These effects are enabled when `writeroom-mode' is activated in
 the first buffer and disabled when it is deactivated in the last
 buffer."
   :group 'writeroom
-  :type '(set (const :tag "Fullscreen" writeroom-toggle-fullscreen)
-              (const :tag "Disable transparency" writeroom-toggle-alpha)
-              (const :tag "Disable menu bar" writeroom-toggle-menu-bar-lines)
-              (const :tag "Disable tool bar" writeroom-toggle-tool-bar-lines)
-              (const :tag "Disable scroll bar" writeroom-toggle-vertical-scroll-bars)
-              (const :tag "Add border" writeroom-toggle-internal-border-width)
-              (const :tag "Display frame on all workspaces" writeroom-toggle-sticky)
+  :type '(set (const :tag "Fullscreen" writeroom-set-fullscreen)
+              (const :tag "Disable transparency" writeroom-set-alpha)
+              (const :tag "Disable menu bar" writeroom-set-menu-bar-lines)
+              (const :tag "Disable tool bar" writeroom-set-tool-bar-lines)
+              (const :tag "Disable scroll bar" writeroom-set-vertical-scroll-bars)
+              (const :tag "Add border" writeroom-set-internal-border-width)
+              (const :tag "Display frame on all workspaces" writeroom-set-sticky)
               (repeat :inline t :tag "Custom effects" function)))
 
 (define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
@@ -185,15 +185,15 @@ course).  It can also be an unquoted symbol, in which case it
 should be the name of a global variable whose value is then
 assigned to FP.
 
-This macro defines a function `writeroom-toggle-<FP>' that takes
-one argument and activates the effect if this argument is 1 and
+This macro defines a function `writeroom-set-<FP>' that takes one
+argument and activates the effect if this argument is 1 and
 deactivates it if it is -1.  When the effect is activated, the
 original value of frame parameter FP is stored in a frame
 parameter `writeroom-<FP>', so that it can be restored when the
 effect is deactivated."
   (declare (indent defun))
   (let ((wfp (intern (format "writeroom-%s" fp))))
-    `(fset (quote ,(intern (format "writeroom-toggle-%s" fp)))
+    `(fset (quote ,(intern (format "writeroom-set-%s" fp)))
            (lambda (&optional arg)
              (cond
               ((= arg 1)                       ; activate
