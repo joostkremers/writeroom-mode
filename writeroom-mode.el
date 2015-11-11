@@ -6,7 +6,7 @@
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
 ;; Package-Requires: ((emacs "24.1") (visual-fill-column "1.4"))
-;; Version: 3.0
+;; Version: 3.1
 ;; Keywords: text
 
 ;; Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,10 @@
 ;;; Code:
 
 (require 'visual-fill-column)
+
+(defvar writeroom--frame nil
+  "The frame in which `writeroom-mode' is activated.
+The global effects only apply to this frame.")
 
 (defvar writeroom--buffers nil
   "List of buffers in which `writeroom-mode' is activated.")
@@ -195,13 +199,14 @@ effect is deactivated."
   (let ((wfp (intern (format "writeroom-%s" fp))))
     `(fset (quote ,(intern (format "writeroom-set-%s" fp)))
            (lambda (&optional arg)
-             (cond
-              ((= arg 1)                       ; activate
-               (set-frame-parameter nil (quote ,wfp) (frame-parameter nil (quote ,fp)))
-               (set-frame-parameter nil (quote ,fp) ,value))
-              ((= arg -1)                       ; deactivate
-               (set-frame-parameter nil (quote ,fp) (frame-parameter nil (quote ,wfp)))
-               (set-frame-parameter nil (quote ,wfp) nil)))))))
+             (when (frame-live-p writeroom--frame)
+               (cond
+                ((= arg 1)         ; activate
+                 (set-frame-parameter writeroom--frame (quote ,wfp) (frame-parameter writeroom--frame (quote ,fp)))
+                 (set-frame-parameter writeroom--frame (quote ,fp) ,value))
+                ((= arg -1)        ; deactivate
+                 (set-frame-parameter writeroom--frame (quote ,fp) (frame-parameter writeroom--frame (quote ,wfp)))
+                 (set-frame-parameter writeroom--frame (quote ,wfp) nil))))))))
 
 (define-writeroom-global-effect fullscreen writeroom-fullscreen-effect)
 (define-writeroom-global-effect alpha '(100 100))
@@ -245,7 +250,8 @@ adjusts `writeroom--buffers' and the global effects accordingly."
   (when writeroom-mode
     (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
     (when (not writeroom--buffers)
-      (writeroom--set-global-effects -1))))
+      (writeroom--set-global-effects -1)
+      (setq writeroom--frame nil))))
 
 (add-hook 'kill-buffer-hook #'writeroom--kill-buffer-function)
 
@@ -282,10 +288,13 @@ activated."
                              writeroom--local-variables))
   (setq writeroom--saved-visual-fill-column visual-fill-column-mode)
 
+  ;; activate global effects
   (when (not writeroom--buffers)
+    (setq writeroom--frame (selected-frame))
     (writeroom--set-global-effects 1)
     (if writeroom-restore-window-config
         (setq writeroom--saved-window-config (current-window-configuration))))
+
   (push (current-buffer) writeroom--buffers)
 
   (when writeroom-maximize-window
@@ -326,6 +335,7 @@ buffer in which it was active."
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
   (when (not writeroom--buffers)
     (writeroom--set-global-effects -1)
+    (setq writeroom--frame nil)
     (if writeroom-restore-window-config
         (set-window-configuration writeroom--saved-window-config)))
 

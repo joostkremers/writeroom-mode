@@ -5,7 +5,7 @@
 
 ## Upgrading from version 2 ##
 
-The current version of `writeroom-mode` is 3.0. If you’re upgrading from version 2.x and you have custom global effects, you will probably have to redo them, because the arguments passed to the global effect functions have been changed to make them compatible with those used to (de)activate minor modes. See the section [Adding global effects](#adding-global-effects) for details.
+The current version of `writeroom-mode` is 3.1. If you’re upgrading from version 2.x and you have custom global effects, you will probably have to redo them, because the arguments passed to the global effect functions have been changed to make them compatible with those used to (de)activate minor modes. See the section [Adding global effects](#adding-global-effects) for details.
 
 
 ## Installation ##
@@ -30,6 +30,22 @@ The current version of `writeroom-mode` is 3.0. If you’re upgrading from versi
 The last three effects are buffer-local. The other effects apply to the current frame. Because `writeroom-mode` is a minor mode, this isn't entirely on the up and up, since minor modes aren't supposed to have such global effects. But `writeroom-mode` is meant for distraction-free writing, so these effects do make sense.
 
 All these effects can be disabled or customised. In addition, there are several more options that are disabled by default but can be enabled in the customisation buffer.
+
+
+## Multiple writeroom-mode buffers ##
+
+It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers. Alternatively, if you use `writeroom-mode` in multiple buffers with particular major modes (e.g., `text-mode`, `markdown-mode`), you can use the global minor mode `global-writeroom-mode`. This function enables the global effects and activates the buffer-local effects in all (current and future) buffers that have a major mode listed in the user option `writeroom-major-modes` (by default only `text-mode`).
+
+When `global-writeroom-mode` is active, the function `writeroom-mode` can still be called to enable or disable `writeroom-mode` in individual buffers (regardless of their major mode, of course). Calling `global-writeroom-mode` again disables `writeroom-mode` in all buffers in which it is active, also those in which it was activated manually.
+
+
+## Frame effects ##
+
+Most of the global effects that `writeroom-mode` enables are handled by setting specific frame parameters. This means that they apply to the current frame. If you switch to another frame and display a `writeroom-mode` buffer, only the buffer-local effects will be visible.
+
+`writeroom-mode` tries to make sure that it only affects one frame, and that it restores that particular frame when it is deactivated in the last buffer. This means it should be safe to activate `writeroom-mode` in one frame and deactivate it in another. Killing the `writeroom-mode` frame should also be safe.
+
+The affected frame is always restored to its original state, before `writeroom-mode` was activated, even if you change any of the frame parameters manually while `writeroom-mode` is active.
 
 
 ## Customisation ##
@@ -109,18 +125,11 @@ If, for some reason, you need to look at the full mode line, you can use the com
 The first `define-key` disables the binding for `s-?`. Substitute your preferred key binding in the second line to bind `writeroom-toggle-mode-line` to it.
 
 
-## Multiple writeroom-mode buffers ##
-
-It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers. Alternatively, if you use `writeroom-mode` in multiple buffers with particular major modes (e.g., `text-mode`, `markdown-mode`), you can use the global minor mode `global-writeroom-mode`. This function enables the global effects and activates the buffer-local effects in all (current and future) buffers that have a major mode listed in the user option `writeroom-major-modes` (by default only `text-mode`).
-
-When `global-writeroom-mode` is active, the function `writeroom-mode` can still be called to enable or disable `writeroom-mode` in individual buffers (regardless of their major mode, of course). Calling `global-writeroom-mode` again disables `writeroom-mode` in all buffers in which it is active, also those in which it was activated manually.
-
-
 ## Adding global effects ##
 
-It is possible to define your own global effects and have them activated automatically when `writeroom-mode` is activated. For example, you may want to add your own font or colour effects, or replace the default fullscreen function with one that works in an older Emacs version. To do this, you should write a function that takes one argument and that activates the effect if the argument is `1` and disables it if the argument is `-1`. Then add this function to the user option `writeroom-global-effects` by checking the box "Custom effects", clicking the [INS] button and adding the function to the list.
+It is possible to add your own global effects to `writeroom-mode`. If there is a global minor mode that you want turned on when `writeroom-mode` is activated for the first time, you can simply add it to the user option `writeroom-global-effects` by checking the box "Custom effects", clicking the [INS] button and adding the function to the list.
 
-To give an example, if you want to activate a minimalist colour theme in `writeroom-mode`, you can write the following function:
+Alternatively, you can also write your own function. This function should take one argument and enable the effect if the argument is `1` and disable it if the argument is `-1`. To give an example, if you want to activate a minimalist colour theme in `writeroom-mode`, you can write the following function:
 
 ```lisp
 (defun my-writeroom-theme (arg)
@@ -131,4 +140,13 @@ To give an example, if you want to activate a minimalist colour theme in `writer
     (disable-theme 'minimalist-dark))))
 ```
 
-Note that the argument that global effect functions should accept is compatible with the arguments that minor mode functions take when called from Lisp: a positive number (among other possibilities) activates and a negative number deactivates. This makes it possible to add a global minor mode function to `writeroom-global-effects` and have it do the right thing.
+If your function affects the frame, you should make sure that it only affects the `writeroom-mode` frame by passing the variable `writeroom--frame` to all frame-changing functions. If your frame-effect involves changing the value of a frame parameter, you ma be able to use the macro `define-writeroom-global-effect`, see its doc string for details.
+
+In principle, it is not a good idea to define a custom global effect function as a toggle, but if you are sure you'll only ever use a single frame, it should be safe enough. For example, sometimes setting the `fullscreen` frame parameter does not work. In this case, if you're on Linux, you could send an X client message directly:
+
+```lisp
+(defun my-toggle-fullscreen (_)
+  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                         '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+```
+
