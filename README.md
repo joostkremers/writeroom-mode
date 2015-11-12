@@ -10,7 +10,7 @@ The current version of `writeroom-mode` is 3.1. If you’re upgrading from versi
 
 ## Installation ##
 
-`writeroom-mode` can be installed through the package manager from [Melpa](http://melpa.org/). If installing manually, make sure to also install `visual-fill-column`.
+`writeroom-mode` can be installed through the package manager from [Melpa](http://melpa.org/). If installing manually, make sure to also install its dependency [`visual-fill-column`](https://github.com/joostkremers/visual-fill-column).
 
 
 ## Usage ##
