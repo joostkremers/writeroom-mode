@@ -50,32 +50,32 @@ The affected frame is always restored to its original state, before `writeroom-m
 
 ## Customisation ##
 
-### Global Writeroom Mode ###
+#### Global Writeroom Mode ####
 
 Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes in `writeroom-major-modes`.
 
 
-### Border Width ###
+#### Border Width ####
 
 Width of the border around the text area. Disabled by default, see `writeroom-global-effects` to enable the border.
 
 
-### Fringes Outside Margins ###
-
-If set, place the fringes outside the margins. `writeroom-mode` expands the window margins, causing the fringes to be pushed inside, which may be visually distracting. This option keeps the fringes at the window’s edges. Unset it if you prefer to have the fringes close to the text.
-
-
-### Extra Line Spacing ###
+#### Extra Line Spacing ####
 
 Increase the line spacing. Can be an absolute value (the number of pixels to add to the line) or a number relative to the default line height. Disabled by default.
 
 
-### Fullscreen Effect ###
+#### Fringes Outside Margins ####
+
+If set, place the fringes outside the margins. `writeroom-mode` expands the window margins, causing the fringes to be pushed inside, which may be visually distracting. This option keeps the fringes at the window’s edges. Unset it if you prefer to have the fringes close to the text.
+
+
+#### Fullscreen Effect ####
 
 Effect to apply when `writeroom-mode` activates fullscreen. Can be `fullboth`, which uses the entire screen (i.e., window decorations are disabled and the window manager’s panel or task bar is covered by the Emacs frame) or `maximized`, in which case the Emacs frame is maximised but keeps its window decorations and does not cover the panel.
 
 
-### Global Effects ###
+#### Global Effects ####
 
 List of global effects:
 
@@ -90,31 +90,34 @@ List of global effects:
 Each option can be enabled or disabled individually.
 
 
-### Major Modes ###
+#### Major Modes ####
 
 List of major modes in which `writeroom-mode` should be activated automatically. Use in conjunction with `global-writeroom-mode`.
 
 
-### Maximize Window ###
+#### Maximize Window ####
 
 Maximise the current window in its frame, i.e., delete all other windows.
 
 
-### Restore Window Config ###
+#### Mode Line ####
+
+The mode line format to use. This option can be `nil`, which disables the mode line altogether (which is the default), it can be `t`, which retains the mode line, or it can be set to a customised format to only show some information. If the latter option is chosen, the mode line shows only the file name and the file modification status, but the format can be customised. See the documentation for the variable `mode-line-format` for details.
+
+
+#### Restore Window Config ####
 
 Restore the window configuration that existed before `writeroom-mode` was activated. This is primarily useful if you use `writeroom-mode` in only a single buffer, since the window configuration that is restored is the one that existed at the moment when `writeroom-mode` is called for the first time. Disabled by default.
 
 
-### Width ###
+#### Width ####
 
 Width of the text area. Can be specified as an absolute value (number of characters) or as a fraction of the total window width (in which case it should be a number between 0 and 1).
 
 
-## The mode line ##
+## Displaying the mode line ##
 
-By default, `writeroom-mode` disables the mode line. Because the mode line can actually contain useful information, this may be impractical. For this reason, it is possible to use a customised mode line, which allows you to display information that is indispensable to you (e.g., the modified status, the file name).
-
-If, for some reason, you need to look at the full mode line, you can use the command `writeroom-toggle-mode-line`. This command makes the mode line visible in the header line (at the top of the window). Calling it again hides the mode line. This command is bound to `s-?` (`s` is the super key, i.e., the Windows key on PCs, the ⌘ key on Macs), but it can be rebound by putting something like the following in your `init.el`:
+By default, `writeroom-mode` disables the mode line. If you occasionally need to see the full mode line, you can use the command `writeroom-toggle-mode-line`, which makes the mode line visible in the header line (at the top of the window). Calling it again hides the mode line. This command is bound to `s-?` (`s` is the super key, i.e., the Windows key on PCs, the ⌘ key on Macs), but it can be rebound by putting something like the following in your `init.el`:
 
 ```lisp
 (with-eval-after-load 'writeroom-mode
