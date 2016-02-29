@@ -81,8 +81,8 @@ deactivated.")
 (defcustom writeroom-width 80
   "Width of the writeroom writing area."
   :group 'writeroom
-  :type '(choice (integer :label "Absolute width:")
-                 (float :label "Relative width:" :value 0.5)))
+  :type '(choice (integer :tag "Absolute width:")
+                 (float :tag "Relative width:" :value 0.5)))
 
 (defcustom writeroom-mode-line nil
   "The mode line format to use.
