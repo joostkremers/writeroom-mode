@@ -262,6 +262,12 @@ The effects are activated if ARG is 1, deactivated if it is -1."
           (funcall fn arg))
         writeroom-global-effects))
 
+(defun writeroom--calculate-width ()
+  "Calculate the width of the writing area."
+  (if (floatp writeroom-width)
+      (truncate (* (window-total-width) writeroom-width))
+    writeroom-width))
+
 (defun writeroom-toggle-mode-line ()
   "Toggle display of the original mode line in the header line."
   (interactive)
@@ -274,6 +280,17 @@ The effects are activated if ARG is 1, deactivated if it is -1."
     (setq header-line-format (cdr (assq 'header-line-format writeroom--saved-data)))
     (setq writeroom--mode-line-showing nil)))
   (set-window-buffer (selected-window) (current-buffer) 'keep-margins))
+
+(defun writeroom-adjust-width (amount)
+  "Adjust the width of the writing area on the fly by AMOUNT.
+A numeric prefix argument can be used to specify the adjustment.
+When called without a prefix, this will reset the width to the default value."
+  (interactive "P")
+  (if amount
+      (setq visual-fill-column-width (max 1 (+ visual-fill-column-width amount)))
+    (setq visual-fill-column-width (writeroom--calculate-width)))
+  (visual-fill-column--adjust-window)
+  (message "Writing area is now %d characters wide" visual-fill-column-width))
 
 (defun writeroom--enable ()
   "Set up writeroom-mode for the current buffer.
@@ -306,9 +323,7 @@ activated."
   (unless (eq writeroom-mode-line t) ; if t, use standard mode line
     (setq mode-line-format writeroom-mode-line))
 
-  (setq visual-fill-column-width (if (floatp writeroom-width)
-                                     (truncate (* (window-total-width) writeroom-width))
-                                   writeroom-width)
+  (setq visual-fill-column-width (writeroom--calculate-width)
         visual-fill-column-center-text t
         visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins)
   (visual-fill-column-mode 1)
