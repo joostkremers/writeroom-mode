@@ -115,6 +115,11 @@ Restore the window configuration that existed before `writeroom-mode` was activa
 Width of the text area. Can be specified as an absolute value (number of characters) or as a fraction of the total window width (in which case it should be a number between 0 and 1).
 
 
+## Changing the width interactively ##
+
+The width of the text area can be changed with the command `writeroom-adjust-width`. Calling it with a numeric prefix argument (i.e., `M-5 M-x writeroom-adjust-width`) adjusts the text width by the given amount, calling it without prefix argument resets the width to the default value.
+
+
 ## Displaying the mode line ##
 
 By default, `writeroom-mode` disables the mode line. If you occasionally need to see the full mode line, you can use the command `writeroom-toggle-mode-line`, which makes the mode line visible in the header line (at the top of the window). Calling it again hides the mode line. This command is bound to `s-?` (`s` is the super key, i.e., the Windows key on PCs, the ⌘ key on Macs), but it can be rebound by putting something like the following in your `init.el`:
