@@ -5,7 +5,7 @@
 
 ## Upgrading from version 2 ##
 
-The current version of `writeroom-mode` is 3.1. If you’re upgrading from version 2.x and you have custom global effects, you will probably have to redo them, because the arguments passed to the global effect functions have been changed to make them compatible with those used to (de)activate minor modes. See the section [Adding global effects](#adding-global-effects) for details.
+The current version of `writeroom-mode` is 3.2. If you’re upgrading from version 2.x and you have custom global effects, you will probably have to redo them, because the arguments passed to the global effect functions have been changed to make them compatible with those used to (de)activate minor modes. See the section [Adding global effects](#adding-global-effects) for details.
 
 
 ## Installation ##
