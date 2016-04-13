@@ -292,6 +292,16 @@ When called without a prefix, this will reset the width to the default value."
   (visual-fill-column--adjust-window)
   (message "Writing area is now %d characters wide" visual-fill-column-width))
 
+(defun writeroom-increase-width ()
+  "Increase the width of the writing area by 2 characters."
+  (interactive)
+  (writeroom-adjust-width 2))
+
+(defun writeroom-decrease-width ()
+  "Decrease the width of the writing area by 2 characters."
+  (interactive)
+  (writeroom-adjust-width -2))
+
 (defun writeroom--enable ()
   "Set up writeroom-mode for the current buffer.
 Also run the functions in `writeroom-global-effects' if the

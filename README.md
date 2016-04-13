@@ -117,7 +117,16 @@ Width of the text area. Can be specified as an absolute value (number of charact
 
 ## Changing the width interactively ##
 
-The width of the text area can be changed with the command `writeroom-adjust-width`. Calling it with a numeric prefix argument (i.e., `M-5 M-x writeroom-adjust-width`) adjusts the text width by the given amount, calling it without prefix argument resets the width to the default value.
+The width of the text area in the current buffer can be changed interactively with the commands `writeroom-increase-width` and `writeroom-decrease-width`, which increase and decrease the text width by 2 characters. There is also a more general command `writeroom-adjust-width`, which adjusts the width of the text area by the amount passed as prefix argument. That is, calling it with `M-5 M-x writeroom-adjust-width` increases the text width by 5 characters. Calling `writeroom-adjust-width` without prefix argument resets the width to the default value.
+
+These commands are not bound to any keys, but you can bind them in the following manner (the actual keys are just examples, of course; choose any keys you like):
+
+```lisp
+(with-eval-after-load 'writeroom-mode
+  (define-key writeroom-mode-map (kbd "M-C-<") #'writeroom-decrease-width)
+  (define-key writeroom-mode-map (kbd "M-C->") #'writeroom-increase-width))
+  (define-key writeroom-mode-map (kbd "M-C-=") #'writeroom-adjust-width)
+```
 
 
 ## Displaying the mode line ##
@@ -148,7 +157,7 @@ Alternatively, you can also write your own function. This function should take o
     (disable-theme 'minimalist-dark))))
 ```
 
-If your function affects the frame, you should make sure that it only affects the `writeroom-mode` frame by passing the variable `writeroom--frame` to all frame-changing functions. If your frame-effect involves changing the value of a frame parameter, you ma be able to use the macro `define-writeroom-global-effect`, see its doc string for details.
+If your function affects the frame, you should make sure that it only affects the `writeroom-mode` frame by passing the variable `writeroom--frame` to all frame-changing functions. If your frame effect involves changing the value of a frame parameter, you may be able to use the macro `define-writeroom-global-effect`; see its doc string for details.
 
 In principle, it is not a good idea to define a custom global effect function as a toggle, but if you are sure you'll only ever use a single frame, it should be safe enough. For example, sometimes setting the `fullscreen` frame parameter does not work. In this case, if you're on Linux, you could send an X client message directly:
 
