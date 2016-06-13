@@ -279,7 +279,7 @@ The effects are activated if ARG is 1, deactivated if it is -1."
    (writeroom--mode-line-showing
     (setq header-line-format (cdr (assq 'header-line-format writeroom--saved-data)))
     (setq writeroom--mode-line-showing nil)))
-  (set-window-buffer (selected-window) (current-buffer) 'keep-margins))
+  (force-mode-line-update))
 
 (defun writeroom-adjust-width (amount)
   "Adjust the width of the writing area on the fly by AMOUNT.
