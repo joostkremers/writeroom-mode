@@ -135,9 +135,9 @@ Effects'. This adds a border around the text area."
                  (const :tag "Place fringes inside margins" nil)))
 
 (defcustom writeroom-major-modes '(text-mode)
-  "List of major modes in which writeroom-mode is activated.
-This option is only relevant when activating `writeroom-mode'
-with `global-writeroom-mode'."
+  "List of major modes masks defining modes in which writeroom-mode is activated.
+A mask could be a symbol or a reges string. This option is only relevant when activating
+`writeroom-mode 'with `global-writeroom-mode'."
   :group 'writeroom
   :type '(repeat (symbol :tag "Major mode")))
 
@@ -219,8 +219,14 @@ effect is deactivated."
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.
 This function activates `writeroom-mode' in a buffer if that
-buffer's major mode is a member of `writeroom-major-modes'."
-  (if (memq major-mode writeroom-major-modes)
+buffer's major mode matchs against one of `writeroom-major-modes'."
+  (if (member-if (lambda (mode-re) (string-match-p mode-re (symbol-name major-mode)))
+                 (mapcar (lambda (s)
+                           (let ((mask (if (symbolp s) (symbol-name s) s)))
+                             (if (not (string-prefix-p "^" mask))
+                                 (concat "^" mask)
+                               mask)))
+                         writeroom-major-modes))
       (writeroom-mode 1)))
 
 (defvar writeroom-mode-map

@@ -52,7 +52,7 @@ The affected frame is always restored to its original state, before `writeroom-m
 
 #### Global Writeroom Mode ####
 
-Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes in `writeroom-major-modes`.
+Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes matched any mask listed in `writeroom-major-modes`.
 
 
 #### Border Width ####
@@ -166,4 +166,3 @@ In principle, it is not a good idea to define a custom global effect function as
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                          '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 ```
-
