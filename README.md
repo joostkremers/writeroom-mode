@@ -3,11 +3,6 @@
 `writeroom-mode` is a minor mode for Emacs that implements a distraction-free writing mode similar to the famous Writeroom editor for OS X. `writeroom-mode` is meant for GNU Emacs 24, lower versions are not actively supported.
 
 
-## Upgrading from version 2 ##
-
-The current version of `writeroom-mode` is 3.2. If you’re upgrading from version 2.x and you have custom global effects, you will probably have to redo them, because the arguments passed to the global effect functions have been changed to make them compatible with those used to (de)activate minor modes. See the section [Adding global effects](#adding-global-effects) for details.
-
-
 ## Installation ##
 
 `writeroom-mode` can be installed through the package manager from [Melpa](http://melpa.org/). If installing manually, make sure to also install its dependency [`visual-fill-column`](https://github.com/joostkremers/visual-fill-column).
