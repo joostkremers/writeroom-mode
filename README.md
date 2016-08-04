@@ -124,6 +124,16 @@ These commands are not bound to any keys, but you can bind them in the following
 ```
 
 
+## Text size adjustments ##
+
+Text size adjustments are taken into account in calculating the margins, which means that if the text size is increased, the margins are decreased, so that the number of characters on the line remains more or less the same. Since it is not possible to detect interactive text size adjustments (e.g., with `text-size-adjust`), the adjustments of the margins cannot be made automatically. You need to force a redisplay, e.g., with the command `redraw-display`.
+
+Alternatively, you can advise the command you use for adjusting the text size (most likely `text-size-adjust`):
+
+    (advice-add 'text-scale-adjust :after
+      #'visual-fill-column-adjust)
+
+
 ## Displaying the mode line ##
 
 By default, `writeroom-mode` disables the mode line. If you occasionally need to see the full mode line, you can use the command `writeroom-toggle-mode-line`, which makes the mode line visible in the header line (at the top of the window). Calling it again hides the mode line. This command is bound to `s-?` (`s` is the super key, i.e., the Windows key on PCs, the ⌘ key on Macs), but it can be rebound by putting something like the following in your `init.el`:
