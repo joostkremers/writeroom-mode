@@ -289,7 +289,7 @@ When called without a prefix, this will reset the width to the default value."
   (if amount
       (setq visual-fill-column-width (max 1 (+ visual-fill-column-width amount)))
     (setq visual-fill-column-width (writeroom--calculate-width)))
-  (visual-fill-column--adjust-window)
+  (visual-fill-column-adjust-window)
   (message "Writing area is now %d characters wide" visual-fill-column-width))
 
 (defun writeroom-increase-width ()
@@ -342,7 +342,7 @@ activated."
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
           (with-selected-window w
-            (visual-fill-column--adjust-window)))
+            (visual-fill-column-adjust-window)))
         (get-buffer-window-list (current-buffer) nil)))
 
 (defun writeroom--disable ()
