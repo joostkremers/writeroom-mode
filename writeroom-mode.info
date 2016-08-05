@@ -160,7 +160,7 @@ File: writeroom-mode.info,  Node: Global Writeroom Mode,  Next: Border Width,  U
 
 Activate this option to automatically turn on ‘writeroom-mode’ in any
 buffer that has one of the major modes matched against one of listed
-in ‘writeroom-major-modes’.
+in ‘writeroom-major-modes’ and not in ‘writeroom-major-modes’.
 
 
 File: writeroom-mode.info,  Node: Border Width,  Next: Fringes Outside Margins,  Prev: Global Writeroom Mode,  Up: Customisation

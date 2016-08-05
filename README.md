@@ -52,7 +52,7 @@ The affected frame is always restored to its original state, before `writeroom-m
 
 #### Global Writeroom Mode ####
 
-Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes matched any mask listed in `writeroom-major-modes`.
+Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes matched any mask listed in `writeroom-major-modes` and not in ‘writeroom-major-modes’.
 
 
 #### Border Width ####

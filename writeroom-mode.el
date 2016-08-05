@@ -137,9 +137,16 @@ Effects'. This adds a border around the text area."
 (defcustom writeroom-major-modes '(text-mode)
   "List of major modes masks defining modes in which writeroom-mode is activated.
 A mask could be a symbol or a reges string. This option is only relevant when activating
-`writeroom-mode 'with `global-writeroom-mode'."
+`writeroom-mode' with `global-writeroom-mode'."
   :group 'writeroom
   :type '(repeat (symbol :tag "Major mode")))
+
+(defcustom writeroom-major-modes-exceptions '()
+  "List of major modes masks in wich writeroom mode is never activated.
+A mask could be a symbol or a reges string. This option is only relevant when activating
+`writeroom-mode' with `global-writeroom-mode'."
+  :group 'writeroom
+  :type '(repeat (symbol :tag "Major mode exception")))
 
 (defcustom writeroom-restore-window-config nil
   "If set, restore window configuration after disabling `writeroom-mode'.
@@ -220,14 +227,20 @@ effect is deactivated."
   "Turn on `writeroom-mode'.
 This function activates `writeroom-mode' in a buffer if that
 buffer's major mode matchs against one of `writeroom-major-modes'."
-  (if (member-if (lambda (mode-re) (string-match-p mode-re (symbol-name major-mode)))
-                 (mapcar (lambda (s)
-                           (let ((mask (if (symbolp s) (symbol-name s) s)))
-                             (if (not (string-prefix-p "^" mask))
-                                 (concat "^" mask)
-                               mask)))
-                         writeroom-major-modes))
-      (writeroom-mode 1)))
+  (cl-flet* ((mode-match-p (mode-re) (string-match-p mode-re (symbol-name major-mode)))
+             (normalize-masks (masks)
+                              (mapcar (lambda (s)
+                                        (regexp-quote
+                                         (let ((mask (if (symbolp s) (symbol-name s) s)))
+                                           (if (not (string-prefix-p "^" mask))
+                                               (concat "^" mask)
+                                             mask))))
+                                      masks))
+             (check-masks (mode-masks)
+                          (cl-member-if #'mode-match-p (normalize-masks mode-masks))))
+    (if (and (check-masks writeroom-major-modes)
+             (not (check-masks writeroom-major-modes-exceptions)))
+        (writeroom-mode 1))))
 
 (defvar writeroom-mode-map
   (let ((map (make-sparse-keymap)))
