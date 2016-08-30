@@ -233,20 +233,25 @@ effect is deactivated."
   "Turn on `writeroom-mode'.
 This function activates `writeroom-mode' in a buffer if that
 buffer's major mode matchs against one of `writeroom-major-modes'."
-  (cl-flet* ((mode-match-p (mode-re) (string-match-p mode-re (symbol-name major-mode)))
-             (normalize-masks (masks)
-                              (mapcar (lambda (s)
-                                        (regexp-quote
-                                         (let ((mask (if (symbolp s) (symbol-name s) s)))
-                                           (if (not (string-prefix-p "^" mask))
-                                               (concat "^" mask)
-                                             mask))))
-                                      masks))
-             (check-masks (mode-masks)
-                          (cl-member-if #'mode-match-p (normalize-masks mode-masks))))
-    (if (and (check-masks writeroom-major-modes)
-             (not (check-masks writeroom-major-modes-exceptions)))
+  (unless (writeroom--match-mode major-mode writeroom-major-modes-exceptions)
+    (if (writeroom--match-mode major-mode writeroom-major-modes)
         (writeroom-mode 1))))
+
+(defun writeroom--match-mode (mode modes)
+  "Match MODE against MODES.
+MODE should be a mode name (as a symbol), MODES a list of mode
+names (symbols) or regular expressions.  Return t if MODE matches
+one of the elements of MODES, nil otherwise.  Comparison is done
+with `eq` (for symbols in MODES) or with `string-match-p' (for
+strings in MODES).  That is, if MODE is e.g., `emacs-lisp-mode',
+it will not match the symbol `lisp-mode', but it will match the
+string \"lisp-mode\"."
+  (catch 'match
+    (dolist (elem modes)
+      (if (cond ((symbolp elem)
+                 (eq elem mode))
+                (t (string-match-p elem (symbol-name mode))))
+          (throw 'match t)))))
 
 (defvar writeroom-mode-map
   (let ((map (make-sparse-keymap)))
