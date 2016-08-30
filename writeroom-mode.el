@@ -135,18 +135,24 @@ Effects'. This adds a border around the text area."
                  (const :tag "Place fringes inside margins" nil)))
 
 (defcustom writeroom-major-modes '(text-mode)
-  "List of major modes masks defining modes in which writeroom-mode is activated.
-A mask could be a symbol or a reges string. This option is only relevant when activating
-`writeroom-mode' with `global-writeroom-mode'."
+  "List of major modes in which writeroom-mode is activated.
+The command `global-writeroom-mode' activates `writeroom-mode' in
+every buffer that has one of the major modes listed in this
+option.  Modes can be specified as symbols or as regular
+expressions.  If a buffer has one of the specified major modes or
+if its major mode name matches one of the regular expressions,
+`writeroom-mode' is activated."
   :group 'writeroom
-  :type '(repeat (symbol :tag "Major mode")))
+  :type '(repeat (choice (symbol :tag "Major mode")
+                         (string :tag "Regular expression"))))
 
-(defcustom writeroom-major-modes-exceptions '()
-  "List of major modes masks in wich writeroom mode is never activated.
-A mask could be a symbol or a reges string. This option is only relevant when activating
-`writeroom-mode' with `global-writeroom-mode'."
+(defcustom writeroom-major-modes-exceptions nil
+  "List of major modes in which `writeroom-mode' should not be activated.
+This option lists exceptions to `writeroom-major-modes'.  Modes
+can be specified as symbols or as regular expressions."
   :group 'writeroom
-  :type '(repeat (symbol :tag "Major mode exception")))
+  :type '(repeat (choice (symbol :tag "Major mode exception")
+                         (string :tag "Regular expression"))))
 
 (defcustom writeroom-restore-window-config nil
   "If set, restore window configuration after disabling `writeroom-mode'.
