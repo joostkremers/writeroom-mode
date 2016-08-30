@@ -85,7 +85,7 @@ deactivated.")
                  (float :tag "Relative width:" :value 0.5)))
 
 (defcustom writeroom-mode-line nil
-  "The mode line format to use.
+  "The mode line format to use with `writeroom-mode'.
 By default, this option is set to nil, which disables the mode
 line when `writeroom-mode' is activated.  By setting this option
 to t, the standard mode line is retained.  Alternatively, it is
