@@ -103,8 +103,8 @@ Alternatively, if you use ‘writeroom-mode’ in multiple buffers with
 particular major modes (e.g., ‘text-mode’, ‘markdown-mode’), you can use
 the global minor mode ‘global-writeroom-mode’.  This function enables
 the global effects and activates the buffer-local effects in all
-(current and future) buffers that have a major mode listed in the user
-option ‘writeroom-major-modes’ (by default only ‘text-mode’).
+(current and future) buffers that have a major mode matched one of the masks
+listed in the user option ‘writeroom-major-modes’ (by default only ‘text-mode’).
 
 When ‘global-writeroom-mode’ is active, the function ‘writeroom-mode’
 can still be called to enable or disable ‘writeroom-mode’ in individual
@@ -159,7 +159,8 @@ File: writeroom-mode.info,  Node: Global Writeroom Mode,  Next: Border Width,  U
 ---------------------------
 
 Activate this option to automatically turn on ‘writeroom-mode’ in any
-buffer that has one of the major modes in ‘writeroom-major-modes’.
+buffer that has one of the major modes matched against one of listed
+in ‘writeroom-major-modes’ and not in ‘writeroom-major-modes’.
 
 
 File: writeroom-mode.info,  Node: Border Width,  Next: Fringes Outside Margins,  Prev: Global Writeroom Mode,  Up: Customisation
