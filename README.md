@@ -89,6 +89,14 @@ Each option can be enabled or disabled individually.
 
 List of major modes in which `writeroom-mode` should be activated automatically. Use in conjunction with `global-writeroom-mode`.
 
+The elements in this list can be major-mode symbols, or regular expressions (in which case they must of course be strings).
+
+
+#### Major Modes Exceptions ####
+
+List of major modes in which `writeroom-mode` should not be activated by `global-writeroom-mode`. (It is still possible to activate `writeroom-mode` manually). This can also be a mixed list of major-mode 
+symbols and regular expressions.
+
 
 #### Maximize Window ####
 
