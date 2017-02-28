@@ -17,6 +17,7 @@
 * disable the menu bar
 * disable the tool bar
 * disable the scroll bar
+* enable a bottom window divider of 1 pixel
 * maximise the current window (i.e., delete all other windows in the frame)
 * place the fringes outside the margins
 * disable the mode line
@@ -29,7 +30,7 @@ All these effects can be disabled or customised. In addition, there are several 
 
 ## Multiple writeroom-mode buffers ##
 
-It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers. Alternatively, if you use `writeroom-mode` in multiple buffers with particular major modes (e.g., `text-mode`, `markdown-mode`), you can use the global minor mode `global-writeroom-mode`. This function enables the global effects and activates the buffer-local effects in all (current and future) buffers that have a major mode listed in the user option `writeroom-major-modes` (by default only `text-mode`).
+It is possible to activate `writeroom-mode` in more than one buffer. The global effects are of course activated only once and they remain active until `writeroom-mode` is deactivated in *all* buffers. Alternatively, if you wish to use `writeroom-mode` in all buffers that have a particular major mode (e.g., `text-mode`, `markdown-mode`), you can use the global minor mode `global-writeroom-mode`. This function enables the global effects and activates the buffer-local effects in all (current and future) buffers that have a major mode listed in the user option `writeroom-major-modes` (by default only `text-mode`).
 
 When `global-writeroom-mode` is active, the function `writeroom-mode` can still be called to enable or disable `writeroom-mode` in individual buffers (regardless of their major mode, of course). Calling `global-writeroom-mode` again disables `writeroom-mode` in all buffers in which it is active, also those in which it was activated manually.
 
@@ -70,6 +71,11 @@ If set, place the fringes outside the margins. `writeroom-mode` expands the wind
 Effect to apply when `writeroom-mode` activates fullscreen. Can be `fullboth`, which uses the entire screen (i.e., window decorations are disabled and the window manager’s panel or task bar is covered by the Emacs frame) or `maximized`, in which case the Emacs frame is maximised but keeps its window decorations and does not cover the panel.
 
 
+#### Bottom Divider Width ####
+
+Width in pixel of the bottom window divider. Default value is 1. The bottom window divider helps in distinguishing the minibuffer from the text area, and also in distinguishing two windows split top-to-bottom.
+
+
 #### Global Effects ####
 
 List of global effects:
@@ -79,6 +85,7 @@ List of global effects:
 - scroll bar
 - menu bar
 - tool bar
+- bottom window divider
 - border (add a border around the text area; disabled by default)
 - sticky (display the window on all virtual workspaces; disabled by default)
 
