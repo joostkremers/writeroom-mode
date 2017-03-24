@@ -151,6 +151,17 @@ if its major mode name matches one of the regular expressions,
   :type '(repeat (choice (symbol :tag "Major mode")
                          (string :tag "Regular expression"))))
 
+(defcustom writeroom-use-derived-modes t
+  "Activate `writeroom-mode' in derived modes as well.'.
+If this option is set, the command `global-writeroom-mode'
+activates `writeroom-mode' in modes that are derived from those
+listed in `writeroom-major-modes'.  Note that this option applies
+only to symbols in `writeroom-major-modes'.  Regular expressions
+are ignored."
+  :group 'writeroom
+  :type '(choice (const :tag "Use derived modes" t)
+                 (const :tag "Do not use derived modes" nil)))
+
 (defcustom writeroom-major-modes-exceptions nil
   "List of major modes in which `writeroom-mode' should not be activated.
 This option lists exceptions to `writeroom-major-modes'.  Modes
@@ -241,24 +252,29 @@ effect is deactivated."
   "Turn on `writeroom-mode'.
 This function activates `writeroom-mode' in a buffer if that
 buffer's major mode matchs against one of `writeroom-major-modes'."
-  (unless (writeroom--match-mode major-mode writeroom-major-modes-exceptions)
-    (if (writeroom--match-mode major-mode writeroom-major-modes)
+  (unless (writeroom--match-major-mode writeroom-major-modes-exceptions)
+    (if (writeroom--match-major-mode writeroom-major-modes writeroom-use-derived-modes)
         (writeroom-mode 1))))
 
-(defun writeroom--match-mode (mode modes)
-  "Match MODE against MODES.
-MODE should be a mode name (as a symbol), MODES a list of mode
-names (symbols) or regular expressions.  Return t if MODE matches
-one of the elements of MODES, nil otherwise.  Comparison is done
-with `eq` (for symbols in MODES) or with `string-match-p' (for
-strings in MODES).  That is, if MODE is e.g., `emacs-lisp-mode',
-it will not match the symbol `lisp-mode', but it will match the
-string \"lisp-mode\"."
+(defun writeroom--match-major-mode (modes &optional derived)
+  "Match the current buffer's major mode against MODES.
+MODES a list of mode names (symbols) or regular expressions.
+Return t if the current major mode matches one of the elements of
+MODES, nil otherwise.  Comparison is done with `eq` (for symbols
+in MODES) or with `string-match-p' (for strings in MODES).  That
+is, if the major mode is e.g., `emacs-lisp-mode', it will not
+match the symbol `lisp-mode', but it will match the string
+\"lisp-mode\".
+
+If DERIVED is non-nil, also return t if the current buffer's
+major mode is a derived mode of one of the major mode symbols in
+MODES."
   (catch 'match
     (dolist (elem modes)
       (if (cond ((symbolp elem)
-                 (eq elem mode))
-                (t (string-match-p elem (symbol-name mode))))
+                 (or (eq elem major-mode)
+                     (and derived (derived-mode-p elem))))
+                ((string-match-p elem (symbol-name major-mode))))
           (throw 'match t)))))
 
 (defvar writeroom-mode-map

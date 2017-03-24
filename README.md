@@ -99,6 +99,11 @@ List of major modes in which `writeroom-mode` should be activated automatically.
 The elements in this list can be major-mode symbols, or regular expressions (in which case they must of course be strings).
 
 
+#### Use Derived Modes ####
+
+If this option is set, `global-writeroom-mode` also activates `writeroom-mode` in buffers whose major mode is a derived mode of one of the modes in `writeroom-major-modes`. (Only the major mode symbols in `writeroom-major-modes` are relevant.)
+
+
 #### Major Modes Exceptions ####
 
 List of major modes in which `writeroom-mode` should not be activated by `global-writeroom-mode`. (It is still possible to activate `writeroom-mode` manually). This can also be a mixed list of major-mode 
