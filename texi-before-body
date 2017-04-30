@@ -1,4 +1,5 @@
-INFO-DIR-SECTION Emacs
-START-INFO-DIR-ENTRY
-* Writeroom mode: (writeroom-mode).        Distraction-free writing.
-END-INFO-DIR-ENTRY
+
+@dircategory Emacs
+@direntry
+* menu item 1: (writeroom-mode).        Distraction-free writing.
+@end direntry
