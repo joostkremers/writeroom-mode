@@ -327,17 +327,18 @@ The effects are activated if ARG is 1, deactivated if it is -1."
     writeroom-width))
 
 (defun writeroom-toggle-mode-line ()
-  "Toggle display of the original mode line in the header line."
+  "Toggle display of the original mode."
   (interactive)
-  (cond
-   ((not writeroom--mode-line-showing)
-    (setq header-line-format (or (cdr (assq 'mode-line-format writeroom--saved-data))
-                                 (default-value 'mode-line-format)))
-    (setq writeroom--mode-line-showing t))
-   (writeroom--mode-line-showing
-    (setq header-line-format (cdr (assq 'header-line-format writeroom--saved-data)))
-    (setq writeroom--mode-line-showing nil)))
-  (force-mode-line-update))
+  (unless (eq writeroom-mode-line t) ; This means the original mode-line is displayed already.
+    (cond
+     ((not writeroom--mode-line-showing)
+      (setq mode-line-format (or (cdr (assq 'mode-line-format writeroom--saved-data))
+                                 (default-value 'mode-line-format))
+            writeroom--mode-line-showing t))
+     (writeroom--mode-line-showing
+      (setq mode-line-format writeroom-mode-line
+            writeroom--mode-line-showing nil)))
+    (force-mode-line-update)))
 
 (defun writeroom-adjust-width (amount)
   "Adjust the width of the writing area on the fly by AMOUNT.
