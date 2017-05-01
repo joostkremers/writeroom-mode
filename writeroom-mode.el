@@ -81,9 +81,8 @@ deactivated.")
 (defcustom writeroom-width 80
   "Width of the writeroom writing area.
 This can be specified as an absolute width (the number of
-characters in a line), or as a width relative to the current
-window width.  In the former case, it should be an integer larger
-than 1, in the latter it should be a value between 0 and 1."
+characters in a line), or as a fraction of the total window
+width, in the latter it should be a number between 0 and 1."
   :group 'writeroom
   :type '(choice (integer :tag "Absolute width:")
                  (float :tag "Relative width:" :value 0.5)))
