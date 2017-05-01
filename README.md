@@ -191,3 +191,14 @@ In principle, it is not a good idea to define a custom global effect function as
   (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
                          '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 ```
+
+
+## Other similar modes ##
+
+There are two other modes that I know of that also implement a distraction-free writing environment: [Darkroom](https://github.com/joaotavora/darkroom) and [Olivetti](https://github.com/rnkn/olivetti). Both are narrower in scope than `writeroom-mode`.
+
+In particular, both Darkroom and Olivetti only affect the buffer (or more precisely, its window), not the frame. They centre the text by adding window margins, and optionally resize the text and hide the mode line. They do not make Emacs fullscreen and do not remove the menu and tool bars, the scroll bar or the window decorations. This is a conscious choice (see, e.g., [this pull request](https://github.com/joaotavora/darkroom/pull/2) and [this issue](https://github.com/rnkn/olivetti/issues/6)), motivated by the fact that affecting the frame in this way may lead to problems when using multiple Emacs frames.
+
+It is true that changing the appearance of the current frame (the global effects, as `writeroom-mode` calls them) is risky if you use multiple frames. `writeroom-mode` applies its global effects to the frame that is current when it is first activated and tries to make sure that *only* this frame is ever affected. Therefore, it should be safe to use `writeroom-mode`, even if you use multiple frames. (If you do run into issues, however, I would welcome a bug report.) Alternatively, you can turn off all global effects and use `writeroom-mode` in much the same way as Darkroom or Olivetti.
+
+Another difference with Darkroom and Olivetti is that `writeroom-mode` tries to be as customisable as possible. It has a larger number of customisation options than either of the other modes and also provides a way to add custom global effects. This may or may not be what you need, of course.
