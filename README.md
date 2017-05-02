@@ -46,37 +46,37 @@ The affected frame is always restored to its original state, before `writeroom-m
 
 ## Customisation ##
 
-#### Global Writeroom Mode ####
+### Global Writeroom Mode ###
 
 Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes matched any mask listed in `writeroom-major-modes` and not in ‘writeroom-major-modes’.
 
 
-#### Border Width ####
+### Border Width ###
 
 Width of the border around the text area. Disabled by default, see `writeroom-global-effects` to enable the border.
 
 
-#### Extra Line Spacing ####
+### Extra Line Spacing ###
 
 Increase the line spacing. Can be an absolute value (the number of pixels to add to the line) or a number relative to the default line height. Disabled by default.
 
 
-#### Fringes Outside Margins ####
+### Fringes Outside Margins ###
 
 If set, place the fringes outside the margins. `writeroom-mode` expands the window margins, causing the fringes to be pushed inside, which may be visually distracting. This option keeps the fringes at the window’s edges. Unset it if you prefer to have the fringes close to the text.
 
 
-#### Fullscreen Effect ####
+### Fullscreen Effect ###
 
 Effect to apply when `writeroom-mode` activates fullscreen. Can be `fullboth`, which uses the entire screen (i.e., window decorations are disabled and the window manager’s panel or task bar is covered by the Emacs frame) or `maximized`, in which case the Emacs frame is maximised but keeps its window decorations and does not cover the panel.
 
 
-#### Bottom Divider Width ####
+### Bottom Divider Width ###
 
 Width in pixel of the bottom window divider. Default value is 1. The bottom window divider helps in distinguishing the minibuffer from the text area, and also in distinguishing two windows split top-to-bottom.
 
 
-#### Global Effects ####
+### Global Effects ###
 
 List of global effects:
 
@@ -92,40 +92,40 @@ List of global effects:
 Each option can be enabled or disabled individually.
 
 
-#### Major Modes ####
+### Major Modes ###
 
 List of major modes in which `writeroom-mode` should be activated automatically. Use in conjunction with `global-writeroom-mode`.
 
 The elements in this list can be major-mode symbols, or regular expressions (in which case they must of course be strings).
 
 
-#### Use Derived Modes ####
+### Use Derived Modes ###
 
 If this option is set, `global-writeroom-mode` also activates `writeroom-mode` in buffers whose major mode is a derived mode of one of the modes in `writeroom-major-modes`. (Only the major mode symbols in `writeroom-major-modes` are relevant.)
 
 
-#### Major Modes Exceptions ####
+### Major Modes Exceptions ###
 
 List of major modes in which `writeroom-mode` should not be activated by `global-writeroom-mode`. (It is still possible to activate `writeroom-mode` manually). This can also be a mixed list of major-mode 
 symbols and regular expressions.
 
 
-#### Maximize Window ####
+### Maximize Window ###
 
 Maximise the current window in its frame, i.e., delete all other windows.
 
 
-#### Mode Line ####
+### Mode Line ###
 
 The mode line format to use. This option can be `nil`, which disables the mode line altogether (which is the default), it can be `t`, which retains the mode line, or it can be set to a customised format to only show some information. If the latter option is chosen, the mode line shows only the file name and the file modification status, but the format can be customised. See the documentation for the variable `mode-line-format` for details.
 
 
-#### Restore Window Config ####
+### Restore Window Config ###
 
 Restore the window configuration that existed before `writeroom-mode` was activated. This is primarily useful if you use `writeroom-mode` in only a single buffer, since the window configuration that is restored is the one that existed at the moment when `writeroom-mode` is called for the first time. Disabled by default.
 
 
-#### Width ####
+### Width ###
 
 Width of the text area. Can be specified as an absolute value (number of characters) or as a fraction of the total window width (in which case it should be a number between 0 and 1).
 
