@@ -73,7 +73,7 @@ Effect to apply when `writeroom-mode` activates fullscreen. Can be `fullboth`, w
 
 ### Bottom Divider Width ###
 
-Width in pixel of the bottom window divider. Default value is 1. The bottom window divider helps in distinguishing the minibuffer from the text area, and also in distinguishing two windows split top-to-bottom.
+Width in pixels of the bottom window divider. Default value is 1. The bottom window divider helps in distinguishing the minibuffer from the text area, and also in distinguishing two windows split top-to-bottom.
 
 
 ### Global Effects ###
