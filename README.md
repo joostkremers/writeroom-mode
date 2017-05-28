@@ -117,7 +117,14 @@ Maximise the current window in its frame, i.e., delete all other windows.
 
 ### Mode Line ###
 
-The mode line format to use. This option can be `nil`, which disables the mode line altogether (which is the default), it can be `t`, which retains the mode line, or it can be set to a customised format to only show some information. If the latter option is chosen, the mode line shows only the file name and the file modification status, but the format can be customised. See the documentation for the variable `mode-line-format` for details.
+The mode line format to use. This option can be `nil`, which disables the mode line altogether (which is the default), it can be `t`, which retains the mode line, or it can be set to a customised format to only show some information. If the latter option is chosen, the mode line shows only the file name and the file modification status, but the format can be customised. See the documentation for the variable `mode-line-format` for details. If you set this option, it may be more visually pleasing to set the option Bottom Divider Width to 0.
+
+
+### Mode Line Toggle Position ###
+
+If you disable or customise the mode line, you may sometimes want to see the entire mode line. `writeroom-mode` provides the function `writeroom-toggle-mode-line` (see below) to do this. You can specify where you want to make the mode line visible when using this function: in the mode line itself, or in the header line.
+
+Note that the default value of this option is to display the mode line in the header line, because for some reason that is more reliable. (Toggling the mode line multiple times in a row does not always work very well.)
 
 
 ### Restore Window Config ###
