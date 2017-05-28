@@ -146,6 +146,7 @@ File: writeroom-mode.info,  Node: Customisation,  Next: Changing the width inter
 * Major Modes Exceptions::
 * Maximize Window::
 * Mode Line::
+* Mode Line Toggle Position::
 * Restore Window Config::
 * Width::
 
@@ -207,7 +208,7 @@ File: writeroom-mode.info,  Node: Bottom Divider Width,  Next: Global Effects,  
 1.5.6 Bottom Divider Width
 --------------------------
 
-Width in pixel of the bottom window divider.  Default value is 1.  The
+Width in pixels of the bottom window divider.  Default value is 1.  The
 bottom window divider helps in distinguishing the minibuffer from the
 text area, and also in distinguishing two windows split top-to-bottom.
 
@@ -275,7 +276,7 @@ Maximise the current window in its frame, i.e., delete all other
 windows.
 
 
-File: writeroom-mode.info,  Node: Mode Line,  Next: Restore Window Config,  Prev: Maximize Window,  Up: Customisation
+File: writeroom-mode.info,  Node: Mode Line,  Next: Mode Line Toggle Position,  Prev: Maximize Window,  Up: Customisation
 
 1.5.12 Mode Line
 ----------------
@@ -286,12 +287,30 @@ retains the mode line, or it can be set to a customised format to only
 show some information.  If the latter option is chosen, the mode line
 shows only the file name and the file modification status, but the
 format can be customised.  See the documentation for the variable
-‘mode-line-format’ for details.
+‘mode-line-format’ for details.  If you set this option, it may be more
+visually pleasing to set the option Bottom Divider Width to 0.
 
 
-File: writeroom-mode.info,  Node: Restore Window Config,  Next: Width,  Prev: Mode Line,  Up: Customisation
+File: writeroom-mode.info,  Node: Mode Line Toggle Position,  Next: Restore Window Config,  Prev: Mode Line,  Up: Customisation
 
-1.5.13 Restore Window Config
+1.5.13 Mode Line Toggle Position
+--------------------------------
+
+If you disable or customise the mode line, you may sometimes want to see
+the entire mode line.  ‘writeroom-mode’ provides the function
+‘writeroom-toggle-mode-line’ (see below) to do this.  You can specify
+where you want to make the mode line visible when using this function:
+in the mode line itself, or in the header line.
+
+Note that the default value of this option is to display the mode line
+in the header line, because for some reason that is more reliable.
+(Toggling the mode line multiple times in a row does not always work
+very well.)
+
+
+File: writeroom-mode.info,  Node: Restore Window Config,  Next: Width,  Prev: Mode Line Toggle Position,  Up: Customisation
+
+1.5.14 Restore Window Config
 ----------------------------
 
 Restore the window configuration that existed before ‘writeroom-mode’
@@ -303,7 +322,7 @@ the first time.  Disabled by default.
 
 File: writeroom-mode.info,  Node: Width,  Prev: Restore Window Config,  Up: Customisation
 
-1.5.14 Width
+1.5.15 Width
 ------------
 
 Width of the text area.  Can be specified as an absolute value (number
@@ -475,44 +494,46 @@ Node: Frame effects3764
 Ref: #frame-effects3935
 Node: Customisation4744
 Ref: #customisation4916
-Node: Global Writeroom Mode5221
-Ref: #global-writeroom-mode5378
-Node: Border Width5587
-Ref: #border-width5753
-Node: Extra Line Spacing5875
-Ref: #extra-line-spacing6055
-Node: Fringes Outside Margins6222
-Ref: #fringes-outside-margins6417
-Node: Fullscreen Effect6710
-Ref: #fullscreen-effect6895
-Node: Bottom Divider Width7254
-Ref: #bottom-divider-width7436
-Node: Global Effects7649
-Ref: #global-effects7813
-Node: Major Modes8168
-Ref: #major-modes8323
-Node: Use Derived Modes8588
-Ref: #use-derived-modes8763
-Node: Major Modes Exceptions9025
-Ref: #major-modes-exceptions9216
-Node: Maximize Window9468
-Ref: #maximize-window9637
-Node: Mode Line9712
-Ref: #mode-line9868
-Node: Restore Window Config10328
-Ref: #restore-window-config10498
-Node: Width10835
-Ref: #width10955
-Node: Changing the width interactively11140
-Ref: #changing-the-width-interactively11358
-Node: Text size adjustments12363
-Ref: #text-size-adjustments12570
-Node: Displaying the mode line13227
-Ref: #displaying-the-mode-line13429
-Node: Adding global effects14215
-Ref: #adding-global-effects14409
-Node: Other similar modes16094
-Ref: #other-similar-modes16253
+Node: Global Writeroom Mode5251
+Ref: #global-writeroom-mode5408
+Node: Border Width5617
+Ref: #border-width5783
+Node: Extra Line Spacing5905
+Ref: #extra-line-spacing6085
+Node: Fringes Outside Margins6252
+Ref: #fringes-outside-margins6447
+Node: Fullscreen Effect6740
+Ref: #fullscreen-effect6925
+Node: Bottom Divider Width7284
+Ref: #bottom-divider-width7466
+Node: Global Effects7680
+Ref: #global-effects7844
+Node: Major Modes8199
+Ref: #major-modes8354
+Node: Use Derived Modes8619
+Ref: #use-derived-modes8794
+Node: Major Modes Exceptions9056
+Ref: #major-modes-exceptions9247
+Node: Maximize Window9499
+Ref: #maximize-window9668
+Node: Mode Line9743
+Ref: #mode-line9903
+Node: Mode Line Toggle Position10466
+Ref: #mode-line-toggle-position10664
+Node: Restore Window Config11217
+Ref: #restore-window-config11403
+Node: Width11740
+Ref: #width11860
+Node: Changing the width interactively12045
+Ref: #changing-the-width-interactively12263
+Node: Text size adjustments13268
+Ref: #text-size-adjustments13475
+Node: Displaying the mode line14132
+Ref: #displaying-the-mode-line14334
+Node: Adding global effects15120
+Ref: #adding-global-effects15314
+Node: Other similar modes16999
+Ref: #other-similar-modes17158
 
 End Tag Table
 
