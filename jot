@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# Jot down an idea at a moment's notice without thinking about anything else
+# Copyright (C) 2008  Nicholas D Steeves
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# Bind jot to a desktop keyboard/icon shortcut to make it near-instant
+# TODO: investigate feasibility of "emacsclient -c" plus writeroom-mode
+
+notebook="$HOME/Desktop/Notebook"
+entry=$(date +%y-%m-%d_%R)
+type="txt"
+mode="text-mode"
+layout="writeroom-mode"
+
+mkdir -p "$notebook"
+emacs "$notebook"/"$entry"."$type" -f "$mode" -f "$layout"
