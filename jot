@@ -16,7 +16,6 @@
 # Bind jot to a desktop keyboard/icon shortcut to make it near-instant
 # TODO: investigate feasibility of "emacsclient -c" plus writeroom-mode
 
-args="--no-splash -fs"
 notebook="$HOME/Desktop/Notebook"
 entry=$(date +%y-%m-%d_%R)
 type="txt"
@@ -24,4 +23,4 @@ mode="text-mode"
 layout="writeroom-mode"
 
 mkdir -p "$notebook"
-emacs "$args" "$notebook"/"$entry"."$type" -f "$mode" -f "$layout"
+emacs --no-splash -fs "$notebook"/"$entry"."$type" -f "$mode" -f "$layout"
