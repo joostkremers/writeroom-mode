@@ -409,7 +409,7 @@ activated."
   (when writeroom-extra-line-spacing
     (setq line-spacing writeroom-extra-line-spacing))
 
-  (unless (eq writeroom-mode-line t) ; if t, use standard mode line
+  (unless (eq writeroom-mode-line t) ; If t, use standard mode line.
     (setq mode-line-format writeroom-mode-line))
 
   (setq visual-fill-column-width (writeroom--calculate-width)
@@ -417,7 +417,7 @@ activated."
         visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins)
   (visual-fill-column-mode 1)
 
-  ;; if the current buffer is displayed in some window, the windows'
+  ;; If the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
           (with-selected-window w
@@ -429,13 +429,13 @@ activated."
 Also run the functions in `writeroom-global-effects' to undo
 their effects if `writeroom-mode' is deactivated in the last
 buffer in which it was active."
-  ;; disable visual-fill-column-mode
+  ;; Disable visual-fill-column-mode.
   (visual-fill-column-mode -1)
   (kill-local-variable 'visual-fill-column-width)
   (kill-local-variable 'visual-fill-column-center-text)
   (kill-local-variable 'visual-fill-column-fringes-outside-margins)
 
-  ;; restore global effects if necessary
+  ;; Restore global effects if necessary.
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))
   (when (not writeroom--buffers)
     (writeroom--set-global-effects -1)
@@ -443,14 +443,14 @@ buffer in which it was active."
     (if writeroom-restore-window-config
         (set-window-configuration writeroom--saved-window-config)))
 
-  ;; restore local variables
+  ;; Restore local variables.
   (mapc (lambda (val)
           (if (symbolp val)
               (kill-local-variable val)
             (set (car val) (cdr val))))
         writeroom--saved-data)
 
-  ;; if the current buffer is displayed in some window, the windows'
+  ;; If the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
           (with-selected-window w
@@ -458,7 +458,7 @@ buffer in which it was active."
             (set-window-fringes (selected-window) nil)))
         (get-buffer-window-list (current-buffer) nil))
 
-  ;; reenable `visual-fill-colummn-mode' with original settings if it was
+  ;; Reenable `visual-fill-colummn-mode' with original settings if it was
   ;; active before activating `writeroom-mode'.
   (if writeroom--saved-visual-fill-column
       (visual-fill-column-mode 1)))
