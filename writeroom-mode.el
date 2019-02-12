@@ -386,15 +386,15 @@ When called without a prefix, this will reset the width to the default value."
 Also run the functions in `writeroom-global-effects' if the
 current buffer is the first buffer in which `writeroom-mode' is
 activated."
-  ;; save buffer-local variables, if they have a buffer-local binding
+  ;; Save buffer-local variables, if they have a buffer-local binding.
   (setq writeroom--saved-data (mapcar (lambda (sym)
-                               (if (local-variable-p sym)
-                                   (cons sym (buffer-local-value sym (current-buffer)))
-                                 sym))
-                             writeroom--local-variables))
+                                        (if (local-variable-p sym)
+                                            (cons sym (buffer-local-value sym (current-buffer)))
+                                          sym))
+                                      writeroom--local-variables))
   (setq writeroom--saved-visual-fill-column visual-fill-column-mode)
 
-  ;; activate global effects
+  ;; Activate global effects.
   (when (not writeroom--buffers)
     (setq writeroom--frame (selected-frame))
     (writeroom--set-global-effects 1)
