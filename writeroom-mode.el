@@ -351,7 +351,7 @@ line, its original format is saved here.")
      ((not writeroom--mode-line-showing)
       (setq writeroom--orig-header-line header-line-format)
       (set writeroom-mode-line-toggle-position (or (cdr (assq 'mode-line-format writeroom--saved-data))
-                                          (default-value 'mode-line-format)))
+                                                   (default-value 'mode-line-format)))
       (setq writeroom--mode-line-showing t))
      (writeroom--mode-line-showing
       (if (eq writeroom-mode-line-toggle-position 'header-line-format)
