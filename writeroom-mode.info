@@ -1,4 +1,4 @@
-This is writeroom-mode.info, produced by makeinfo version 6.1 from
+This is writeroom-mode.info, produced by makeinfo version 6.5 from
 writeroom-mode.texi.
 
 INFO-DIR-SECTION Emacs
@@ -26,6 +26,7 @@ File: writeroom-mode.info,  Node: Writeroom-mode,  Prev: Top,  Up: Top
 distraction-free writing mode similar to the famous Writeroom editor for
 OS X. ‘writeroom-mode’ is meant for GNU Emacs 24, lower versions are not
 actively supported.
+
 * Menu:
 
 * Installation::
@@ -146,6 +147,7 @@ File: writeroom-mode.info,  Node: Customisation,  Next: Changing the width inter
 * Major Modes Exceptions::
 * Maximize Window::
 * Mode Line::
+* Header Line::
 * Mode Line Toggle Position::
 * Restore Window Config::
 * Width::
@@ -158,7 +160,7 @@ File: writeroom-mode.info,  Node: Global Writeroom Mode,  Next: Border Width,  U
 
 Activate this option to automatically turn on ‘writeroom-mode’ in any
 buffer that has one of the major modes matched any mask listed in
-‘writeroom-major-modes’ and not in ‘writeroom-major-modes’.
+‘writeroom-major-modes’ and not in ‘writeroom-major-modes-exceptions’.
 
 
 File: writeroom-mode.info,  Node: Border Width,  Next: Extra Line Spacing,  Prev: Global Writeroom Mode,  Up: Customisation
@@ -276,24 +278,41 @@ Maximise the current window in its frame, i.e., delete all other
 windows.
 
 
-File: writeroom-mode.info,  Node: Mode Line,  Next: Mode Line Toggle Position,  Prev: Maximize Window,  Up: Customisation
+File: writeroom-mode.info,  Node: Mode Line,  Next: Header Line,  Prev: Maximize Window,  Up: Customisation
 
 1.5.12 Mode Line
 ----------------
 
-The mode line format to use.  This option can be ‘nil’, which disables
-the mode line altogether (which is the default), it can be ‘t’, which
-retains the mode line, or it can be set to a customised format to only
-show some information.  If the latter option is chosen, the mode line
-shows only the file name and the file modification status, but the
-format can be customised.  See the documentation for the variable
-‘mode-line-format’ for details.  If you set this option, it may be more
-visually pleasing to set the option Bottom Divider Width to 0.
+The mode line format to use.  This option can be ‘nil’ (the default),
+which disables the mode line altogether, it can be ‘t’, which retains
+the mode line, or it can be set to a customised format to only show some
+information.  If the latter option is chosen, the mode line shows only
+the file name and the file modification status, but the format can be
+customised.  See the documentation for the variable ‘mode-line-format’
+for details.  If you set this option, it may be more visually pleasing
+to set the option Bottom Divider Width to 0.
 
 
-File: writeroom-mode.info,  Node: Mode Line Toggle Position,  Next: Restore Window Config,  Prev: Mode Line,  Up: Customisation
+File: writeroom-mode.info,  Node: Header Line,  Next: Mode Line Toggle Position,  Prev: Mode Line,  Up: Customisation
 
-1.5.13 Mode Line Toggle Position
+1.5.13 Header Line
+------------------
+
+The header line format to use.  This option can be ‘nil’ (the default),
+which disables the mode line entirely, it can be ‘t’, which retains the
+mode line, or it can be set to a customised format.  Note that Emacs
+does not normally use the mode line, so changing this option from the
+default only makes sense if you have a customised header line that you
+do not want to be displayed in ‘writeroom-mode’ buffers.
+
+As an additional possibility, this option can be set to the symbol
+‘mode-line’, in which case the standard mode line is shown in the header
+line.
+
+
+File: writeroom-mode.info,  Node: Mode Line Toggle Position,  Next: Restore Window Config,  Prev: Header Line,  Up: Customisation
+
+1.5.14 Mode Line Toggle Position
 --------------------------------
 
 If you disable or customise the mode line, you may sometimes want to see
@@ -310,7 +329,7 @@ very well.)
 
 File: writeroom-mode.info,  Node: Restore Window Config,  Next: Width,  Prev: Mode Line Toggle Position,  Up: Customisation
 
-1.5.14 Restore Window Config
+1.5.15 Restore Window Config
 ----------------------------
 
 Restore the window configuration that existed before ‘writeroom-mode’
@@ -322,7 +341,7 @@ the first time.  Disabled by default.
 
 File: writeroom-mode.info,  Node: Width,  Prev: Restore Window Config,  Up: Customisation
 
-1.5.15 Width
+1.5.16 Width
 ------------
 
 Width of the text area.  Can be specified as an absolute value (number
@@ -406,7 +425,7 @@ It is possible to add your own global effects to ‘writeroom-mode’.  If
 there is a global minor mode that you want turned on when
 ‘writeroom-mode’ is activated for the first time, you can simply add it
 to the user option ‘writeroom-global-effects’ by checking the box
-"Custom effects", clicking the [INS] button and adding the function to
+“Custom effects”, clicking the [INS] button and adding the function to
 the list.
 
 Alternatively, you can also write your own function.  This function
@@ -484,56 +503,58 @@ Tag Table:
 Node: Top222
 Node: Writeroom-mode336
 Ref: #writeroom-mode445
-Node: Installation931
-Ref: #installation1051
-Node: Usage1295
-Ref: #usage1441
-Node: Multiple writeroom-mode buffers2547
-Ref: #multiple-writeroom-mode-buffers2746
-Node: Frame effects3764
-Ref: #frame-effects3935
-Node: Customisation4744
-Ref: #customisation4916
-Node: Global Writeroom Mode5251
-Ref: #global-writeroom-mode5408
-Node: Border Width5617
-Ref: #border-width5783
-Node: Extra Line Spacing5905
-Ref: #extra-line-spacing6085
-Node: Fringes Outside Margins6252
-Ref: #fringes-outside-margins6447
-Node: Fullscreen Effect6740
-Ref: #fullscreen-effect6925
-Node: Bottom Divider Width7284
-Ref: #bottom-divider-width7466
-Node: Global Effects7680
-Ref: #global-effects7844
-Node: Major Modes8199
-Ref: #major-modes8354
-Node: Use Derived Modes8619
-Ref: #use-derived-modes8794
-Node: Major Modes Exceptions9056
-Ref: #major-modes-exceptions9247
-Node: Maximize Window9499
-Ref: #maximize-window9668
-Node: Mode Line9743
-Ref: #mode-line9903
-Node: Mode Line Toggle Position10466
-Ref: #mode-line-toggle-position10664
-Node: Restore Window Config11217
-Ref: #restore-window-config11403
-Node: Width11740
-Ref: #width11860
-Node: Changing the width interactively12045
-Ref: #changing-the-width-interactively12263
-Node: Text size adjustments13268
-Ref: #text-size-adjustments13475
-Node: Displaying the mode line14132
-Ref: #displaying-the-mode-line14334
-Node: Adding global effects15120
-Ref: #adding-global-effects15314
-Node: Other similar modes16999
-Ref: #other-similar-modes17158
+Node: Installation932
+Ref: #installation1052
+Node: Usage1296
+Ref: #usage1442
+Node: Multiple writeroom-mode buffers2548
+Ref: #multiple-writeroom-mode-buffers2747
+Node: Frame effects3765
+Ref: #frame-effects3936
+Node: Customisation4745
+Ref: #customisation4917
+Node: Global Writeroom Mode5268
+Ref: #global-writeroom-mode5425
+Node: Border Width5645
+Ref: #border-width5811
+Node: Extra Line Spacing5933
+Ref: #extra-line-spacing6113
+Node: Fringes Outside Margins6280
+Ref: #fringes-outside-margins6475
+Node: Fullscreen Effect6768
+Ref: #fullscreen-effect6953
+Node: Bottom Divider Width7312
+Ref: #bottom-divider-width7494
+Node: Global Effects7708
+Ref: #global-effects7872
+Node: Major Modes8227
+Ref: #major-modes8382
+Node: Use Derived Modes8647
+Ref: #use-derived-modes8822
+Node: Major Modes Exceptions9084
+Ref: #major-modes-exceptions9275
+Node: Maximize Window9527
+Ref: #maximize-window9696
+Node: Mode Line9771
+Ref: #mode-line9917
+Node: Header Line10471
+Ref: #header-line10631
+Node: Mode Line Toggle Position11206
+Ref: #mode-line-toggle-position11406
+Node: Restore Window Config11959
+Ref: #restore-window-config12145
+Node: Width12482
+Ref: #width12602
+Node: Changing the width interactively12787
+Ref: #changing-the-width-interactively13005
+Node: Text size adjustments14010
+Ref: #text-size-adjustments14217
+Node: Displaying the mode line14874
+Ref: #displaying-the-mode-line15076
+Node: Adding global effects15862
+Ref: #adding-global-effects16056
+Node: Other similar modes17745
+Ref: #other-similar-modes17904
 
 End Tag Table
 

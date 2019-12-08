@@ -117,7 +117,14 @@ Maximise the current window in its frame, i.e., delete all other windows.
 
 ### Mode Line ###
 
-The mode line format to use. This option can be `nil`, which disables the mode line altogether (which is the default), it can be `t`, which retains the mode line, or it can be set to a customised format to only show some information. If the latter option is chosen, the mode line shows only the file name and the file modification status, but the format can be customised. See the documentation for the variable `mode-line-format` for details. If you set this option, it may be more visually pleasing to set the option Bottom Divider Width to 0.
+The mode line format to use. This option can be `nil` (the default), which disables the mode line altogether, it can be `t`, which retains the mode line, or it can be set to a customised format to only show some information. If the latter option is chosen, the mode line shows only the file name and the file modification status, but the format can be customised. See the documentation for the variable `mode-line-format` for details. If you set this option, it may be more visually pleasing to set the option Bottom Divider Width to 0.
+
+
+### Header Line ###
+
+The header line format to use. This option can be `nil` (the default), which disables the mode line entirely, it can be `t`, which retains the mode line, or it can be set to a customised format. Note that Emacs does not normally use the mode line, so changing this option from the default only makes sense if you have a customised header line that you do not want to be displayed in `writeroom-mode` buffers.
+
+As an additional possibility, this option can be set to the symbol `mode-line`, in which case the standard mode line is shown in the header line.
 
 
 ### Mode Line Toggle Position ###
