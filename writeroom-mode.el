@@ -101,6 +101,21 @@ this option, it may be more visually pleasing to set
                  (sexp :tag "Customize mode line"
                        :value ("   " mode-line-modified "   " mode-line-buffer-identification))))
 
+(defcustom writeroom-header-line nil
+  "The header line used with `writeroom-mode'.
+Possible values are nil (the default), which disables the header
+line; t, which retains the standard header line; the symbol
+`mode-line', which means to display the standard mode line in the
+header line (this value makes most sense when
+`writeroom-mode-line' is set to nil); or a sexp, which should be
+a valid mode line construct."
+  :group 'writeroom
+  :type '(choice (const :tag "Do not show the header line" nil)
+                 (const :tag "Use standard header line" t)
+                 (const :tag "Show standard mode line in header line" mode-line)
+                 (sexp :tag "Customize header line"
+                       :value nil)))
+
 (defcustom writeroom-mode-line-toggle-position 'header-line-format
   "Position to temporarily show the mode line.
 When the mode line is disabled, the function
@@ -346,7 +361,8 @@ line, its original format is saved here.")
 (defun writeroom-toggle-mode-line ()
   "Toggle display of the original mode."
   (interactive)
-  (unless (eq writeroom-mode-line t) ; This means the original mode-line is displayed already.
+  (unless (or (eq writeroom-mode-line t)
+              (eq writeroom-header-line 'mode-line)) ; This means the original mode-line is displayed already.
     (cond
      ((not writeroom--mode-line-showing)
       (setq writeroom--orig-header-line header-line-format)
@@ -408,6 +424,11 @@ activated."
 
   (when writeroom-extra-line-spacing
     (setq line-spacing writeroom-extra-line-spacing))
+
+  (unless (eq writeroom-header-line t) ; If t, use standard header line.
+    (if (eq writeroom-header-line 'mode-line)
+        (setq header-line-format mode-line-format)
+      (setq header-line-format writeroom-header-line)))
 
   (unless (eq writeroom-mode-line t) ; If t, use standard mode line.
     (setq mode-line-format writeroom-mode-line))
