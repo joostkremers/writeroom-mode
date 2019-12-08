@@ -53,8 +53,8 @@ The global effects only apply to this frame.")
   "List of buffers in which `writeroom-mode' is activated.")
 
 (defvar writeroom--local-variables '(mode-line-format
-                            header-line-format
-                            line-spacing)
+                                     header-line-format
+                                     line-spacing)
   "Local variables whose values need to be saved when `writeroom-mode' is activated.")
 
 (defvar writeroom--saved-data nil
