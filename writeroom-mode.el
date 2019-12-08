@@ -97,7 +97,7 @@ this option, it may be more visually pleasing to set
 `writeroom-bottom-divider-width' to 0."
   :group 'writeroom
   :type '(choice (const :tag "Disable the mode line" nil)
-                 (const :tag "Use default mode line" t)
+                 (const :tag "Use standard mode line" t)
                  (sexp :tag "Customize mode line"
                        :value ("   " mode-line-modified "   " mode-line-buffer-identification))))
 
