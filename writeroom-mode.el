@@ -215,11 +215,11 @@ buffer."
                  (float :tag "Relative height" :value 0.8)))
 
 (defcustom writeroom-global-effects '(writeroom-set-fullscreen
-                             writeroom-set-alpha
-                             writeroom-set-menu-bar-lines
-                             writeroom-set-tool-bar-lines
-                             writeroom-set-vertical-scroll-bars
-                             writeroom-set-bottom-divider-width)
+                                      writeroom-set-alpha
+                                      writeroom-set-menu-bar-lines
+                                      writeroom-set-tool-bar-lines
+                                      writeroom-set-vertical-scroll-bars
+                                      writeroom-set-bottom-divider-width)
   "List of global effects for `writeroom-mode'.
 These effects are enabled when `writeroom-mode' is activated in
 the first buffer and disabled when it is deactivated in the last
