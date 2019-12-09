@@ -214,6 +214,16 @@ buffer."
                  (integer :tag "Absolute height" :value 5)
                  (float :tag "Relative height" :value 0.8)))
 
+(defcustom writeroom-mode-disable-hook nil
+  "Hook run when `writeroom-mode' is disabled.
+This hook is run after all `writeroom-mode'-specific effects have
+been disabled and the buffer state before enabling
+`writeroom-mode' has been restored.  It can be used for restoring
+effects that were specifically disabled in `writeroom-mode-hook'
+and that cannot be enabled otherwise."
+  :group 'writeroom
+  :type '(repeat function))
+
 (defcustom writeroom-global-effects '(writeroom-set-fullscreen
                                       writeroom-set-alpha
                                       writeroom-set-menu-bar-lines
@@ -482,7 +492,10 @@ buffer in which it was active."
   ;; Reenable `visual-fill-colummn-mode' with original settings if it was
   ;; active before activating `writeroom-mode'.
   (if writeroom--saved-visual-fill-column
-      (visual-fill-column-mode 1)))
+      (visual-fill-column-mode 1))
+
+  ;; Run hook on disabling `writeroom-mode'.
+  (run-hooks 'writeroom-mode-disable-hook))
 
 (provide 'writeroom-mode)
 
