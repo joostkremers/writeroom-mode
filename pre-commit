@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ README.md -ot writeroom-mode.info ] ; then
+if [ "$(git status --porcelain README.md)" == 'M  README.md' ] ; then
     exit 0 # everything's fine
 fi
 
