@@ -1,6 +1,6 @@
 ;;; writeroom-mode.el --- Minor mode for distraction-free writing  -*- lexical-binding: t -*-
 
-;; Copyright (c) 2012-2019 Joost Kremers
+;; Copyright (c) 2012-2020 Joost Kremers
 
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
