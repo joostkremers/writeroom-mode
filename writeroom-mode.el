@@ -8,6 +8,7 @@
 ;; Package-Requires: ((emacs "24.1") (visual-fill-column "1.9"))
 ;; Version: 3.9
 ;; Keywords: text
+;; URL: https://github.com/joostkremers/writeroom-mode
 
 ;; Redistribution and use in source and binary forms, with or without
 ;; modification, are permitted provided that the following conditions
