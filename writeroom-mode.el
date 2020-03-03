@@ -224,6 +224,8 @@ and that cannot be enabled otherwise."
   :group 'writeroom
   :type '(repeat function))
 
+(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
+
 (defcustom writeroom-global-effects '(writeroom-set-fullscreen
                                       writeroom-set-alpha
                                       writeroom-set-menu-bar-lines
@@ -244,8 +246,6 @@ buffer."
               (const :tag "Add border" writeroom-set-internal-border-width)
               (const :tag "Display frame on all workspaces" writeroom-set-sticky)
               (repeat :inline t :tag "Custom effects" function)))
-
-(define-obsolete-variable-alias 'writeroom-global-functions 'writeroom-global-effects "`writeroom-mode' version 2.0")
 
 (defmacro define-writeroom-global-effect (fp value)
   "Define a global effect for `writeroom-mode'.
