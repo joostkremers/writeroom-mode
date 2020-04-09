@@ -25,7 +25,7 @@
 
 The last three effects are buffer-local. The other effects apply to the current frame. Because `writeroom-mode` is a minor mode, this isn't entirely on the up and up, since minor modes aren't supposed to have such global effects. But `writeroom-mode` is meant for distraction-free writing, so these effects do make sense.
 
-All these effects can be disabled or customised. In addition, there are several more options that are disabled by default but can be enabled in the customisation buffer.
+All these effects can be disabled or customised. In addition, there are several more options that are disabled by default but can be enabled in the [customisation buffer](#customisation).
 
 
 ## Multiple writeroom-mode buffers ##
@@ -46,6 +46,8 @@ The affected frame is always restored to its original state, before `writeroom-m
 
 ## Customisation ##
 
+The customisation buffer for `writeroom-mode` can be opened with `M-x customize-group RET writeroom RET`. It provides the options listed below.
+
 ### Global Writeroom Mode ###
 
 Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes matched any mask listed in `writeroom-major-modes` and not in `writeroom-major-modes-exceptions`.
@@ -54,6 +56,11 @@ Activate this option to automatically turn on `writeroom-mode` in any buffer tha
 ### Border Width ###
 
 Width of the border around the text area. Disabled by default, see `writeroom-global-effects` to enable the border.
+
+
+### Bottom Divider Width ###
+
+Width in pixels of the bottom window divider. Default value is 1. The bottom window divider helps in distinguishing the minibuffer from the text area, and also in distinguishing two windows split top-to-bottom.
 
 
 ### Extra Line Spacing ###
@@ -69,11 +76,6 @@ If set, place the fringes outside the margins. `writeroom-mode` expands the wind
 ### Fullscreen Effect ###
 
 Effect to apply when `writeroom-mode` activates fullscreen. Can be `fullboth`, which uses the entire screen (i.e., window decorations are disabled and the window manager’s panel or task bar is covered by the Emacs frame) or `maximized`, in which case the Emacs frame is maximised but keeps its window decorations and does not cover the panel.
-
-
-### Bottom Divider Width ###
-
-Width in pixels of the bottom window divider. Default value is 1. The bottom window divider helps in distinguishing the minibuffer from the text area, and also in distinguishing two windows split top-to-bottom.
 
 
 ### Global Effects ###
@@ -92,16 +94,18 @@ List of global effects:
 Each option can be enabled or disabled individually.
 
 
+### Header Line ###
+
+The header line format to use. This option can be `nil` (the default), which disables the mode line entirely, it can be `t`, which retains the mode line, or it can be set to a customised format. Note that Emacs does not normally use the mode line, so changing this option from the default only makes sense if you have a customised header line that you do not want to be displayed in `writeroom-mode` buffers.
+
+As an additional possibility, this option can be set to the symbol `mode-line`, in which case the standard mode line is shown in the header line.
+
+
 ### Major Modes ###
 
 List of major modes in which `writeroom-mode` should be activated automatically. Use in conjunction with `global-writeroom-mode`.
 
-The elements in this list can be major-mode symbols, or regular expressions (in which case they must of course be strings).
-
-
-### Use Derived Modes ###
-
-If this option is set, `global-writeroom-mode` also activates `writeroom-mode` in buffers whose major mode is a derived mode of one of the modes in `writeroom-major-modes`. (Only the major mode symbols in `writeroom-major-modes` are relevant.)
+The elements in this list can be major-mode symbols, or regular expressions (in which case they must of course be strings). See also the option [Use Derived Modes](#use-derived-modes).
 
 
 ### Major Modes Exceptions ###
@@ -115,16 +119,14 @@ symbols and regular expressions.
 Maximise the current window in its frame, i.e., delete all other windows.
 
 
+### Writeroom-mode Disable Hook ###
+
+Hook run when `writeroom-mode` is disabled. This hook can be used to disable effects that are enabled in `writeroom-mode-hook` and that cannot be disabled in any other way.
+
+
 ### Mode Line ###
 
 The mode line format to use. This option can be `nil` (the default), which disables the mode line altogether, it can be `t`, which retains the mode line, or it can be set to a customised format to only show some information. If the latter option is chosen, the mode line shows only the file name and the file modification status, but the format can be customised. See the documentation for the variable `mode-line-format` for details. If you set this option, it may be more visually pleasing to set the option Bottom Divider Width to 0.
-
-
-### Header Line ###
-
-The header line format to use. This option can be `nil` (the default), which disables the mode line entirely, it can be `t`, which retains the mode line, or it can be set to a customised format. Note that Emacs does not normally use the mode line, so changing this option from the default only makes sense if you have a customised header line that you do not want to be displayed in `writeroom-mode` buffers.
-
-As an additional possibility, this option can be set to the symbol `mode-line`, in which case the standard mode line is shown in the header line.
 
 
 ### Mode Line Toggle Position ###
@@ -137,6 +139,11 @@ Note that the default value of this option is to display the mode line in the he
 ### Restore Window Config ###
 
 Restore the window configuration that existed before `writeroom-mode` was activated. This is primarily useful if you use `writeroom-mode` in only a single buffer, since the window configuration that is restored is the one that existed at the moment when `writeroom-mode` is called for the first time. Disabled by default.
+
+
+### Use Derived Modes ###
+
+If this option is set, `global-writeroom-mode` also activates `writeroom-mode` in buffers whose major mode is a derived mode of one of the modes in `writeroom-major-modes`. (Only the major mode symbols in `writeroom-major-modes` are relevant.)
 
 
 ### Width ###
