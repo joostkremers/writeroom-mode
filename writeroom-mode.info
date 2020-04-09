@@ -82,7 +82,7 @@ writing, so these effects do make sense.
 
 All these effects can be disabled or customised.  In addition, there are
 several more options that are disabled by default but can be enabled in
-the customisation buffer.
+the *note customisation buffer: #customisation.
 
 
 File: writeroom-mode.info,  Node: Multiple writeroom-mode buffers,  Next: Frame effects,  Prev: Usage,  Up: Writeroom-mode
@@ -133,23 +133,28 @@ File: writeroom-mode.info,  Node: Customisation,  Next: Changing the width inter
 1.5 Customisation
 =================
 
+The customisation buffer for ‘writeroom-mode’ can be opened with ‘M-x
+customize-group RET writeroom RET’.  It provides the options listed
+below.
+
 * Menu:
 
 * Global Writeroom Mode::
 * Border Width::
+* Bottom Divider Width::
 * Extra Line Spacing::
 * Fringes Outside Margins::
 * Fullscreen Effect::
-* Bottom Divider Width::
 * Global Effects::
+* Header Line::
 * Major Modes::
-* Use Derived Modes::
 * Major Modes Exceptions::
 * Maximize Window::
+* Writeroom-mode Disable Hook::
 * Mode Line::
-* Header Line::
 * Mode Line Toggle Position::
 * Restore Window Config::
+* Use Derived Modes::
 * Width::
 
 
@@ -163,7 +168,7 @@ buffer that has one of the major modes matched any mask listed in
 ‘writeroom-major-modes’ and not in ‘writeroom-major-modes-exceptions’.
 
 
-File: writeroom-mode.info,  Node: Border Width,  Next: Extra Line Spacing,  Prev: Global Writeroom Mode,  Up: Customisation
+File: writeroom-mode.info,  Node: Border Width,  Next: Bottom Divider Width,  Prev: Global Writeroom Mode,  Up: Customisation
 
 1.5.2 Border Width
 ------------------
@@ -172,9 +177,19 @@ Width of the border around the text area.  Disabled by default, see
 ‘writeroom-global-effects’ to enable the border.
 
 
-File: writeroom-mode.info,  Node: Extra Line Spacing,  Next: Fringes Outside Margins,  Prev: Border Width,  Up: Customisation
+File: writeroom-mode.info,  Node: Bottom Divider Width,  Next: Extra Line Spacing,  Prev: Border Width,  Up: Customisation
 
-1.5.3 Extra Line Spacing
+1.5.3 Bottom Divider Width
+--------------------------
+
+Width in pixels of the bottom window divider.  Default value is 1.  The
+bottom window divider helps in distinguishing the minibuffer from the
+text area, and also in distinguishing two windows split top-to-bottom.
+
+
+File: writeroom-mode.info,  Node: Extra Line Spacing,  Next: Fringes Outside Margins,  Prev: Bottom Divider Width,  Up: Customisation
+
+1.5.4 Extra Line Spacing
 ------------------------
 
 Increase the line spacing.  Can be an absolute value (the number of
@@ -184,7 +199,7 @@ height.  Disabled by default.
 
 File: writeroom-mode.info,  Node: Fringes Outside Margins,  Next: Fullscreen Effect,  Prev: Extra Line Spacing,  Up: Customisation
 
-1.5.4 Fringes Outside Margins
+1.5.5 Fringes Outside Margins
 -----------------------------
 
 If set, place the fringes outside the margins.  ‘writeroom-mode’ expands
@@ -193,9 +208,9 @@ be visually distracting.  This option keeps the fringes at the window’s
 edges.  Unset it if you prefer to have the fringes close to the text.
 
 
-File: writeroom-mode.info,  Node: Fullscreen Effect,  Next: Bottom Divider Width,  Prev: Fringes Outside Margins,  Up: Customisation
+File: writeroom-mode.info,  Node: Fullscreen Effect,  Next: Global Effects,  Prev: Fringes Outside Margins,  Up: Customisation
 
-1.5.5 Fullscreen Effect
+1.5.6 Fullscreen Effect
 -----------------------
 
 Effect to apply when ‘writeroom-mode’ activates fullscreen.  Can be
@@ -205,17 +220,7 @@ Emacs frame) or ‘maximized’, in which case the Emacs frame is maximised
 but keeps its window decorations and does not cover the panel.
 
 
-File: writeroom-mode.info,  Node: Bottom Divider Width,  Next: Global Effects,  Prev: Fullscreen Effect,  Up: Customisation
-
-1.5.6 Bottom Divider Width
---------------------------
-
-Width in pixels of the bottom window divider.  Default value is 1.  The
-bottom window divider helps in distinguishing the minibuffer from the
-text area, and also in distinguishing two windows split top-to-bottom.
-
-
-File: writeroom-mode.info,  Node: Global Effects,  Next: Major Modes,  Prev: Bottom Divider Width,  Up: Customisation
+File: writeroom-mode.info,  Node: Global Effects,  Next: Header Line,  Prev: Fullscreen Effect,  Up: Customisation
 
 1.5.7 Global Effects
 --------------------
@@ -235,68 +240,10 @@ List of global effects:
 Each option can be enabled or disabled individually.
 
 
-File: writeroom-mode.info,  Node: Major Modes,  Next: Use Derived Modes,  Prev: Global Effects,  Up: Customisation
+File: writeroom-mode.info,  Node: Header Line,  Next: Major Modes,  Prev: Global Effects,  Up: Customisation
 
-1.5.8 Major Modes
+1.5.8 Header Line
 -----------------
-
-List of major modes in which ‘writeroom-mode’ should be activated
-automatically.  Use in conjunction with ‘global-writeroom-mode’.
-
-The elements in this list can be major-mode symbols, or regular
-expressions (in which case they must of course be strings).
-
-
-File: writeroom-mode.info,  Node: Use Derived Modes,  Next: Major Modes Exceptions,  Prev: Major Modes,  Up: Customisation
-
-1.5.9 Use Derived Modes
------------------------
-
-If this option is set, ‘global-writeroom-mode’ also activates
-‘writeroom-mode’ in buffers whose major mode is a derived mode of one of
-the modes in ‘writeroom-major-modes’.  (Only the major mode symbols in
-‘writeroom-major-modes’ are relevant.)
-
-
-File: writeroom-mode.info,  Node: Major Modes Exceptions,  Next: Maximize Window,  Prev: Use Derived Modes,  Up: Customisation
-
-1.5.10 Major Modes Exceptions
------------------------------
-
-List of major modes in which ‘writeroom-mode’ should not be activated by
-‘global-writeroom-mode’.  (It is still possible to activate
-‘writeroom-mode’ manually).  This can also be a mixed list of major-mode
-symbols and regular expressions.
-
-
-File: writeroom-mode.info,  Node: Maximize Window,  Next: Mode Line,  Prev: Major Modes Exceptions,  Up: Customisation
-
-1.5.11 Maximize Window
-----------------------
-
-Maximise the current window in its frame, i.e., delete all other
-windows.
-
-
-File: writeroom-mode.info,  Node: Mode Line,  Next: Header Line,  Prev: Maximize Window,  Up: Customisation
-
-1.5.12 Mode Line
-----------------
-
-The mode line format to use.  This option can be ‘nil’ (the default),
-which disables the mode line altogether, it can be ‘t’, which retains
-the mode line, or it can be set to a customised format to only show some
-information.  If the latter option is chosen, the mode line shows only
-the file name and the file modification status, but the format can be
-customised.  See the documentation for the variable ‘mode-line-format’
-for details.  If you set this option, it may be more visually pleasing
-to set the option Bottom Divider Width to 0.
-
-
-File: writeroom-mode.info,  Node: Header Line,  Next: Mode Line Toggle Position,  Prev: Mode Line,  Up: Customisation
-
-1.5.13 Header Line
-------------------
 
 The header line format to use.  This option can be ‘nil’ (the default),
 which disables the mode line entirely, it can be ‘t’, which retains the
@@ -310,7 +257,65 @@ As an additional possibility, this option can be set to the symbol
 line.
 
 
-File: writeroom-mode.info,  Node: Mode Line Toggle Position,  Next: Restore Window Config,  Prev: Header Line,  Up: Customisation
+File: writeroom-mode.info,  Node: Major Modes,  Next: Major Modes Exceptions,  Prev: Header Line,  Up: Customisation
+
+1.5.9 Major Modes
+-----------------
+
+List of major modes in which ‘writeroom-mode’ should be activated
+automatically.  Use in conjunction with ‘global-writeroom-mode’.
+
+The elements in this list can be major-mode symbols, or regular
+expressions (in which case they must of course be strings).  See also
+the option *note Use Derived Modes: #use-derived-modes.
+
+
+File: writeroom-mode.info,  Node: Major Modes Exceptions,  Next: Maximize Window,  Prev: Major Modes,  Up: Customisation
+
+1.5.10 Major Modes Exceptions
+-----------------------------
+
+List of major modes in which ‘writeroom-mode’ should not be activated by
+‘global-writeroom-mode’.  (It is still possible to activate
+‘writeroom-mode’ manually).  This can also be a mixed list of major-mode
+symbols and regular expressions.
+
+
+File: writeroom-mode.info,  Node: Maximize Window,  Next: Writeroom-mode Disable Hook,  Prev: Major Modes Exceptions,  Up: Customisation
+
+1.5.11 Maximize Window
+----------------------
+
+Maximise the current window in its frame, i.e., delete all other
+windows.
+
+
+File: writeroom-mode.info,  Node: Writeroom-mode Disable Hook,  Next: Mode Line,  Prev: Maximize Window,  Up: Customisation
+
+1.5.12 Writeroom-mode Disable Hook
+----------------------------------
+
+Hook run when ‘writeroom-mode’ is disabled.  This hook can be used to
+disable effects that are enabled in ‘writeroom-mode-hook’ and that
+cannot be disabled in any other way.
+
+
+File: writeroom-mode.info,  Node: Mode Line,  Next: Mode Line Toggle Position,  Prev: Writeroom-mode Disable Hook,  Up: Customisation
+
+1.5.13 Mode Line
+----------------
+
+The mode line format to use.  This option can be ‘nil’ (the default),
+which disables the mode line altogether, it can be ‘t’, which retains
+the mode line, or it can be set to a customised format to only show some
+information.  If the latter option is chosen, the mode line shows only
+the file name and the file modification status, but the format can be
+customised.  See the documentation for the variable ‘mode-line-format’
+for details.  If you set this option, it may be more visually pleasing
+to set the option Bottom Divider Width to 0.
+
+
+File: writeroom-mode.info,  Node: Mode Line Toggle Position,  Next: Restore Window Config,  Prev: Mode Line,  Up: Customisation
 
 1.5.14 Mode Line Toggle Position
 --------------------------------
@@ -327,7 +332,7 @@ in the header line, because for some reason that is more reliable.
 very well.)
 
 
-File: writeroom-mode.info,  Node: Restore Window Config,  Next: Width,  Prev: Mode Line Toggle Position,  Up: Customisation
+File: writeroom-mode.info,  Node: Restore Window Config,  Next: Use Derived Modes,  Prev: Mode Line Toggle Position,  Up: Customisation
 
 1.5.15 Restore Window Config
 ----------------------------
@@ -339,9 +344,20 @@ the one that existed at the moment when ‘writeroom-mode’ is called for
 the first time.  Disabled by default.
 
 
-File: writeroom-mode.info,  Node: Width,  Prev: Restore Window Config,  Up: Customisation
+File: writeroom-mode.info,  Node: Use Derived Modes,  Next: Width,  Prev: Restore Window Config,  Up: Customisation
 
-1.5.16 Width
+1.5.16 Use Derived Modes
+------------------------
+
+If this option is set, ‘global-writeroom-mode’ also activates
+‘writeroom-mode’ in buffers whose major mode is a derived mode of one of
+the modes in ‘writeroom-major-modes’.  (Only the major mode symbols in
+‘writeroom-major-modes’ are relevant.)
+
+
+File: writeroom-mode.info,  Node: Width,  Prev: Use Derived Modes,  Up: Customisation
+
+1.5.17 Width
 ------------
 
 Width of the text area.  Can be specified as an absolute value (number
@@ -425,7 +441,7 @@ It is possible to add your own global effects to ‘writeroom-mode’.  If
 there is a global minor mode that you want turned on when
 ‘writeroom-mode’ is activated for the first time, you can simply add it
 to the user option ‘writeroom-global-effects’ by checking the box
-“Custom effects”, clicking the [INS] button and adding the function to
+"Custom effects", clicking the [INS] button and adding the function to
 the list.
 
 Alternatively, you can also write your own function.  This function
@@ -507,54 +523,56 @@ Node: Installation932
 Ref: #installation1052
 Node: Usage1296
 Ref: #usage1442
-Node: Multiple writeroom-mode buffers2548
-Ref: #multiple-writeroom-mode-buffers2747
-Node: Frame effects3765
-Ref: #frame-effects3936
-Node: Customisation4745
-Ref: #customisation4917
-Node: Global Writeroom Mode5268
-Ref: #global-writeroom-mode5425
-Node: Border Width5645
-Ref: #border-width5811
-Node: Extra Line Spacing5933
-Ref: #extra-line-spacing6113
-Node: Fringes Outside Margins6280
-Ref: #fringes-outside-margins6475
-Node: Fullscreen Effect6768
-Ref: #fullscreen-effect6953
-Node: Bottom Divider Width7312
-Ref: #bottom-divider-width7494
-Node: Global Effects7708
-Ref: #global-effects7872
-Node: Major Modes8227
-Ref: #major-modes8382
-Node: Use Derived Modes8647
-Ref: #use-derived-modes8822
-Node: Major Modes Exceptions9084
-Ref: #major-modes-exceptions9275
-Node: Maximize Window9527
-Ref: #maximize-window9696
-Node: Mode Line9771
-Ref: #mode-line9917
-Node: Header Line10471
-Ref: #header-line10631
-Node: Mode Line Toggle Position11206
-Ref: #mode-line-toggle-position11406
-Node: Restore Window Config11959
-Ref: #restore-window-config12145
-Node: Width12482
-Ref: #width12602
-Node: Changing the width interactively12787
-Ref: #changing-the-width-interactively13005
-Node: Text size adjustments14010
-Ref: #text-size-adjustments14217
-Node: Displaying the mode line14874
-Ref: #displaying-the-mode-line15076
-Node: Adding global effects15862
-Ref: #adding-global-effects16056
-Node: Other similar modes17745
-Ref: #other-similar-modes17904
+Node: Multiple writeroom-mode buffers2570
+Ref: #multiple-writeroom-mode-buffers2769
+Node: Frame effects3787
+Ref: #frame-effects3958
+Node: Customisation4767
+Ref: #customisation4939
+Node: Global Writeroom Mode5476
+Ref: #global-writeroom-mode5633
+Node: Border Width5853
+Ref: #border-width6021
+Node: Bottom Divider Width6143
+Ref: #bottom-divider-width6324
+Node: Extra Line Spacing6538
+Ref: #extra-line-spacing6726
+Node: Fringes Outside Margins6893
+Ref: #fringes-outside-margins7088
+Node: Fullscreen Effect7381
+Ref: #fullscreen-effect7560
+Node: Global Effects7919
+Ref: #global-effects8080
+Node: Header Line8435
+Ref: #header-line8584
+Node: Major Modes9159
+Ref: #major-modes9316
+Node: Major Modes Exceptions9647
+Ref: #major-modes-exceptions9832
+Node: Maximize Window10084
+Ref: #maximize-window10271
+Node: Writeroom-mode Disable Hook10346
+Ref: #writeroom-mode-disable-hook10544
+Node: Mode Line10727
+Ref: #mode-line10899
+Node: Mode Line Toggle Position11453
+Ref: #mode-line-toggle-position11651
+Node: Restore Window Config12204
+Ref: #restore-window-config12402
+Node: Use Derived Modes12739
+Ref: #use-derived-modes12909
+Node: Width13171
+Ref: #width13287
+Node: Changing the width interactively13472
+Ref: #changing-the-width-interactively13690
+Node: Text size adjustments14695
+Ref: #text-size-adjustments14902
+Node: Displaying the mode line15559
+Ref: #displaying-the-mode-line15761
+Node: Adding global effects16547
+Ref: #adding-global-effects16741
+Node: Other similar modes18426
+Ref: #other-similar-modes18585
 
 End Tag Table
 
