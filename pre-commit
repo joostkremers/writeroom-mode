@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$(git status --porcelain README.md)" == 'M  README.md' ] ; then
+if [ ! "$(git status --porcelain README.md)" == 'M  README.md' ] ; then
     exit 0 # everything's fine
 fi
 
