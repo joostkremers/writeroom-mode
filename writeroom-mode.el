@@ -72,7 +72,7 @@ deactivated.")
   "Window configuration active before `writeroom-mode' is activated.")
 
 (defgroup writeroom nil "Minor mode for distraction-free writing."
-  :group 'wp
+  :group 'text
   :prefix "writeroom-")
 
 (defcustom writeroom-width 80
