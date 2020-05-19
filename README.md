@@ -10,7 +10,11 @@
 
 ## Usage ##
 
-`writeroom-mode` can be activated in a buffer by calling `M-x writeroom-mode RET`. By default, `writeroom-mode` does the following things:
+`writeroom-mode` can be activated in a buffer by calling `M-x writeroom-mode RET`. A screen shot can probably explain best what `writeroom-mode` does:
+
+![screenshot](writeroom-mode.png)
+
+By default, `writeroom-mode` does the following things:
 
 * activate fullscreen
 * disable transparency
