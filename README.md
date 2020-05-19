@@ -10,7 +10,7 @@
 
 ## Usage ##
 
-`writeroom-mode` can be activated in a buffer by calling `M-x writeroom-mode RET`. A screen shot can probably explain best what `writeroom-mode` does:
+`writeroom-mode` can be activated in a buffer by calling `M-x writeroom-mode RET`. A screen shot can probably explain best what `writeroom-mode` does. In the default configuration, after activating `writeroom-mode`, your screen looks like this:
 
 ![screenshot](writeroom-mode.png)
 
