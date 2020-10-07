@@ -125,7 +125,15 @@ Maximise the current window in its frame, i.e., delete all other windows.
 
 ### Writeroom-mode Disable Hook ###
 
-Hook run when `writeroom-mode` is disabled. This hook can be used to disable effects that are enabled in `writeroom-mode-hook` and that cannot be disabled in any other way.
+Hook run when `writeroom-mode` is disabled. This hook can be used to disable effects that are enabled in `writeroom-mode-enable-hook` (see below).
+
+
+### Writeroom-mode Enable Hook ###
+
+Hook run when `writeroom-mode` is enabled. This hook is run just before `writeroom-mode-hook` is run. Unlike `writeroom-mode-hook`, it is not run when `writeroom-mode` is disabled.
+
+Note, however, that if you have a minor mode that you want activated and deactivated along with `writeroom-mode` (e.g., `variable-pitch-mode`), it is usually  more convenient to simply add it to the option `writeroom-local-effects` (see below).
+
 
 
 ### Mode Line ###

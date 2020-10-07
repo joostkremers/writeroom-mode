@@ -215,13 +215,21 @@ buffer."
                  (integer :tag "Absolute height" :value 5)
                  (float :tag "Relative height" :value 0.8)))
 
+(defcustom writeroom-mode-enable-hook nil
+  "Hook run when `writeroom-mode' is enabled.
+This hook is run after all `writeroom-mode'-specific effects have
+been enabled, but before `writeroom-mode-hook' itself is run.  It
+can be used for enabling effects that cannot be enabled in
+`writeroom-mode-hook'."
+  :group 'writeroom
+  :type '(repeat function))
+
 (defcustom writeroom-mode-disable-hook nil
   "Hook run when `writeroom-mode' is disabled.
 This hook is run after all `writeroom-mode'-specific effects have
 been disabled and the buffer state before enabling
-`writeroom-mode' has been restored.  It can be used for restoring
-effects that were specifically disabled in `writeroom-mode-hook'
-and that cannot be enabled otherwise."
+`writeroom-mode' has been restored.  It can be used for disabling
+effects that were enabled in `writeroom-mode-enable-hook'."
   :group 'writeroom
   :type '(repeat function))
 
@@ -448,6 +456,9 @@ activated."
         visual-fill-column-center-text t
         visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins)
   (visual-fill-column-mode 1)
+
+  ;; Run hooks on enabling `writeroom-mode'.
+  (run-hooks 'writeroom-mode-enable-hook)
 
   ;; If the current buffer is displayed in some window, the windows'
   ;; margins and fringes must be adjusted.
