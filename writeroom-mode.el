@@ -293,6 +293,17 @@ effect is deactivated."
 (define-writeroom-global-effect sticky t)
 (define-writeroom-global-effect bottom-divider-width writeroom-bottom-divider-width)
 
+(defcustom writeroom-local-effects nil
+  "List of buffer-local effects for `writeroom-mode'.
+This should be a list of functions that activate or deactive some
+local effect.  These functions are called with the argument \"1\"
+when `writeroom-mode' is enabled and with the argument \"-1\"
+when it is disabled.  This means that you can add minor-mode
+symbols to this list and have them activated and deactivated
+together with `writeroom-mode'."
+  :group 'writeroom-mode
+  :type '(repeat function))
+
 (defun turn-on-writeroom-mode ()
   "Turn on `writeroom-mode'.
 This function activates `writeroom-mode' in a buffer if that
@@ -458,6 +469,7 @@ activated."
   (visual-fill-column-mode 1)
 
   ;; Run hooks on enabling `writeroom-mode'.
+  (run-hook-with-args 'writeroom-local-effects 1)
   (run-hooks 'writeroom-mode-enable-hook)
 
   ;; If the current buffer is displayed in some window, the windows'
@@ -507,6 +519,7 @@ buffer in which it was active."
       (visual-fill-column-mode 1))
 
   ;; Run hook on disabling `writeroom-mode'.
+  (run-hook-with-args 'writeroom-local-effects -1)
   (run-hooks 'writeroom-mode-disable-hook))
 
 (provide 'writeroom-mode)

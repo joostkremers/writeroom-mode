@@ -135,6 +135,12 @@ Hook run when `writeroom-mode` is enabled. This hook is run just before `writero
 Note, however, that if you have a minor mode that you want activated and deactivated along with `writeroom-mode` (e.g., `variable-pitch-mode`), it is usually  more convenient to simply add it to the option `writeroom-local-effects` (see below).
 
 
+### Local Effects ###
+
+A list of functions that enable buffer-local effects. These functions are called with the argument `1` when `writeroom-mode` is enabled and with the argument `-1` when it is disabled.
+
+You can add minor modes to this option that you want activated together with `writeroom-mode` but also deactivated again when you deactivate `writeroom-mode`. You can, of course also add your own functions to this option, provided they take the arguments `1` and `-1`.
+
 
 ### Mode Line ###
 
