@@ -301,7 +301,7 @@ when `writeroom-mode' is enabled and with the argument \"-1\"
 when it is disabled.  This means that you can add minor-mode
 symbols to this list and have them activated and deactivated
 together with `writeroom-mode'."
-  :group 'writeroom-mode
+  :group 'writeroom
   :type '(repeat function))
 
 (defun turn-on-writeroom-mode ()
