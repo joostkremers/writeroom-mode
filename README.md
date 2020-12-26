@@ -135,6 +135,11 @@ Hook run when `writeroom-mode` is enabled. This hook is run just before `writero
 Note, however, that if you have a minor mode that you want activated and deactivated along with `writeroom-mode` (e.g., `variable-pitch-mode`), it is usually  more convenient to simply add it to the option `writeroom-local-effects` (see below).
 
 
+### Left Shift ###
+
+The number of columns by which the text area is shifted to the left (if positive) or right (if negative). This can be a number or a list of functions that each return a number, which are then summed. By default, the text area is shifted by the width of the line number column.
+
+
 ### Local Effects ###
 
 A list of functions that enable buffer-local effects. These functions are called with the argument `1` when `writeroom-mode` is enabled and with the argument `-1` when it is disabled.
