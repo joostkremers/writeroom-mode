@@ -6,7 +6,7 @@
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
 ;; Package-Requires: ((emacs "25.1") (visual-fill-column "1.9"))
-;; Version: 3.9
+;; Version: 3.11
 ;; Keywords: text
 ;; URL: https://github.com/joostkremers/writeroom-mode
 
