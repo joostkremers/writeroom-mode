@@ -84,19 +84,6 @@ width, in the latter it should be a number between 0 and 1."
   :type '(choice (integer :tag "Absolute width:")
                  (float :tag "Relative width:" :value 0.5)))
 
-(defcustom writeroom-left-shift '(line-number-display-width)
-  "Leftward offset for the text area.
-Number of columns by which the text area is shifted to the
-left (if positive) or right (if negative).  This can either be a
-number or a list of functions that should all return a number.
-In that case, the offset is the sum of the values returned by the
-functions."
-  ;; Note: This variable is the opposite of `visual-fill-column-offset'.
-  :group 'writeroom
-  :type '(choice (integer :tag "Fixed left-shift")
-                 (repeat :tag "List of functions" function)
-                 (integer :tag "No left-shift" :value 0)))
-
 (defcustom writeroom-mode-line nil
   "The mode line format to use with `writeroom-mode'.
 By default, this option is set to nil, which disables the mode
@@ -391,18 +378,6 @@ The effects are activated if ARG is 1, deactivated if it is -1."
       (truncate (* (window-total-width) writeroom-width))
     writeroom-width))
 
-(defun writeroom--calculate-offset ()
-  "Calculate the offset for the writing area.
-This function returns the offset to be passed to
-`visual-fill-column', which is the opposite of
-`writeroom-left-shift'."
-  (cond
-   ((numberp writeroom-left-shift)
-    (- writeroom-left-shift))
-   ((listp writeroom-left-shift)
-    (- (seq-reduce #'+ (mapcar #'funcall writeroom-left-shift) 0)))
-   (t 0)))
-
 (defvar writeroom--mode-line-showing nil
   "Flag indicating whether the original mode line is displayed.")
 (make-variable-buffer-local 'writeroom--mode-line-showing)
@@ -490,8 +465,7 @@ activated."
 
   (setq visual-fill-column-width (writeroom--calculate-width)
         visual-fill-column-center-text t
-        visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins
-        visual-fill-column-offset (writeroom--calculate-offset))
+        visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins)
   (visual-fill-column-mode 1)
 
   ;; Run hooks on enabling `writeroom-mode'.
