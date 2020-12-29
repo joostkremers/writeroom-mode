@@ -5,8 +5,8 @@
 ;; Author: Joost Kremers <joostkremers@fastmail.fm>
 ;; Maintainer: Joost Kremers <joostkremers@fastmail.fm>
 ;; Created: 11 July 2012
-;; Package-Requires: ((emacs "25.1") (visual-fill-column "2.1"))
-;; Version: 3.11
+;; Package-Requires: ((emacs "25.1") (visual-fill-column "2.2"))
+;; Version: 3.12
 ;; Keywords: text
 ;; URL: https://github.com/joostkremers/writeroom-mode
 
@@ -83,6 +83,24 @@ width, in the latter it should be a number between 0 and 1."
   :group 'writeroom
   :type '(choice (integer :tag "Absolute width:")
                  (float :tag "Relative width:" :value 0.5)))
+
+(defun writeroom-full-line-number-width ()
+  "Return the line number width including padding.
+`line-number-display-width' does not include the two spaces used
+for padding the line number display."
+  (if display-line-numbers
+      (+ 2 (line-number-display-width))
+    0))
+
+(defcustom writeroom-added-width-left (if (>= emacs-major-version 26)
+                                          #'writeroom-full-line-number-width
+                                        0)
+  "Number of columns to add to the text area on the left.
+This can be a number or a function which should return a number."
+  :group 'writeroom
+  :type '(choice (const :tag "Do not add extra width" 0)
+                 (integer :tag "Fixed extra width")
+                 (function :tag "Function to calculate extra width")))
 
 (defcustom writeroom-mode-line nil
   "The mode line format to use with `writeroom-mode'.
@@ -465,7 +483,14 @@ activated."
 
   (setq visual-fill-column-width (writeroom--calculate-width)
         visual-fill-column-center-text t
-        visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins)
+        visual-fill-column-fringes-outside-margins writeroom-fringes-outside-margins
+        visual-fill-column-extra-text-width (cons (cond
+                                                   ((numberp writeroom-added-width-left)
+                                                    writeroom-added-width-left)
+                                                   ((functionp writeroom-added-width-left)
+                                                    (funcall writeroom-added-width-left))
+                                                   (t 0))
+                                                  0))
   (visual-fill-column-mode 1)
 
   ;; Run hooks on enabling `writeroom-mode'.
@@ -489,6 +514,7 @@ buffer in which it was active."
   (kill-local-variable 'visual-fill-column-width)
   (kill-local-variable 'visual-fill-column-center-text)
   (kill-local-variable 'visual-fill-column-fringes-outside-margins)
+  (kill-local-variable 'visual-fill-column-extra-text-width)
 
   ;; Restore global effects if necessary.
   (setq writeroom--buffers (delq (current-buffer) writeroom--buffers))

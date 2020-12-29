@@ -57,6 +57,11 @@ The customisation buffer for `writeroom-mode` can be opened with `M-x customize-
 Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes matched any mask listed in `writeroom-major-modes` and not in `writeroom-major-modes-exceptions`.
 
 
+### Added Width Left ###
+
+Extra columns added to the left side of the text area. These columns are added after the text area is centred, so that the text area is essentially off-set to the left by the amount provided. This can be an integer or a function of no arguments that should return an integer. By default, this is used to accommodate line numbers if `display-line-numbers-mode` is active, so that the actual text is still centred.
+
+
 ### Border Width ###
 
 Width of the border around the text area. Disabled by default, see `writeroom-global-effects` to enable the border.
