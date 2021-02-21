@@ -52,10 +52,6 @@ The affected frame is always restored to its original state, before `writeroom-m
 
 The customisation buffer for `writeroom-mode` can be opened with `M-x customize-group RET writeroom RET`. It provides the options listed below.
 
-### Global Writeroom Mode ###
-
-Activate this option to automatically turn on `writeroom-mode` in any buffer that has one of the major modes matched any mask listed in `writeroom-major-modes` and not in `writeroom-major-modes-exceptions`.
-
 
 ### Added Width Left ###
 
@@ -110,19 +106,6 @@ The header line format to use. This option can be `nil` (the default), which dis
 As an additional possibility, this option can be set to the symbol `mode-line`, in which case the standard mode line is shown in the header line.
 
 
-### Major Modes ###
-
-List of major modes in which `writeroom-mode` should be activated automatically. Use in conjunction with `global-writeroom-mode`.
-
-The elements in this list can be major-mode symbols, or regular expressions (in which case they must of course be strings). See also the option [Use Derived Modes](#use-derived-modes).
-
-
-### Major Modes Exceptions ###
-
-List of major modes in which `writeroom-mode` should not be activated by `global-writeroom-mode`. (It is still possible to activate `writeroom-mode` manually). This can also be a mixed list of major-mode 
-symbols and regular expressions.
-
-
 ### Maximize Window ###
 
 Maximise the current window in its frame, i.e., delete all other windows.
@@ -167,11 +150,6 @@ Note that the default value of this option is to display the mode line in the he
 ### Restore Window Config ###
 
 Restore the window configuration that existed before `writeroom-mode` was activated. This is primarily useful if you use `writeroom-mode` in only a single buffer, since the window configuration that is restored is the one that existed at the moment when `writeroom-mode` is called for the first time. Disabled by default.
-
-
-### Use Derived Modes ###
-
-If this option is set, `global-writeroom-mode` also activates `writeroom-mode` in buffers whose major mode is a derived mode of one of the modes in `writeroom-major-modes`. (Only the major mode symbols in `writeroom-major-modes` are relevant.)
 
 
 ### Width ###
