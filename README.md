@@ -218,7 +218,7 @@ The first `define-key` disables the binding for `s-?`. Substitute your preferred
 
 ## Adding global effects ##
 
-It is possible to add your own global effects to `writeroom-mode`. If there is a global minor mode that you want turned on when `writeroom-mode` is activated for the first time, you can simply add it to the user option `writeroom-global-effects` by checking the box "Custom effects", clicking the [INS] button and adding the function to the list.
+It is possible to add your own global effects to `writeroom-mode`. If there is a global minor mode that you want turned on when `writeroom-mode` is activated for the first time, you can simply add it to the user option `writeroom-global-effects` by checking the box "Custom effects", clicking the `[INS]` button and adding the function to the list.
 
 Alternatively, you can also write your own function. This function should take one argument and enable the effect if the argument is `1` and disable it if the argument is `-1`. To give an example, if you want to activate a minimalist colour theme in `writeroom-mode`, you can write the following function:
 
