@@ -101,7 +101,7 @@ Each option can be enabled or disabled individually.
 
 ### Header Line ###
 
-The header line format to use. This option can be `nil` (the default), which disables the mode line entirely, it can be `t`, which retains the mode line, or it can be set to a customised format. Note that Emacs does not normally use the mode line, so changing this option from the default only makes sense if you have a customised header line that you do not want to be displayed in `writeroom-mode` buffers.
+The header line format to use. This option can be `nil` (the default), which disables the header line entirely, it can be `t`, which retains the header line, or it can be set to a customised format. Note that Emacs does not use the header line by default, so changing this option from the default only makes sense if you have a customised header line that you do not want to be displayed in `writeroom-mode` buffers.
 
 As an additional possibility, this option can be set to the symbol `mode-line`, in which case the standard mode line is shown in the header line.
 
