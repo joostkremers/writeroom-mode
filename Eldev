@@ -1,0 +1,8 @@
+;; -*- mode: emacs-lisp; lexical-binding: t -*-
+
+(eldev-use-local-dependency "~/src/visual-fill-column")
+
+;; Autodetermined by `eldev init'.
+(eldev-use-package-archive 'nongnu-elpa)
+
+(eldev-use-plugin 'autoloads)

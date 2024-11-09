@@ -1,3 +1,6 @@
 /writeroom-mode.elc
 /writeroom-mode.texi
-/.cask
+
+# Added automatically by ‘eldev init’.
+/.eldev
+/Eldev-local
