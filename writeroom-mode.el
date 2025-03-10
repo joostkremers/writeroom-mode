@@ -535,7 +535,7 @@ buffer in which it was active."
   ;; margins and fringes must be adjusted.
   (mapc (lambda (w)
           (with-selected-window w
-            (set-window-margins (selected-window) 0 0)
+            (set-window-margins (selected-window) left-margin-width right-margin-width)
             (set-window-fringes (selected-window) nil)))
         (get-buffer-window-list (current-buffer) nil))
 
